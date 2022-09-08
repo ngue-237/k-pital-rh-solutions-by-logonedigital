@@ -8,8 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdresseRepository::class)]
+#[ORM\Table(name: "Adresses")]
 class Adresse
 {
+    public function __toString()
+    {
+        return $this->country.' '.$this->city;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -21,6 +27,14 @@ class Adresse
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
+    
+
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $postaleCode = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $region = null;
+
     #[ORM\ManyToMany(targetEntity: Job::class, mappedBy: 'adresses')]
     private Collection $jobs;
 
@@ -28,6 +42,7 @@ class Adresse
     {
         $this->jobs = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -54,6 +69,33 @@ class Adresse
     public function setCity(string $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+  
+
+
+    public function getPostaleCode(): ?string
+    {
+        return $this->postaleCode;
+    }
+
+    public function setPostaleCode(?string $postaleCode): self
+    {
+        $this->postaleCode = $postaleCode;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
