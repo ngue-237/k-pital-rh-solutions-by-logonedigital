@@ -2,13 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryJobRepository;
+use App\Entity\Job;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryJobRepository;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CategoryJobRepository::class)]
 #[ORM\Table(name: "CategoriesJobs")]
+#[UniqueEntity(fields: ['designation'], message: "Ce secteur d'activité existe déjà.")]
 class CategoryJob
 {
+    public function __toString()
+    {
+        return $this->designation;
+    }
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -42,7 +50,7 @@ class CategoryJob
         return $this->jobs;
     }
 
-    public function setJobs(?job $jobs): self
+    public function setJobs(?Job $jobs): self
     {
         $this->jobs = $jobs;
 

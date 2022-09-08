@@ -2,11 +2,14 @@
 
 namespace App\Controller\Admin;
 
-use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
-use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use App\Entity\Job;
+use App\Entity\Adresse;
+use App\Entity\CategoryJob;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 
 
 class DashboardController extends AbstractDashboardController
@@ -39,27 +42,26 @@ class DashboardController extends AbstractDashboardController
             ->setTitle('K-PITAL SOLUTIONS');
     }
 
-    // public function configureMenuItems(): iterable
-    // {
+    public function configureMenuItems(): iterable
+    {
 
-    //     return [
-    //         MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-    //         MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
-    //         MenuItem::linkToCrud ('Projets', 'fa fa-tarp',Projet::class),
-    //         MenuItem::section  ('',''),
+        return [
+            MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
+            //MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
+            MenuItem::section  ('',''),
 
-    //         MenuItem::subMenu('Blog', 'fas fa-list')->setSubItems([
-    //             MenuItem::linkToCrud('Thématiques blog', 'fa fa-tags', CategoryPost::class),
-    //             MenuItem::linkToCrud('Posts', 'fa fa-file-text', Post::class),
-    //         ]),
-    //         MenuItem::subMenu('Services', 'fas fa-list')->setSubItems([
-    //              MenuItem::linkToCrud('Categorie', 'fa fa-tags', ServiceCategory::class),
-    //              MenuItem::linkToCrud('Les Services', 'fas fa-newspaper', Service::class),
-    //             MenuItem::linkToCrud ('Clients','fas fa-user', Client::class)
-    //         ]),
-    //         MenuItem::section  ('',''),
-    //         MenuItem::linkToCrud('Courriel', 'fas fa-envelope', Contact::class)
-    //         // ...
-    //     ];
-    // }
+            // MenuItem::subMenu('Blog', 'fas fa-list')->setSubItems([
+            //     MenuItem::linkToCrud('Thématiques blog', 'fa fa-tags', CategoryJob::class),
+            //     MenuItem::linkToCrud('Posts', 'fa fa-file-text', Post::class),
+            // ]),
+            MenuItem::subMenu("Emplois", 'fas fa-list')->setSubItems([
+                MenuItem::linkToCrud("Secteur d'activité", 'fa fa-tags', CategoryJob::class),
+                MenuItem::linkToCrud("Offres d'emplois", 'fas fa-user-md', Job::class),
+                MenuItem::linkToCrud ('Localisation','fas fa-map-marker-alt', Adresse::class)
+            ]),
+            MenuItem::section  ('',''),
+            // MenuItem::linkToCrud('Courriel', 'fas fa-envelope', Contact::class)
+            // ...
+        ];
+    }
 }
