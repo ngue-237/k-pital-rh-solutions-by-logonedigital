@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JobRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,6 +37,24 @@ class Job
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+    #[ORM\ManyToMany(targetEntity: Adresse::class, inversedBy: 'jobs')]
+    private Collection $adresses;
+
+    #[ORM\Column(length: 60, nullable: true)]
+    private ?string $region = null;
+
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $postaleCode = null;
+
+    #[ORM\OneToMany(mappedBy: 'jobs', targetEntity: CategoryJob::class)]
+    private Collection $categoryJobs;
+
+    public function __construct()
+    {
+        $this->adresses = new ArrayCollection();
+        $this->categoryJobs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,6 +141,84 @@ class Job
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adresse>
+     */
+    public function getAdresses(): Collection
+    {
+        return $this->adresses;
+    }
+
+    public function addAdress(Adresse $adress): self
+    {
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses->add($adress);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adresse $adress): self
+    {
+        $this->adresses->removeElement($adress);
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getPostaleCode(): ?string
+    {
+        return $this->postaleCode;
+    }
+
+    public function setPostaleCode(?string $postaleCode): self
+    {
+        $this->postaleCode = $postaleCode;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CategoryJob>
+     */
+    public function getCategoryJobs(): Collection
+    {
+        return $this->categoryJobs;
+    }
+
+    public function addCategoryJob(CategoryJob $categoryJob): self
+    {
+        if (!$this->categoryJobs->contains($categoryJob)) {
+            $this->categoryJobs->add($categoryJob);
+            $categoryJob->setJobs($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoryJob(CategoryJob $categoryJob): self
+    {
+        if ($this->categoryJobs->removeElement($categoryJob)) {
+            // set the owning side to null (unless already changed)
+            if ($categoryJob->getJobs() === $this) {
+                $categoryJob->setJobs(null);
+            }
+        }
 
         return $this;
     }
