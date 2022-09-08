@@ -41,12 +41,10 @@ class JobCrudController extends AbstractCrudController
                 ->setLabel("Secteur d'activité"),
             TextField::new('jobLevel')
                 ->setLabel("Niveau d'étude"),
-            AssociationField::new('adress')
-                ->setFormType(EntityType::class)
+            AssociationField::new('adresses')
                 ->setLabel('Localisation')
-                ->setLabel("Choisir une adresse")
-                ->setFormTypeOption('choice_label', 'id')
-                ->setFormTypeOption('by_reference', false),
+                ->setLabel("Choisir une adresse"),
+                
             DateTimeField::new('expiredAt')
                 ->setLabel("Date d'expiration"),
             TextareaField::new('description')

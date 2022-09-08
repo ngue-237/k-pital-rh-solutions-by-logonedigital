@@ -40,16 +40,18 @@ class Job
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Adresse::class, inversedBy: 'jobs')]
-    private Collection $adresses;
+   
 
     #[ORM\OneToMany(mappedBy: 'jobs', targetEntity: CategoryJob::class)]
     private Collection $categoryJobs;
 
+    #[ORM\ManyToMany(targetEntity: Adresse::class, inversedBy: 'jobs')]
+    private Collection $adresses;
+
     public function __construct()
     {
-        $this->adresses = new ArrayCollection();
         $this->categoryJobs = new ArrayCollection();
+        $this->adresses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -142,30 +144,6 @@ class Job
     }
 
     /**
-     * @return Collection<int, Adresse>
-     */
-    public function getAdresses(): Collection
-    {
-        return $this->adresses;
-    }
-
-    public function addAdress(Adresse $adress): self
-    {
-        if (!$this->adresses->contains($adress)) {
-            $this->adresses->add($adress);
-        }
-
-        return $this;
-    }
-
-    public function removeAdress(Adresse $adress): self
-    {
-        $this->adresses->removeElement($adress);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, CategoryJob>
      */
     public function getCategoryJobs(): Collection
@@ -191,6 +169,30 @@ class Job
                 $categoryJob->setJobs(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adresse>
+     */
+    public function getAdresses(): Collection
+    {
+        return $this->adresses;
+    }
+
+    public function addAdress(Adresse $adress): self
+    {
+        if (!$this->adresses->contains($adress)) {
+            $this->adresses->add($adress);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adresse $adress): self
+    {
+        $this->adresses->removeElement($adress);
 
         return $this;
     }

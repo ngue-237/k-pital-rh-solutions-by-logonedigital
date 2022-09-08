@@ -27,8 +27,7 @@ class Adresse
     #[ORM\Column(length: 255)]
     private ?string $city = null;
 
-    #[ORM\ManyToMany(targetEntity: Job::class, mappedBy: 'adresses')]
-    private Collection $jobs;
+    
 
     #[ORM\Column(length: 30, nullable: true)]
     private ?string $postaleCode = null;
@@ -36,10 +35,14 @@ class Adresse
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $region = null;
 
+    #[ORM\ManyToMany(targetEntity: Job::class, mappedBy: 'adresses')]
+    private Collection $jobs;
+
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -70,6 +73,33 @@ class Adresse
         return $this;
     }
 
+  
+
+
+    public function getPostaleCode(): ?string
+    {
+        return $this->postaleCode;
+    }
+
+    public function setPostaleCode(?string $postaleCode): self
+    {
+        $this->postaleCode = $postaleCode;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?string $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Job>
      */
@@ -93,30 +123,6 @@ class Adresse
         if ($this->jobs->removeElement($job)) {
             $job->removeAdress($this);
         }
-
-        return $this;
-    }
-
-    public function getPostaleCode(): ?string
-    {
-        return $this->postaleCode;
-    }
-
-    public function setPostaleCode(?string $postaleCode): self
-    {
-        $this->postaleCode = $postaleCode;
-
-        return $this;
-    }
-
-    public function getRegion(): ?string
-    {
-        return $this->region;
-    }
-
-    public function setRegion(?string $region): self
-    {
-        $this->region = $region;
 
         return $this;
     }
