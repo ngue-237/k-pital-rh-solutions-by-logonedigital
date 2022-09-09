@@ -21,7 +21,6 @@ class ResetPasswordController extends AbstractController
 {
     public function __construct (
         private EntityManagerInterface $entityManager,
-        private MailerHelper $mailerHelper,
         private MailSender $mailSender
     )
     {
@@ -33,6 +32,8 @@ class ResetPasswordController extends AbstractController
         TokenGeneratorInterface $tokenGenerator,
         FlasherInterface $flasher
     ){
+
+
         if ($this->getUser ()){
             return $this->redirectToRoute ('app_home');
         }
@@ -58,15 +59,17 @@ class ResetPasswordController extends AbstractController
                     "token"=>$token
                 ], UrlGeneratorInterface::ABSOLUTE_URL);
 
+
+
                 $content = "Bonjour ".$user->getFirstname()."<br> Vous avez demander à réinitialiser votre mot de passe sur le site k-pital RH <br> <br>";
                 $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$url."'>mettre à jour votre mot de passe</a>.";
 
-                $this->mailSender->send (
-                    $user->getEmail,$user->getFirstname().' '.$user->getLastname(),
+/*                $this->mailSender->send (
+                    $user->getEmail(),$user->getFirstname().' '.$user->getLastname(),
                     $content,
                     "Réinitialisation de mot de passe"
-                );
-
+                );*/
+                dd ($url);
                 $flasher->addInfo ("Un mail de réinitialisation vous a été envoyé");
 
                 return $this->redirectToRoute ('app_login');
@@ -103,16 +106,21 @@ class ResetPasswordController extends AbstractController
 
         $form = $this->createForm (ResetPasswordRequestFormType::class);
 
-        if($form->isSubmitted() and $form->isValid()){
-            $newPassword = $form->get('new_password')->getData();
+        if($form->isSubmitted()){
+            if( $form->isValid()){
+                $newPassword = $form->get('new_password')->getData();
 
-            $userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword);
-            $resetPassword->getUser()->setPassword($userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword));
-            $resetPassword->getUser()->setUpdatedAt(new \DateTime('now'));
-            $this->manager->flush();
-            $flasher->addSuccess('Votre mot de passe a bien été modifié. </br> vous pouvez maintenant vous connectez.');
+                $userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword);
+                $resetPassword->getUser()->setPassword($userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword));
+                $resetPassword->getUser()->setUpdatedAt(new \DateTime('now'));
+                dd ("Js8 al");
+                $this->manager->flush();
+                $flasher->addSuccess('Votre mot de passe a bien été modifié. </br> vous pouvez maintenant vous connectez.');
 
-            return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('app_login');
+            }  else{
+                dd($form->getData ());
+            }
         }
         return $this->render('reset_password/reset_password.html.twig', ['form'=>$form->createView()]);
 

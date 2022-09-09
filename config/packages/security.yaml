@@ -19,7 +19,10 @@ security:
                 interval: "15 minutes"
             lazy: true
             provider: app_user_provider
-            custom_authenticator: App\Security\UserAuthenticator
+            custom_authenticator:
+                - App\Security\UserAuthenticator
+                - App\Security\MyGoogleAuthenticator
+
             logout:
                 path: app_logout
                 # where to redirect after logout

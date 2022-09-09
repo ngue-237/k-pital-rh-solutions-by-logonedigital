@@ -43,7 +43,7 @@ class MailSender {
             ]
         ];
         $response = $mj->post(Resources::$Email, ['body' => $body]);
-        $response->success() && var_dump($response->getData());
+        $response->success();
        
     }
 

@@ -14,6 +14,8 @@
         "easycorp/easyadmin-bundle": "^4.3",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "knplabs/knp-paginator-bundle": "^5.9",
+        "knpuniversity/oauth2-client-bundle": "^2.10",
+        "league/oauth2-google": "^4.0",
         "liip/imagine-bundle": "^2.8",
         "mailjet/mailjet-apiv3-php": "^1.5",
         "php-flasher/flasher-symfony": "^1.7",

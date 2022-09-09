@@ -146,6 +146,6 @@ class RegistrationController extends AbstractController
 
         $this->flasher->addSuccess('Votre email a bien été confirmé.');
 
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('app_home');
     }
 }
