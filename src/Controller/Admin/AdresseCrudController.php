@@ -6,9 +6,11 @@ use App\Entity\Adresse;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class AdresseCrudController extends AbstractCrudController
 {
@@ -24,6 +26,14 @@ class AdresseCrudController extends AbstractCrudController
             TextField::new('city')->setLabel("Ville"),
             TextField::new('region')->setLabel("Région"),
             TextField::new('postaleCode')->setLabel("Code postale"),
+            AssociationField::new('jobs')
+                ->setLabel('offre(s) d\'emploi(s)')
+                ->hideOnIndex()
+                ->hideOnForm()
+                ->formatValue(function ($value, $entity) {
+                return implode(",",$entity->getJobs()->toArray());
+                })
+                ->setTemplatePath('admin/renderAdresseTemplate.html.twig'),
         ];
     }
     
@@ -35,6 +45,11 @@ class AdresseCrudController extends AbstractCrudController
             ->setPageTitle('new', "AJOUTER UNE ADRESSE")
             ->setPageTitle('detail', "CONSULTER VOS ADRESSES")
             ->setPageTitle('edit', "MODIFIER UNE ADRESSE")
+            ->setEntityLabelInSingular('une adresse ')
+            ->setEntityLabelInPlural(' des adresses ')
+            ->setSearchFields(['country', 'city', 'postaleCode'])
+            ->setDefaultSort(['country' => 'ASC', 'city' => 'ASC'])
+            ->setPaginatorPageSize(30)
             ;
     }
 
@@ -46,5 +61,15 @@ class AdresseCrudController extends AbstractCrudController
             ->add(Crud::PAGE_NEW, Action::INDEX)
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('country')
+            ->add('city')
+            ->add('postaleCode')
+        ;
+
     }
 }
