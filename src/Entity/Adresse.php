@@ -13,7 +13,7 @@ class Adresse
 {
     public function __toString()
     {
-        return $this->country.' '.$this->city;
+        return $this->city.' '.$this->country;
     }
 
     #[ORM\Id]
@@ -42,6 +42,12 @@ class Adresse
     {
         $this->jobs = new ArrayCollection();
     }
+
+    
+
+    
+
+   
 
 
     public function getId(): ?int
@@ -126,4 +132,6 @@ class Adresse
 
         return $this;
     }
+
+   
 }

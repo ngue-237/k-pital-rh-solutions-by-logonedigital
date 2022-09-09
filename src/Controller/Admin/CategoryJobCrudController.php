@@ -6,7 +6,9 @@ use App\Entity\CategoryJob;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 class CategoryJobCrudController extends AbstractCrudController
@@ -21,6 +23,14 @@ class CategoryJobCrudController extends AbstractCrudController
     {
         return [
             TextField::new('designation')->setLabel("Secteur d'activité"),
+            AssociationField::new('jobs')
+                ->setLabel('offre(s) d\'emploi(s)')
+                ->hideOnIndex()
+                ->hideOnForm()
+                ->formatValue(function ($value, $entity) {
+                return implode(",",$entity->getJobs()->toArray());
+                })
+                ->setTemplatePath('admin/renderAdresseTemplate.html.twig'),
         ];
     }
 
@@ -41,7 +51,17 @@ class CategoryJobCrudController extends AbstractCrudController
             ->setPageTitle('new', "AJOUTER UN SECTEURS D'ACTIVITES")
             ->setPageTitle('detail', "CONSULTER VOS SECTEURS D'ACTIVITES")
             ->setPageTitle('edit', "MODIFIER UN SECTEURS D'ACTIVITES")
+            ->setEntityLabelInSingular('un nouveau secteur d\'activité')
+            ->setEntityLabelInPlural(' des nouveaux secteurs d\'activités')
             ;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('designation')
+        ;
+
     }
     
 }
