@@ -8,12 +8,16 @@ use App\Repository\JobRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: JobRepository::class)]
 #[ORM\Table(name: "jobs")]
 #[UniqueEntity(fields: ['title'], message: "Cette offre d'emploi existe déjà")]
 class Job
 {
+
+    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -22,10 +26,16 @@ class Job
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(nullable: true)]
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     */
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
+    #[ORM\Column()]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
@@ -40,19 +50,27 @@ class Job
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-   
-
-    #[ORM\OneToMany(mappedBy: 'jobs', targetEntity: CategoryJob::class)]
-    private Collection $categoryJobs;
+    #[ORM\ManyToOne(inversedBy: 'jobs')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CategoryJob $categoryJob = null;
 
     #[ORM\ManyToMany(targetEntity: Adresse::class, inversedBy: 'jobs')]
     private Collection $adresses;
 
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function __construct()
     {
-        $this->categoryJobs = new ArrayCollection();
         $this->adresses = new ArrayCollection();
     }
+
+
+    public function __toString()
+    {
+        return $this->title;
+    }
+    
 
     public function getId(): ?int
     {
@@ -143,32 +161,16 @@ class Job
         return $this;
     }
 
-    /**
-     * @return Collection<int, CategoryJob>
-     */
-    public function getCategoryJobs(): Collection
+    
+
+    public function getCategoryJob(): ?CategoryJob
     {
-        return $this->categoryJobs;
+        return $this->categoryJob;
     }
 
-    public function addCategoryJob(CategoryJob $categoryJob): self
+    public function setCategoryJob(?CategoryJob $categoryJob): self
     {
-        if (!$this->categoryJobs->contains($categoryJob)) {
-            $this->categoryJobs->add($categoryJob);
-            $categoryJob->setJobs($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategoryJob(CategoryJob $categoryJob): self
-    {
-        if ($this->categoryJobs->removeElement($categoryJob)) {
-            // set the owning side to null (unless already changed)
-            if ($categoryJob->getJobs() === $this) {
-                $categoryJob->setJobs(null);
-            }
-        }
+        $this->categoryJob = $categoryJob;
 
         return $this;
     }
@@ -196,4 +198,29 @@ class Job
 
         return $this;
     }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
 }
