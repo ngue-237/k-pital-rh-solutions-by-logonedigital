@@ -1,0 +1,77 @@
+{% extends "base.html.twig" %} {% block body %}
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<!-- end Custom Cursor -->
+
+<!-- Header -->
+{{ include("./includes/navbar.html.twig") }}
+<!-- end Header -->
+
+<!-- About section -->
+<div class="section">
+  <div class="container text-center">
+    <div class="">
+      <div class="row text-center">
+        <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+          <h2>Nos différents secteurs d'activités</h2>
+          <div class="divider-width-50px">
+            <hr class="bg-black-07" />
+          </div>
+          <p>
+            cette espace à pour but de vous aider à faire les suivie de vos
+            demandes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end container -->
+</div>
+<!-- end About section -->
+
+<!-- Services section -->
+<div class="section padding-top-0">
+  <div class="container">
+    <div class="row icon-5xl g-4 text-center">
+      {% for categoryJob in categoriesJob %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="border-all border-radius padding-40 hover-shadow">
+          <h5 class="fw-normal margin-top-10">
+            {{ categoryJob.designation | upper }}
+          </h5>
+          <p>
+            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            commodo ligula eget dolor.
+          </p>
+          <a
+            class="button-text-2 margin-top-20"
+            href="{{
+              path('app_job_by_category', {
+                slug: categoryJob.slug
+              })
+            }}"
+            >voir les offres</a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <!-- end row -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end container -->
+
+{{ include("./includes/footer.html.twig") }}
+
+<!-- Scroll to top button -->
+<div class="scrolltotop">
+  <a class="button-circle button-circle-sm button-circle-dark" href="#"
+    ><i class="bi bi-arrow-up"></i
+  ></a>
+</div>
+<!-- end Scroll to top button -->
+
+<!-- ***** JAVASCRIPTS ***** -->
+{% endblock %}

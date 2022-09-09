@@ -39,6 +39,45 @@ class CategoryJobRepository extends ServiceEntityRepository
         }
     }
 
+       /**
+    * @return CategoryJob[] Returns an array of CategoryJob objects
+    */
+   public function listCategories(): array
+   {
+       return $this->createQueryBuilder('c')
+           ->orderBy('c.createdAt', 'DESC')
+           ->setMaxResults(6)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+      /**
+    * @return CategoryJob[] Returns an array of CategoryJob objects
+    */
+   public function listAllCategoriesJobByDate(): array
+   {
+       return $this->createQueryBuilder('c')
+           ->orderBy('c.createdAt', 'DESC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+     /**
+    * @return CategoryJob[] an array of Job objects
+    */
+   public function listJobsByCategory($value): array
+   {
+       return $this->createQueryBuilder('c')
+           ->andWhere('c.designation = :val')
+           ->setParameter('val', $value)
+           ->orderBy('c.createdAt', 'DESC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return CategoryJob[] Returns an array of CategoryJob objects
 //     */
