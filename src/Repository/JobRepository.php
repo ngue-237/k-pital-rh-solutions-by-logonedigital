@@ -39,6 +39,48 @@ class JobRepository extends ServiceEntityRepository
         }
     }
 
+       /**
+    * @return Job[] Returns an array of Job objects
+    */
+   public function recentJob(): array
+   {
+       return $this->createQueryBuilder('j')
+           ->orderBy('j.createdAt', 'DESC')
+           ->setMaxResults(3)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+      /**
+    * @return Job[] Returns an array of Job objects
+    */
+   public function listJobsByCategory($value): array
+   {
+       return $this->createQueryBuilder('j')
+           ->andWhere('j.categoryJob = :val')
+           ->setParameter('val', $value)
+           ->orderBy('j.createdAt', 'DESC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
+
+    /**
+    * @return Job[] Returns an array of Job objects
+    */
+   public function listAllJobs($value): array
+   {
+       return $this->createQueryBuilder('j')
+            ->setParameter('val', $value)
+            ->where('j.expiredAt < :val')
+           ->orderBy('j.createdAt', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Job[] Returns an array of Job objects
 //     */

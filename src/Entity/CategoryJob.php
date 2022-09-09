@@ -37,6 +37,9 @@ class CategoryJob
     #[ORM\OneToMany(mappedBy: 'categoryJob', targetEntity: Job::class, orphanRemoval: true)]
     private Collection $jobs;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __construct()
     {
         $this->jobs = new ArrayCollection();
@@ -97,6 +100,18 @@ class CategoryJob
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -26,18 +26,6 @@ class DefaultController extends AbstractController
         return $this->render('default/services.html.twig');
     }
     
-    #[Route('/offres-emplois', name: 'app_jobs')]
-    public function jobs(): Response
-    {
-        return $this->render('default/jobs.html.twig');
-    }
-
-    #[Route('/offres-emplois/single', name: 'app_job_detail')]
-    public function jobDetail(): Response
-    {
-        return $this->render('default/job-single.html.twig');
-    }
-    
     #[Route('/contactez-nous', name: 'app_contact')]
     public function contact(): Response
     {
