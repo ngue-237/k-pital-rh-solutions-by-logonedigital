@@ -142,23 +142,14 @@
               </a>
             </div>
           </div>
+
           <!-- end row -->
         </div>
         {% endfor %} {% else %}
-        <p>
-          Aucune offre d'emploi n'est disponibles pour l'instant
-        </p>
+        <p>Aucune offre d'emploi n'est disponibles pour l'instant</p>
         {% endif %}
         <nav>
-          <ul class="pagination justify-content-center margin-top-70">
-            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-          </ul>
+          {{ knp_pagination_render(jobs, "pagination.html.twig") }}
         </nav>
       </div>
     </div>

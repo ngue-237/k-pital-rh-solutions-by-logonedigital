@@ -2,19 +2,22 @@
 
 namespace App\Controller;
 
-use App\Entity\CategoryJob;
 use App\Entity\Job;
-use App\Repository\CategoryJobRepository;
+use App\Entity\CategoryJob;
 use App\Repository\JobRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CategoryJobRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class JobController extends AbstractController
 {
     public function __construct(
     private JobRepository $jobRepo,
-    private CategoryJobRepository $categoryJobRepo
+    private CategoryJobRepository $categoryJobRepo,
+    private PaginatorInterface $paginator
         
     )
     {
@@ -22,11 +25,12 @@ class JobController extends AbstractController
     }
 
     #[Route('/offres-emplois', name: 'app_jobs')]
-    public function jobs(): Response
+    public function jobs(Request $request): Response
     {   
         //$this->jobRepo->listAllJobs(new \DateTimeImmutable('now'))
+        $pagination = $this->paginator->paginate($this->jobRepo->findAll(), $request->query->getInt('page', 1), 10);
         return $this->render('job_template/jobs.html.twig', [
-            "jobs"=>$this->jobRepo->findAll()
+            "jobs"=>$this->paginator->paginate($this->jobRepo->findAll(), $request->query->getInt('page', 1), 10)
         ]);
     }
 
