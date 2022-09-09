@@ -3,6 +3,7 @@
 namespace App\EventSubcriber;
 
 use App\Entity\Job;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityDeletedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityUpdatedEvent;
@@ -35,27 +36,22 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         ];
     }
 
-    // /**
-    //  * permet de supprimer les éléments le cache après l'ajout d'un nouvelle éléments
-    //  *
-    //  * @param AfterEntityPersistedEvent $event
-    //  * @return void
-    //  */
-    // public function clearCacheAfter(AfterEntityPersistedEvent $event):void{
-    //     $entity = $event->getEntityInstance();
-    // }
+
+/*     public function clearCacheAfter(AfterEntityPersistedEvent $event):void{
+         $entity = $event->getEntityInstance();
+     }
     
 
-    // public function clearCacheAfterUpdated(AfterEntityUpdatedEvent $event):void{
-    //     $entity = $event->getEntityInstance();
+     public function clearCacheAfterUpdated(AfterEntityUpdatedEvent $event):void{
+         $entity = $event->getEntityInstance();
 
         
-    // }
+     }
 
-    // public function clearCacheAfterDeleted(AfterEntityDeletedEvent $event):void{
-    //     $entity = $event->getEntityInstance();
+     public function clearCacheAfterDeleted(AfterEntityDeletedEvent $event):void{
+        $entity = $event->getEntityInstance();
         
-    // }
+     }*/
 
     /**
      * permet de faire des actions sur l'utisateur lorsqu'il est ajouter depuis le dashboard
@@ -65,6 +61,11 @@ class EasyAdminSubcriber implements EventSubscriberInterface
      */
     public function persistanceProcess(BeforeEntityPersistedEvent $event){
         $entity = $event->getEntityInstance();
+
+        if($entity instanceof User){
+            $entity->setPassword(md5(uniqid()));
+            $entity->setCreatedAt(new \DateTimeImmutable('now'));
+        }
 
         if($entity instanceof Job){
             $entity->setCreatedAt(new \DateTimeImmutable('now'));
@@ -80,6 +81,11 @@ class EasyAdminSubcriber implements EventSubscriberInterface
      */
     public function updatedProcess(BeforeEntityUpdatedEvent $event){
         $entity = $event->getEntityInstance();
+
+        if($entity instanceof User){
+            $entity->setUpdatedAt(new \DateTimeImmutable('now'));
+        }
+
         if($entity instanceof Job){
             $entity->setUpdatedAt(new \DateTimeImmutable('now'));
         }

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Job;
 use App\Entity\Adresse;
 use App\Entity\CategoryJob;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -46,7 +47,7 @@ class DashboardController extends AbstractDashboardController
     {
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-            //MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
+            MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
             MenuItem::section  ('',''),
 
             // MenuItem::subMenu('Blog', 'fas fa-list')->setSubItems([

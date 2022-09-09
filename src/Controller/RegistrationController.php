@@ -88,11 +88,11 @@ class RegistrationController extends AbstractController
             $user->setIsVerified(false);
             $user->setIsBlocked(false);
 
-
             $entityManager->persist($user);
             $entityManager->flush();
+
             // do anything else you need here, like send an email
-/*
+
             $signatureComponents = $this->verifyEmailHelper->generateSignature(
                 'app_verify_email',
                 $user->getId(),
@@ -100,15 +100,15 @@ class RegistrationController extends AbstractController
                 ['id' => $user->getId()]
             );
 
-            $content = "Bonjour ".$user->getFirstname().' '.$user->getLastname()."<br> Nous vous remercions pour votre inscription sur le site MA.BA.CE.&#x2161; <br> <br>";
+            $content = "Bonjour ".$user->getFirstname().' '.$user->getLastname()."<br> Nous vous remercions pour votre inscription sur le site K-pital RH <br> <br>";
             $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$signatureComponents->getSignedUrl()."'>afin de valider votre email</a>.";
 
             $this->sender->send(
                 $user->getEmail(),
                 $user->getFirstname().' '.$user->getLastname(),
                 $content,
-                "vérification d'e-mail"
-            );*/
+                "Vérification d'E-mail"
+            );
             $this->flasher->addInfo('Veuillez confirmer votre email.');
             return $this->redirectToRoute('app_home');
         }
@@ -141,11 +141,11 @@ class RegistrationController extends AbstractController
         }
 
         // Mark your user as verified. e.g. switch a User::verified property to true
-        $user->setIsVerifyEd(true);
+        $user->setIsVerified(true);
         $entityManager->flush();
 
         $this->flasher->addSuccess('Votre email a bien été confirmé.');
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_login');
     }
 }
