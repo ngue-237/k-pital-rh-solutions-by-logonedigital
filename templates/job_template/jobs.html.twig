@@ -1,0 +1,173 @@
+{% extends "base.html.twig" %} {% block body %}
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<!-- end Custom Cursor -->
+
+<!-- Header -->
+{{ include("./includes/navbar.html.twig") }}
+<!-- end Header -->
+
+<!-- Hero section -->
+<div class="section-xs bg-grey-lighter" style="margin-bottom: -50px">
+  <div class="container text-center">
+    <h3 class="font-family-secondary">Trouvez le job de vos rêves</h3>
+  </div>
+</div>
+<!-- end Hero section -->
+
+<!-- Job Listings section -->
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-3 col-lg-3 col-xl-3 col-xxl-3">
+        <div class="form-style-3">
+          <div class="row">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="rechercher"
+              aria-label="Search"
+            />
+          </div>
+          <div class="row">
+            <div class="col-12 col-lg-12">
+              <h4>Filtres Avancés</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-lg-12">
+              <h6>Secteur d'activiter</h6>
+              <div class="row">
+                <div class="col-12 col-lg-2">
+                  <input type="checkbox" />
+                </div>
+                <div class="col-12 col-lg-10">
+                  <label>Architecte</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-2">
+                  <input type="checkbox" />
+                </div>
+                <div class="col-12 col-lg-10">
+                  <label class="form-check-label">ingénieur</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-2">
+                  <input type="checkbox" />
+                </div>
+                <div class="col-12 col-lg-10">
+                  <label class="form-check-label">Marketing</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-2">
+                  <input type="checkbox" />
+                </div>
+                <div class="col-12 col-lg-10">
+                  <label class="form-check-label">Vente</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-lg-12">
+              <div class="col-12 col-lg-12">
+                <h6>Villes</h6>
+              </div>
+              <div class="row">
+                <div class="col-12 col-lg-12">
+                  <select class="custom-select w-100 custom-select-sm">
+                    <option selected>Choisir une ville</option>
+                    <option value="1">Douala</option>
+                    <option value="2">Youandé</option>
+                    <option value="2">Maroua</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-9 col-lg-9 col-xl-9 col-xxl-9">
+        {% if jobs |length > 0 %} {% for job in jobs %}
+        <div class="padding-y-30 padding-y-lg-40 border-bottom">
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-lg-8">
+              <h5 class="fw-normal margin-0">
+                <a
+                  class="text-link-5"
+                  href="{{ path('app_job_detail', { slug: job.slug }) }}"
+                  >{{ job.title | upper }}</a
+                >
+              </h5>
+              <h6 class="font-small fw-normal uppercase">
+                <a class="text-link-0" href="#">{{
+                  job.categoryJob | capitalize
+                }}</a>
+              </h6>
+              <p class="text-black-03">
+                <i class="bi bi-clock-history margin-right-10"></i
+                ><span>
+                  {% if job.expiredAt is not empty %}
+                  {{ job.expiredAt().format("M") }}
+                  {{ job.expiredAt().format("j") }},
+                  {{ job.expiredAt().format("Y") }}
+                  {% else %} Durée indéterminée {% endif %}
+                </span>
+              </p>
+              <p class="text-black-03">
+                <i class="fas fa-map-marker-alt margin-right-10"></i
+                ><span>
+                  {% for adresse in job.adresses %}
+                  {{ adresse }}, {% endfor %}
+                </span>
+              </p>
+              {#
+              <p class="text-black-03">
+                Ref:<span style="font-size: 10px">
+                  {{ job.ref }}
+                </span>
+              </p>
+              #}
+            </div>
+            <div class="col-12 col-lg-4 text-lg-end">
+              <a
+                class="button button-lg button-radius button-reveal-right-outline-dark"
+                href="{{ path('app_job_detail', { slug: job.slug }) }}"
+              >
+                <i class="bi bi-arrow-right"></i><span>Détail</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- end row -->
+        </div>
+        {% endfor %} {% else %}
+        <p>Aucune offre d'emploi n'est disponibles pour l'instant</p>
+        {% endif %}
+        <nav>
+          {{ knp_pagination_render(jobs, "pagination.html.twig") }}
+        </nav>
+      </div>
+    </div>
+    <!-- Job Listing 1 -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end Job Listings section -->
+
+{{ include("./includes/footer.html.twig") }}
+
+<!-- Scroll to top button -->
+<div class="scrolltotop">
+  <a class="button-circle button-circle-sm button-circle-dark" href="#"
+    ><i class="bi bi-arrow-up"></i
+  ></a>
+</div>
+<!-- end Scroll to top button -->
+
+<!-- ***** JAVASCRIPTS ***** -->
+{% endblock %}
