@@ -1,0 +1,26 @@
+	
+{{ form_start(form) }}
+<div class="row gx-3 gy-0">
+    <div class="col-12 col-sm-6">
+    {{ form_row(form.name) }}
+    {{ form_errors(form.name) }}
+    </div>
+    <div class="col-12 col-sm-6">
+    {{ form_row(form.email) }}
+    {{ form_errors(form.email) }}
+    </div>
+</div>
+<div class="row gx-3 gy-0">
+    {{ form_row(form.subject) }}
+    {{ form_errors(form.subject) }}
+
+    {{ form_row(form.message) }}
+    {{ form_errors(form.message) }}
+</div>
+    {#{{ form_row(form.captcha) }}
+    {{ form_errors(form.captcha) }}
+    {{ form_widget(form) }}#}
+
+<button class="btn">{{ button_label|default('Send Message') }}</button>
+
+{{ form_end(form) }}

@@ -1,0 +1,99 @@
+<div class="header center dark sticky-autohide">
+  <div class="container">
+    <!-- Logo -->
+    <div class="header-logo">
+      <h3><a href="#">LOGO</a></h3>
+      <!-- 
+					<img class="logo-dark" src="{{ asset('frontoffice/') }}images/your-logo-dark.png" alt="">
+					<img class="logo-light" src="{{ asset('frontoffice/') }}images/your-logo-light.png" alt=""> 
+					-->
+    </div>
+    <!-- Menu -->
+    <div class="header-menu">
+      <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_home') }}">Accueil</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_about') }}"
+            >Qui sommes-nous ?</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_services') }}">Nos services</a>
+          <ul class="nav-dropdown">
+            <li class="nav-dropdown-item">
+              <a class="nav-dropdown-link" href="#">Conseils RH</a>
+              <ul class="nav-subdropdown">
+                <li class="nav-subdropdown-item">
+                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                </li>
+                <li class="nav-subdropdown-item">
+                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                </li>
+                <li class="nav-subdropdown-item">
+                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                </li>
+                <li class="nav-subdropdown-item">
+                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-dropdown-item">
+              <a class="nav-dropdown-link" href="#"
+                >Mise à disposition du personel</a
+              >
+              <ul class="nav-subdropdown">
+                <li class="nav-subdropdown-item">
+                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                </li>
+                <li class="nav-subdropdown-item">
+                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                </li>
+                <li class="nav-subdropdown-item">
+                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                </li>
+                <li class="nav-subdropdown-item">
+                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_jobs') }}">Offres d'emplois</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_contact') }}">Contacts</a>
+        </li>
+      </ul>
+    </div>
+    <!-- Menu Extra -->
+    <div class="header-menu-extra">
+      <ul class="list-inline">
+        <li>
+          {% if app.user %}
+          <a title="se déconnecter" href="{{path("app_account")}}"
+            ><i class="bi bi-box-arrow-right"></i
+          ></a>
+          {% else %}
+          <a title="se connecter" href="{{path("app_account")}}"
+            ><i class="bi bi-person-circle"></i
+          ></a>
+          {% endif %}
+        </li>
+        <li>
+          <a href="#"><i class="bi bi-facebook"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+        </li>
+      </ul>
+    </div>
+    <!-- Menu Toggle -->
+    <button class="header-toggle">
+      <span></span>
+    </button>
+  </div>
+  <!-- end container -->
+</div>
