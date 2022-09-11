@@ -1,0 +1,30 @@
+<div class="row icon-5xl g-4 text-center" id="all">
+  {% if categoriesJob |length > 0 %} {% for categoryJob in categoriesJob %}
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="border-all border-radius padding-40 hover-shadow">
+      <h5 class="fw-normal margin-top-10">
+        {{ categoryJob.designation | upper }}
+      </h5>
+      <p>{{ categoryJob.description }}.</p>
+      <p class="text-dark">
+        Offre(s)&#160;:&#160;{{ categoryJob.jobs | length }}
+      </p>
+      <a
+        class="button-text-2 margin-top-20"
+        href="{{
+          path('app_job_by_category', {
+            slug: categoryJob.slug
+          })
+        }}"
+        >voir les offres</a
+      >
+    </div>
+  </div>
+  {% endfor %} {% else %}
+  <p>Ce setecteur d'activité n'existe pas.</p>
+  {% endif %}
+</div>
+
+<nav>
+  {{ knp_pagination_render(categoriesJob, "pagination.html.twig") }}
+</nav>

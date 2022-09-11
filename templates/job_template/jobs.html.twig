@@ -70,7 +70,9 @@
           </div>
         </div>
       </div>
-      {{ include("./job_template/jobsList.html.twig") }}
+      <div id="all" class="col-12 col-sm-9 col-lg-9 col-xl-9 col-xxl-9">
+        {{ include("./job_template/jobsList.html.twig") }}
+      </div>
       <nav>
         {{ knp_pagination_render(jobs, "pagination.html.twig") }}
       </nav>
@@ -98,7 +100,7 @@
   type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
 ></script>
-<script>
+<script defer>
   $(document).ready(function () {
     var currentRequest = null;
     $("#search").keyup(function (e) {
@@ -113,13 +115,11 @@
 
       currentRequest = $.ajax({
         url: "{{ path('app_job_search') }}",
-        type: "GET",
-        contentType: "text/html; charset=utf-8",
+        type: "POST",
         data: {
           searchValue: value,
         },
         success: function (retour) {
-          //console.log(retour);
           document.getElementById("all").innerHTML = retour;
           //$("#all").html(retour);
         },

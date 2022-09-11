@@ -35,33 +35,16 @@
   <div class="container">
     <div class="row form-style-2">
       <div class="col-12 col-xl-4">
-        <input type="text" id="searchBar" placeholder="Entrez un secteur d'activiter" />
+        <input
+          type="text"
+          id="searchBar"
+          autofocus
+          placeholder="Entrez un secteur d'activiter"
+        />
       </div>
     </div>
-    <div class="row icon-5xl g-4 text-center">
-      {% for categoryJob in categoriesJob %}
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="border-all border-radius padding-40 hover-shadow">
-          <h5 class="fw-normal margin-top-10">
-            {{ categoryJob.designation | upper }}
-          </h5>
-          <p>{{ categoryJob.description }}.</p>
-          <p class="text-dark">
-            Offre(s)&#160;:&#160;{{ categoryJob.jobs | length }}
-          </p>
-          <a
-            class="button-text-2 margin-top-20"
-            href="{{
-              path('app_job_by_category', {
-                slug: categoryJob.slug
-              })
-            }}"
-            >voir les offres</a
-          >
-        </div>
-      </div>
-      {% endfor %}
-    </div>
+    {{ include("./job_template/categoryJobList.html.twig") }}
+    
     <!-- end row -->
   </div>
   <!-- end container -->
@@ -79,4 +62,36 @@
 <!-- end Scroll to top button -->
 
 <!-- ***** JAVASCRIPTS ***** -->
+
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+></script>
+<script>
+  $(document).ready(function () {
+    var currentRequest = null;
+    $("#searchBar").keyup(function (e) {
+      e.preventDefault();
+
+      var value = $(this).val();
+      if (value == "") {
+        //console.log("je suis la");
+        currentRequest.abort();
+      } else if (currentRequest != null) {
+        currentRequest.abort();
+      }
+
+      currentRequest = $.ajax({
+        url: "{{ path('app_categoy_job_search') }}",
+        type: "post",
+        data: {
+          searchValue: value,
+        },
+        success: function (retour) {
+          $("#all").html(retour);
+        },
+      });
+    });
+  });
+</script>
 {% endblock %}

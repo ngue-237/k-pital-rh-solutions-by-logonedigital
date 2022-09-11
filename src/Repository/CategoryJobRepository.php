@@ -64,6 +64,20 @@ class CategoryJobRepository extends ServiceEntityRepository
        ;
    }
 
+   /**
+    * @return CategoryJob[] an array of Job objects
+    */
+   public function searchCategory($value): array
+   {
+       return $this->createQueryBuilder('c')
+           ->where('c.designation LIKE :val')
+           ->setParameter('val', '%'.$value.'%')
+           ->orderBy('c.createdAt', 'DESC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
      /**
     * @return CategoryJob[] an array of Job objects
     */

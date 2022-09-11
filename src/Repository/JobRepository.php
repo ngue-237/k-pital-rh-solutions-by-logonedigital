@@ -74,19 +74,20 @@ class JobRepository extends ServiceEntityRepository
    {
        return $this->createQueryBuilder('j')
             ->setParameter('val', $value)
-            ->where('j.expiredAt < :val')
+            ->where('j.expiredAt > :val')
            ->orderBy('j.createdAt', 'ASC')
            ->getQuery()
            ->getResult()
        ;
    }
 
-   public function jobSearch($str)
+   public function jobSearch($str, $date)
     {
-
         return $this->createQueryBuilder('j')
             ->where('j.title LIKE :titre ')
             ->setParameter('titre', '%'.$str.'%')
+            ->andWhere('j.expiredAt > :date')
+            ->setParameter('date',$date)
             ->getQuery()
             ->getResult();
     }
