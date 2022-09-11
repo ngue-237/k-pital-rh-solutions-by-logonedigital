@@ -60,9 +60,13 @@ class Job
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[ORM\OneToMany(mappedBy: 'jobs', targetEntity: Canditure::class)]
+    private Collection $canditures;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
+        $this->canditures = new ArrayCollection();
     }
 
 
@@ -219,6 +223,36 @@ class Job
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Canditure>
+     */
+    public function getCanditures(): Collection
+    {
+        return $this->canditures;
+    }
+
+    public function addCanditure(Canditure $canditure): self
+    {
+        if (!$this->canditures->contains($canditure)) {
+            $this->canditures->add($canditure);
+            $canditure->setJobs($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCanditure(Canditure $canditure): self
+    {
+        if ($this->canditures->removeElement($canditure)) {
+            // set the owning side to null (unless already changed)
+            if ($canditure->getJobs() === $this) {
+                $canditure->setJobs(null);
+            }
+        }
 
         return $this;
     }
