@@ -33,6 +33,11 @@
 <!-- Services section -->
 <div class="section padding-top-0">
   <div class="container">
+    <div class="row form-style-2">
+      <div class="col-12 col-xl-4">
+        <input type="text" id="searchBar" placeholder="Entrez un secteur d'activiter" />
+      </div>
+    </div>
     <div class="row icon-5xl g-4 text-center">
       {% for categoryJob in categoriesJob %}
       <div class="col-12 col-md-6 col-lg-4">
@@ -40,9 +45,9 @@
           <h5 class="fw-normal margin-top-10">
             {{ categoryJob.designation | upper }}
           </h5>
-          <p>
-            Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-            commodo ligula eget dolor.
+          <p>{{ categoryJob.description }}.</p>
+          <p class="text-dark">
+            Offre(s)&#160;:&#160;{{ categoryJob.jobs | length }}
           </p>
           <a
             class="button-text-2 margin-top-20"
