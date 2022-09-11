@@ -73,6 +73,8 @@ class UserCrudController extends AbstractCrudController
             ->setPageTitle('new', 'Ajouter un utilisateur')
             ->setPageTitle('detail', "Utilisateur")
             ->setSearchFields(['lastname', 'firstname', 'email'])
+            ->setEntityLabelInSingular('nouveau utilisateur')
+            ->setEntityLabelInPlural('nouveaux utilisateurs')
             ->setAutofocusSearch();
     }
 

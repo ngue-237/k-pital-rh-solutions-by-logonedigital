@@ -5,25 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeb8cc4f-ce2a-4042-aaaa-0a668b2fb4d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Security/MyGoogleAuthenticator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/k-pital-rh-solutions-by-logonedigital.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/k-pital-rh-solutions-by-logonedigital.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/account/_partials/modal_email.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/account/_partials/modal_password.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/account/account_settings.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/UserCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/UserCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ResetPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ResetPasswordController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/ResetPasswordRequestFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ResetPasswordRequestFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/MyGoogleAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/MyGoogleAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/UserAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/UserAuthenticator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Services/MailSender.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/MailSender.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reset_password/check_email.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reset_password/email.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/MailerHelper.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/default/account-single.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/account-single.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/default/account.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/account.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/includes/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/includes/navbar.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/reset_password/reset_password.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reset_password/reset_password.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,7 +214,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Mta/LogoneP/scoop-feraga-website-by-logonedigital",
+    "last_opened_file_path": "D:/Mta/LogoneP/mabace-2-website-by-logonedigital",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -226,9 +226,14 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account" />
       <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\src\Security" />
       <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\src\Services" />
       <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account\_partials" />
+      <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account" />
     </key>
   </component>
   <component name="RunManager">
@@ -250,6 +255,7 @@
       <workItem from="1662728936437" duration="13332000" />
       <workItem from="1662744012088" duration="7278000" />
       <workItem from="1662758569547" duration="2516000" />
+      <workItem from="1662813934322" duration="29593000" />
     </task>
     <servers />
   </component>

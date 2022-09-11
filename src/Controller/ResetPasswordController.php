@@ -64,14 +64,13 @@ class ResetPasswordController extends AbstractController
                 $content = "Bonjour ".$user->getFirstname()."<br> Vous avez demander à réinitialiser votre mot de passe sur le site k-pital RH <br> <br>";
                 $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$url."'>mettre à jour votre mot de passe</a>.";
 
-/*                $this->mailSender->send (
+                $this->mailSender->send (
                     $user->getEmail(),$user->getFirstname().' '.$user->getLastname(),
                     $content,
                     "Réinitialisation de mot de passe"
-                );*/
-                dd ($url);
-                $flasher->addInfo ("Un mail de réinitialisation vous a été envoyé");
+                );
 
+                $flasher->addInfo ("Un mail de réinitialisation vous a été envoyé");
                 return $this->redirectToRoute ('app_login');
             }else
             {
@@ -105,23 +104,26 @@ class ResetPasswordController extends AbstractController
         }
 
         $form = $this->createForm (ResetPasswordRequestFormType::class);
-
+        $form->handleRequest($req);
         if($form->isSubmitted()){
             if( $form->isValid()){
                 $newPassword = $form->get('new_password')->getData();
 
                 $userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword);
                 $resetPassword->getUser()->setPassword($userPasswordHasher->hashPassword($resetPassword->getUser(),$newPassword));
-                $resetPassword->getUser()->setUpdatedAt(new \DateTime('now'));
-                dd ("Js8 al");
-                $this->manager->flush();
+                $resetPassword->getUser()->setUpdateAt(new \DateTimeImmutable('now'));
+
+                $this->entityManager->flush();
                 $flasher->addSuccess('Votre mot de passe a bien été modifié. </br> vous pouvez maintenant vous connectez.');
 
                 return $this->redirectToRoute('app_login');
             }  else{
-                dd($form->getData ());
+                $flasher->addWarning('Vérifiez bien les champs');
+
+                return $this->redirectToRoute('app_reset_password');
             }
         }
+
         return $this->render('reset_password/reset_password.html.twig', ['form'=>$form->createView()]);
 
     }

@@ -1,0 +1,81 @@
+{% extends "base.html.twig" %} {% block body %}
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <!-- end Custom Cursor -->
+
+    <!-- Header -->
+    {{ include("./includes/account-navbar.html.twig") }}
+    <!-- end Header -->
+
+    <!-- Services section -->
+    <div class="section padding-top-0 margin-top-50">
+        <div class="container">
+            <div class="row justify-content-start">
+                <div class="col-12 col-lg-12">
+                    <a
+                            style="display: block; margin-bottom: 50px"
+                            href="{{ path('app_account') }}"
+                            class="text-dark"
+                    >
+                        <i class="fas fa-arrow-left"></i> Retour</a
+                    >
+                </div>
+            </div>
+            <div class="row icon-5xl g-4 text-center">
+                <h2>Paramétres du compte</h2>
+                <div class="hover-float bg-grey padding-20">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                            <div class="d-flex flex-column">
+                                <span class="fw-bolder">Email</span>
+                                <span class="fw-semi-bold">{{ app.user.email }}</span>
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div>
+                                <a class="button  button-outline-dark-2" href="" data-toggle="modal" data-target="#modalEmail">Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hover-float bg-grey padding-20">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                            <div class="d-flex flex-column">
+                                <div><span class="fw-bolder">Mot de passe</span></div>
+                                <div><span class="fw-semi-bold">************************</span></div>
+
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div>
+                                <a class="button button-outline-dark-2" href="" data-toggle="modal" data-target="#modalPassword">Modifier</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hover-float bg-grey padding-30">
+                    <a class="button text-bg-danger" href="{{ path('app_logout') }}" >Ferme mon compte</a>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end container -->
+
+    {% include 'account/_partials/modal_password.html.twig' %}
+    {% include 'account/_partials/modal_email.html.twig' %}
+    {{ include("./includes/footer.html.twig") }}
+
+    <!-- Scroll to top button -->
+    <div class="scrolltotop">
+        <a class="button-circle button-circle-sm button-circle-dark" href="#"
+        ><i class="bi bi-arrow-up"></i
+            ></a>
+    </div>
+    <!-- end Scroll to top button -->
+
+    <!-- ***** JAVASCRIPTS ***** -->
+{% endblock %}

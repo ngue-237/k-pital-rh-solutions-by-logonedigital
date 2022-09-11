@@ -12,15 +12,12 @@ class MailSender {
         
     }
 
-    private $api_key = "78390f86428d32654a16bf9d946c8b6c";
-    private $api_key_secret = "8ccb2454880789b17334e1b38ef09cb4";
-
     public function send($to_email, $to_name, $content, $subject){
 
 
-       // $mj = new Client($this->params->get('api_key'), $this->params->get('api_key_secret'),true,['version' => 'v3.1']);
-        $mj = new Client($this->api_key, $this->api_key_secret,true,['version' => 'v3.1']);
-        //dd($content);
+       $mj = new Client($this->params->get('api_key'), $this->params->get('api_key_secret'),true,['version' => 'v3.1']);
+
+       //dd ($to_email);
         $body = [
             'Messages' => [
                 [
@@ -36,9 +33,9 @@ class MailSender {
                     ],
                     'Subject' => $subject,
 
-                    'Variables' => [
-                        'content'=>$content
-                    ]
+                    'TextPart' => "My first Mailjet email",
+                    'HTMLPart' => $content,
+                    'CustomID' => "AppGettingStartedTest"
                 ]
             ]
         ];
