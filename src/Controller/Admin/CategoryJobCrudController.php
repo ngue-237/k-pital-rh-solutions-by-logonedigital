@@ -10,6 +10,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 
 class CategoryJobCrudController extends AbstractCrudController
 {
@@ -22,7 +23,11 @@ class CategoryJobCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('designation')->setLabel("Secteur d'activité"),
+            TextField::new('designation')->setLabel("Secteur d'activité")
+            ->setDefaultColumns('col-12 col-md-6 col-xxl-6'),
+            TextareaField::new('description')->setLabel("Description")
+            ->setDefaultColumns('col-12 col-md-6 col-xxl-6')
+            ->setRequired(true),
             AssociationField::new('jobs')
                 ->setLabel('offre(s) d\'emploi(s)')
                 ->hideOnIndex()
@@ -30,7 +35,8 @@ class CategoryJobCrudController extends AbstractCrudController
                 ->formatValue(function ($value, $entity) {
                 return implode(",",$entity->getJobs()->toArray());
                 })
-                ->setTemplatePath('admin/renderAdresseTemplate.html.twig'),
+                ->setTemplatePath('admin/renderAdresseTemplate.html.twig')
+                ->setDefaultColumns('col-12 col-md-6 col-xxl-6'),
         ];
     }
 

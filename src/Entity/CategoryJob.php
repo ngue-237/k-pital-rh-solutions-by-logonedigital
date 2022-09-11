@@ -5,10 +5,12 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategoryJobRepository;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryJobRepository::class)]
 #[ORM\Table(name: "CategoriesJobs")]
@@ -39,6 +41,16 @@ class CategoryJob
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotNull]
+    #[Assert\Length(
+        min: 50,
+        max: 100,
+        minMessage: 'La description doit au moins faire {{ limit }} caractères ',
+        maxMessage: 'La description doit au maximun faire {{ limit }} caractères ',
+    )]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -112,6 +124,18 @@ class CategoryJob
     public function setCreatedAt(?\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }
