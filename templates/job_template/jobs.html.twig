@@ -26,6 +26,7 @@
             <input
               class="form-control mr-sm-2"
               type="search"
+              id="search"
               placeholder="rechercher"
               aria-label="Search"
             />
@@ -38,38 +39,16 @@
           <div class="row">
             <div class="col-12 col-lg-12">
               <h6>Secteur d'activiter</h6>
+              {% for categoryJob in categoriesJob %}
               <div class="row">
                 <div class="col-12 col-lg-2">
                   <input type="checkbox" />
                 </div>
                 <div class="col-12 col-lg-10">
-                  <label>Architecte</label>
+                  <label>{{ categoryJob.designation | capitalize }}</label>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-12 col-lg-2">
-                  <input type="checkbox" />
-                </div>
-                <div class="col-12 col-lg-10">
-                  <label class="form-check-label">ingénieur</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-2">
-                  <input type="checkbox" />
-                </div>
-                <div class="col-12 col-lg-10">
-                  <label class="form-check-label">Marketing</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-2">
-                  <input type="checkbox" />
-                </div>
-                <div class="col-12 col-lg-10">
-                  <label class="form-check-label">Vente</label>
-                </div>
-              </div>
+              {% endfor %}
             </div>
           </div>
           <div class="row">
@@ -81,9 +60,9 @@
                 <div class="col-12 col-lg-12">
                   <select class="custom-select w-100 custom-select-sm">
                     <option selected>Choisir une ville</option>
-                    <option value="1">Douala</option>
-                    <option value="2">Youandé</option>
-                    <option value="2">Maroua</option>
+                    {% for adresse in adresses %}
+                    <option value="1">{{ adresse.city }}</option>
+                    {% endfor %}
                   </select>
                 </div>
               </div>
@@ -91,67 +70,10 @@
           </div>
         </div>
       </div>
-      <div class="col-12 col-sm-9 col-lg-9 col-xl-9 col-xxl-9">
-        {% if jobs |length > 0 %} {% for job in jobs %}
-        <div class="padding-y-30 padding-y-lg-40 border-bottom">
-          <div class="row g-3 align-items-center">
-            <div class="col-12 col-lg-8">
-              <h5 class="fw-normal margin-0">
-                <a
-                  class="text-link-5"
-                  href="{{ path('app_job_detail', { slug: job.slug }) }}"
-                  >{{ job.title | upper }}</a
-                >
-              </h5>
-              <h6 class="font-small fw-normal uppercase">
-                <a class="text-link-0" href="#">{{
-                  job.categoryJob | capitalize
-                }}</a>
-              </h6>
-              <p class="text-black-03">
-                <i class="bi bi-clock-history margin-right-10"></i
-                ><span>
-                  {% if job.expiredAt is not empty %}
-                  {{ job.expiredAt().format("M") }}
-                  {{ job.expiredAt().format("j") }},
-                  {{ job.expiredAt().format("Y") }}
-                  {% else %} Durée indéterminée {% endif %}
-                </span>
-              </p>
-              <p class="text-black-03">
-                <i class="fas fa-map-marker-alt margin-right-10"></i
-                ><span>
-                  {% for adresse in job.adresses %}
-                  {{ adresse }}, {% endfor %}
-                </span>
-              </p>
-              {#
-              <p class="text-black-03">
-                Ref:<span style="font-size: 10px">
-                  {{ job.ref }}
-                </span>
-              </p>
-              #}
-            </div>
-            <div class="col-12 col-lg-4 text-lg-end">
-              <a
-                class="button button-lg button-radius button-reveal-right-outline-dark"
-                href="{{ path('app_job_detail', { slug: job.slug }) }}"
-              >
-                <i class="bi bi-arrow-right"></i><span>Détail</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- end row -->
-        </div>
-        {% endfor %} {% else %}
-        <p>Aucune offre d'emploi n'est disponibles pour l'instant</p>
-        {% endif %}
-        <nav>
-          {{ knp_pagination_render(jobs, "pagination.html.twig") }}
-        </nav>
-      </div>
+      {{ include("./job_template/jobsList.html.twig") }}
+      <nav>
+        {{ knp_pagination_render(jobs, "pagination.html.twig") }}
+      </nav>
     </div>
     <!-- Job Listing 1 -->
   </div>
@@ -170,4 +92,40 @@
 <!-- end Scroll to top button -->
 
 <!-- ***** JAVASCRIPTS ***** -->
-{% endblock %}
+
+{% block javascript %}
+<script
+  type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+></script>
+<script>
+  $(document).ready(function () {
+    var currentRequest = null;
+    $("#search").keyup(function (e) {
+      e.preventDefault();
+      var value = $(this).val();
+      console.log(value);
+      if (value == "") {
+        currentRequest.abort();
+      } else if (currentRequest != null) {
+        currentRequest.abort();
+      }
+
+      currentRequest = $.ajax({
+        url: "{{ path('app_job_search') }}",
+        type: "GET",
+        contentType: "text/html; charset=utf-8",
+        data: {
+          searchValue: value,
+        },
+        success: function (retour) {
+          //console.log(retour);
+          document.getElementById("all").innerHTML = retour;
+          //$("#all").html(retour);
+        },
+      });
+      return false;
+    });
+  });
+</script>
+{% endblock %} {% endblock %}
