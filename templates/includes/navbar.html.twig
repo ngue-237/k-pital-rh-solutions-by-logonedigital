@@ -66,23 +66,14 @@
             <li class="nav-dropdown-item">
               <a class="nav-dropdown-link" href="{{path('app_category_job')}}">secteurs d'activités</a>
               <ul class="nav-subdropdown">
-                <li class="nav-subdropdown-item">
-                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
+                {% for item in catgsJob.getCategoriesJob %}
+                  <li class="nav-subdropdown-item">
+                   
+                  <a class="nav-subdropdown-link" href="#">{{item.designation}}</a>
                 </li>
+                {% endfor %}
                 <li class="nav-subdropdown-item">
-                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
-                </li>
-                <li class="nav-subdropdown-item">
-                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
-                </li>
-                <li class="nav-subdropdown-item">
-                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
-                </li>
-                <li class="nav-subdropdown-item">
-                  <a class="nav-subdropdown-link" href="#">Subdropdown Item</a>
-                </li>
-                <li class="nav-subdropdown-item">
-                  <a class="nav-subdropdown-link" href="#">Voir tous</a>
+                  <a class="nav-subdropdown-link" href="{{path('app_category_job')}}">Voir tous</a>
                 </li>
               </ul>
             </li>

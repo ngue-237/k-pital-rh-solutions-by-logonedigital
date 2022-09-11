@@ -30,11 +30,11 @@ class JobController extends AbstractController
     public function jobs(Request $request): Response
     {   
         //$this->jobRepo->listAllJobs(new \DateTimeImmutable('now'))
-        $pagination = $this->paginator->paginate($this->jobRepo->findAll(), $request->query->getInt('page', 1), 2);
+        
         
                
         return $this->render('job_template/jobs.html.twig', [
-            "jobs"=>$this->paginator->paginate($this->jobRepo->findAll(), $request->query->getInt('page', 1), 2),
+            "jobs"=>$this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now')), $request->query->getInt('page', 1), 9),
             "categoriesJob"=>$this->em->createQuery('SELECT c from App\Entity\CategoryJob c ORDER BY c.designation ASC')->execute(),
             "adresses"=> $this->em->createQuery('SELECT c from App\Entity\Adresse c ORDER BY c.city ASC')->execute()
 
@@ -42,17 +42,17 @@ class JobController extends AbstractController
     }
 
     #[Route('/offres-emplois/toutes-nos-secteur-activites', name: 'app_category_job')]
-    public function allCategoriesJob(): Response
+    public function allCategoriesJob(Request $request): Response
     {   
+        
         return $this->render('job_template/all-category-job.html.twig', [
-            "categoriesJob"=>$this->categoryJobRepo->listAllCategoriesJobByDate()
+            "categoriesJob"=>$this->paginator->paginate($this->categoryJobRepo->listAllCategoriesJobByDate(), $request->query->getInt('page', 1), 9)
         ]);
     }
 
     #[Route('/offres-emplois/secteur-activites/{slug}', name: 'app_job_by_category')]
     public function jobsByCategory(CategoryJob $categoryJob): Response
-    {   
-        // dd($this->jobRepo->listJobsByCategory($categoryJob->getId()));
+    { 
        
         return $this->render('job_template/job-by-category.html.twig', [
             "jobs"=>$this->jobRepo->listJobsByCategory($categoryJob->getId())
@@ -69,13 +69,22 @@ class JobController extends AbstractController
         ]);
     }
 
+    /**SEARCH ENGINE ON JOBS */
 
     #[Route( '/offres-emplois' , name : 'app_job_search' )]
-    public function searchedProduct ( Request $request )
+    public function searchedJobs ( Request $request )
     {
-            $jobs = $this->jobRepo->jobSearch($request -> get ( 'searchValue' ) );
             return $this -> render ( 'job_template/jobsList.html.twig' , [
-                'jobs' => $this->paginator->paginate($jobs, $request->query->getInt('page', 1), 2),
+                'jobs' => $this->paginator->paginate($this->jobRepo->jobSearch($request -> get ( 'searchValue' ),new \DateTimeImmutable('now')), $request->query->getInt('page', 1), 9),
+            ] );
+    }
+
+    /**SEARCH ENGINE ON CATEGORIES JOB */
+    #[Route( '/offre-emplois/secteurs-activite' , name : 'app_categoy_job_search' )]
+    public function searchedCategoryJob ( Request $request )
+    {   
+            return $this -> render ( 'job_template/categoryJobList.html.twig' , [
+                'categoriesJob' => $this->paginator->paginate($this->categoryJobRepo->searchCategory($request -> get ( 'searchValue' ) ), $request->query->getInt('page', 1), 9),
             ] );
     }
 }

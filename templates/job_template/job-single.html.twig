@@ -10,7 +10,9 @@
 
 <div class="section-sm bg-grey-lighter">
   <div class="container text-center">
-    <h3 class="font-family-secondary">mono blog.</h3>
+    <h3 class="font-family-secondary">
+      secteur d'activité : {{ job.categoryJob | upper }}.
+    </h3>
   </div>
   <!-- end container -->
 </div>
@@ -50,7 +52,7 @@
               </div>
             </div>
             <h5>
-              <a href="#">{{ job.title | upper }}</a>
+              {{ job.title | upper }}
             </h5>
             <p>
               {{ job.description | raw }}
@@ -156,7 +158,11 @@
                 title="toutes les offres d'emplois disponibles dans le secteur d'activité {{
                   categoryJob.slug
                 }} "
-                href="#"
+                href="{{
+                  path('app_job_by_category', {
+                    slug: categoryJob.slug
+                  })
+                }}"
                 >{{ categoryJob.designation }}
                 <span>{{ categoryJob.jobs | length }}</span></a
               >
