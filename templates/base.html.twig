@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <title>Mono - Human Resources</title>
+    {% block seo %}
+    {{
+      sonata_seo_title()
+    }}
+    {{
+      sonata_seo_metadatas()
+    }}
+    {{
+      sonata_seo_link_canonical()
+    }}
+    {% endblock %}
     <!-- Favicon -->
     <link
       href="{{ asset('frontoffice/') }}/images/favicon.png"
