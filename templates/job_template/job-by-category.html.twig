@@ -11,7 +11,9 @@
 <!-- Hero section -->
 <div class="section-xs bg-grey-lighter" style="margin-bottom: -50px">
   <div class="container text-center">
-    <h3 class="font-family-secondary">Trouvez le job de vos rêves</h3>
+    <h3 class="font-family-secondary">
+      Toutes nos offres dans : {{ categoryJob.designation }}
+    </h3>
   </div>
 </div>
 <!-- end Hero section -->
@@ -151,15 +153,7 @@
         </p>
         {% endif %}
         <nav>
-          <ul class="pagination justify-content-center margin-top-70">
-            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-          </ul>
+          {{ knp_pagination_render(jobs, "pagination.html.twig") }}
         </nav>
       </div>
     </div>
