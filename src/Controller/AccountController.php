@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\CandidateResume;
+use App\Form\ProfilType;
 use Doctrine\ORM\EntityManagerInterface;
 use Flasher\Prime\FlasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,10 +38,10 @@ class AccountController extends AbstractController
         return $this->render('account/account_settings.html.twig');
     }
 
-    #[Route('/mon-compte/informations-personnels', name: 'app_account_resume')]
+    #[Route('/mon-compte/profil', name: 'app_account_resume')]
     public function accountResume(): Response
     {
-        return $this->render('account/account_settings.html.twig');
+        return $this->render('account/account_resume.html.twig');
     }
 
     #[Route('/mon-compte/modification-mot-de-passe', name: 'app_account_change_password', methods: 'POST')]
@@ -79,23 +81,68 @@ class AccountController extends AbstractController
     #[Route('/mon-compte/modification-email', name: 'app_account_change_email', methods: 'POST')]
     public function accountChangeEmail(Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-
+        $submittedToken = $request->request->get('token');
         $newEmail = $request->request->get ("email");
         $password = $request->request->get ("password");
 
-        if($userPasswordHasher->isPasswordValid ($this->getUser (),$password)){
-            $this->getUser ()->setEmail($newEmail);
-            $this->getUser ()->setUpdateAt(new \DateTimeImmutable('now'));
-            $this->entityManager->flush ();
+        if ($this->isCsrfTokenValid('update-password', $submittedToken)) {
+            if($userPasswordHasher->isPasswordValid ($this->getUser (),$password)){
+                $this->getUser ()->setEmail($newEmail);
+                $this->getUser ()->setUpdateAt(new \DateTimeImmutable('now'));
+                $this->entityManager->flush ();
 
-            $this->flasher->addSuccess ("Email modifié avec succès!");
-            return $this->redirect ($request->headers->get ('referer'));
+                $this->flasher->addSuccess ("Email modifié avec succès!");
+                return $this->redirect ($request->headers->get ('referer'));
+            }else{
+
+                $this->flasher->addWarning ("Echec de modification! Votre mot de passe ne correspond pas!");
+                return $this->redirect ($request->headers->get ('referer'));
+            }
         }else{
 
-            $this->flasher->addWarning ("Echec de modification! Votre mot de passe ne correspond pas!");
+            $this->flasher->addWarning ("Echec de modification! Vos données sont corrompues!");
             return $this->redirect ($request->headers->get ('referer'));
         }
 
         return $this->render('account/account_settings.html.twig');
     }
+
+    #[Route('/mon-compte/carte-de-visite', name: 'app_profil')]
+    public function myProfile(Request $request): Response
+    {
+        $user = $this->getUser ();
+        $myResume = $user->getCandidateResume();
+
+        if(!$user->getCandidateResume()){
+            $myResume = new CandidateResume();
+            $myResume->setUser ($user);
+            $myResume->setCreatedAt (new \DateTimeImmutable(('now')));
+            $myResume->setEmail ($user->getEmail());
+            $myResume->setNomcomplet ($user->getLastname().' '.$user->getFirstname());
+
+            $form = $this->createForm (ProfilType::class, $myResume);
+        }else{
+            $form = $this->createForm (ProfilType::class,$myResume);
+        }
+
+        $form->handleRequest ($request);
+        if ($form->isSubmitted () && $form->isValid ()){
+            $this->entityManager->persist ($myResume);
+            dd ($myResume);
+            //$this->entityManager->flush ();
+
+            return $this->redirectToRoute ('app_account_resume');
+        }
+
+        return $this->render('account/profil_form.html.twig',[
+            'form'=>$form->createView ()
+        ]);
+    }
+
+
+    public function addSkill(Request $request): Response
+    {
+        return $this->render('account/_partials/modal_skill.html.twig');
+    }
+
 }

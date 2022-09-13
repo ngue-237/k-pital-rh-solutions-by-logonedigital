@@ -1,0 +1,24 @@
+<a class="button-text-1" href="" data-toggle="modal" data-target="#addSkill" >Modifier</a>
+<div class="modal fade" id="addSkill" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-2">
+            <form class="form-style-3" method="post" >
+                <div class="modal-header">
+                    <h6>Modifier de l'adresse email pour</h6>
+                    <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="modal-body p-3">
+                    <input type="email" placeholder="Nouvelle adresse email" name="email" required>
+                    <input type="password" placeholder="Mot de passe actuel" name="password" required>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="button button-radius text-bg-danger" data-dismiss="modal">Fermer</a>
+                    <input type="hidden" name="token" value="{{ csrf_token('update-email') }}"/>
+                    <button type="submit" class="button button-xs button-radius button-outline-dark-2">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

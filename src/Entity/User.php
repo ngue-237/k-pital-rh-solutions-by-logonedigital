@@ -59,6 +59,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $googleId = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?CandidateResume $candidateResume = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -221,6 +224,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGoogleId(?string $googleId): self
     {
         $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    public function getCandidateResume(): ?CandidateResume
+    {
+        return $this->candidateResume;
+    }
+
+    public function setCandidateResume(?CandidateResume $candidateResume): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($candidateResume === null && $this->candidateResume !== null) {
+            $this->candidateResume->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($candidateResume !== null && $candidateResume->getUser() !== $this) {
+            $candidateResume->setUser($this);
+        }
+
+        $this->candidateResume = $candidateResume;
 
         return $this;
     }

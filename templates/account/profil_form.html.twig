@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %} {% block body %}
+
+    <!-- Custom Cursor -->
+    <div id="cursor"></div>
+    <!-- end Custom Cursor -->
+
+    <!-- Header -->
+    {{ include("./includes/account-navbar.html.twig") }}
+    <!-- end Header -->
+
+    <!-- section -->
+    <div class="section">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-12 col-lg-12">
+                    <a
+                            style="display: block; margin-bottom: 50px"
+                            href="{{ path('app_account_resume') }}"
+                            class="text-dark"
+                    >
+                        <i class="fas fa-arrow-left"></i> Retour</a
+                    >
+                </div>
+                <div class="col-12 col-lg-10 offset-lg-1">
+                    <!-- Job Listing 1 -->
+                    <div class="padding-40 border-all border-radius hover-shadow">
+                        {{ form(form) }}
+                    </div>
+                </div>
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div>
+
+    {{ include("./includes/footer.html.twig") }}
+    <!-- Scroll to top button -->
+    <div class="scrolltotop">
+        <a class="button-circle button-circle-sm button-circle-dark" href="#"
+        ><i class="bi bi-arrow-up"></i
+            ></a>
+    </div>
+    <!-- end Scroll to top button -->
+
+    <!-- ***** JAVASCRIPTS ***** -->
+{% endblock %}

@@ -14,6 +14,7 @@
             </div>
             <div class="modal-footer">
                 <a type="button" class="button button-radius text-bg-danger" data-dismiss="modal">Fermer</a>
+                <input type="hidden" name="token" value="{{ csrf_token('update-email') }}"/>
                 <button type="submit" class="button button-xs button-radius button-outline-dark-2">Enregistrer</button>
             </div>
             </form>
