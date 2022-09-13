@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CandidateResume;
 use App\Form\ProfilType;
+use App\Repository\JobRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Flasher\Prime\FlasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,6 +27,7 @@ class AccountController extends AbstractController
     #[Route('/mon-compte', name: 'app_account')]
     public function account(): Response
     {
+
         return $this->render('account/account.html.twig');
     }
 
@@ -41,7 +43,10 @@ class AccountController extends AbstractController
     #[Route('/mon-compte/profil', name: 'app_account_resume')]
     public function accountResume(): Response
     {
-        return $this->render('account/account_resume.html.twig');
+
+        return $this->render('account/account_resume.html.twig',[
+            'userResume'=>$this->getUser ()->getCandidateResume()
+        ]);
     }
 
     #[Route('/mon-compte/modification-mot-de-passe', name: 'app_account_change_password', methods: 'POST')]
@@ -107,42 +112,5 @@ class AccountController extends AbstractController
         return $this->render('account/account_settings.html.twig');
     }
 
-    #[Route('/mon-compte/carte-de-visite', name: 'app_profil')]
-    public function myProfile(Request $request): Response
-    {
-        $user = $this->getUser ();
-        $myResume = $user->getCandidateResume();
-
-        if(!$user->getCandidateResume()){
-            $myResume = new CandidateResume();
-            $myResume->setUser ($user);
-            $myResume->setCreatedAt (new \DateTimeImmutable(('now')));
-            $myResume->setEmail ($user->getEmail());
-            $myResume->setNomcomplet ($user->getLastname().' '.$user->getFirstname());
-
-            $form = $this->createForm (ProfilType::class, $myResume);
-        }else{
-            $form = $this->createForm (ProfilType::class,$myResume);
-        }
-
-        $form->handleRequest ($request);
-        if ($form->isSubmitted () && $form->isValid ()){
-            $this->entityManager->persist ($myResume);
-            dd ($myResume);
-            //$this->entityManager->flush ();
-
-            return $this->redirectToRoute ('app_account_resume');
-        }
-
-        return $this->render('account/profil_form.html.twig',[
-            'form'=>$form->createView ()
-        ]);
-    }
-
-
-    public function addSkill(Request $request): Response
-    {
-        return $this->render('account/_partials/modal_skill.html.twig');
-    }
 
 }

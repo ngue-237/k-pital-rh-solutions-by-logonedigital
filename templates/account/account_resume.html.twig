@@ -25,16 +25,21 @@
           <!-- Job Listing 1 -->
           <div class="padding-40 border-all border-radius hover-shadow">
             <h4 class="fw-normal margin-0">Carte de visite</h4>
-            <div class="row g-3">
+            <div class="row g-3 pt-2">
               <div class="col-6 col-sm-4 col-lg-3">
+                {{ dump(userResume.photo) }}
+                {% if userResume.photo != "null" %}
+                  <img class="border-radius" src="{{ vich_uploader_asset(userResume, 'imageFile') }}" alt="">
+                {% else %}
                 <img class="border-radius" src="{{ asset('frontoffice/images/avatar_profile.png') }}" alt="">
+                {% endif %}
+              </div>
+              <div class="col-12 col-sm-6 ">
+                <h5 class="fw-normal">{{ userResume.nomcomplet }}</h5>
+                <p>{{ userResume.email }} | {{ userResume.telephone }}</p>
               </div>
               <div class="col-12 col-sm-6">
-                <h5 class="fw-normal">Mintoua Toupkandi</h5>
-                <p>toupkandimintoua@gmail.com | +216 52432323</p>
-              </div>
-              <div class="col-12 col-sm-6">
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean massa.</p>
+                <p>{{ userResume.presentation }}</p>
                 <h6 class="font-family-tertiary font-small fw-medium uppercase">Documents:</h6>
                 <ul class="list-dash">
                   <li>Native-level proficiency in spoken and written English</li>
@@ -50,24 +55,37 @@
           <!-- Job Listing 2 -->
           <div class="padding-40 border-all border-radius hover-shadow margin-top-50 margin-lg-top-70">
             <h4 class="fw-normal margin-0">Mes Compétences</h4>
-            <div class="margin-bottom-10 margin-lg-bottom-20 text-black-03">
-              <p><i class="fas fa-map-marker-alt margin-right-10"></i><span>Melbourne, AUS</span></p>
-            </div>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.</p>
-            <div class="margin-top-20">
-              <h6 class="font-family-tertiary font-small fw-medium uppercase">Requirements:</h6>
-              <ul class="list-dash">
-                <li>Native-level proficiency in spoken and written English</li>
-                <li>Ability to travel on short notice</li>
-                <li>Self-driven and solution oriented</li>
-                <li>Impeccable attention to detail</li>
-                <li>3+ years of hands-on experience with project management</li>
-              </ul>
+            <div class="container">
+              <div class="row pt-2 ">
+                <div class="col">
+                  <div class="row-cols-4">
+                    <h6 class="col">Symfony</h6>
+                    <div class="col-auto">
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                      <span class="fa fa-star checked"></span>
+                    </div>
+                    <i class="col">Compétent</i>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Magnis dis parturient montes nascetur ridiculus mus mauris vitae. Sit amet purus gravida quis. Mauris pellentesque pulvinar pellent
+                  </p>
+                </div>
+                <div class="col col-lg-2">
+                  <div class="row">
+                    <div class="col"><a class="button-text-1 text-info">Modifier</a></div>
+                    <div class="col"><a class="button-text-1 text-danger">Supprimer</a></div>
+                  </div>
+                </div>
+                <hr>
+              </div>
             </div>
             <div class="text-end margin-top-10 margin-lg-top-20">
-              {{ render(controller(
-                'App\\Controller\\AccountController::addSkill'
-              )) }}
+              {{ render_esi(path('app_skill')) }}
             </div>
           </div>
           <!-- Job Listing 3 -->

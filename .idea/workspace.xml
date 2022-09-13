@@ -5,25 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeb8cc4f-ce2a-4042-aaaa-0a668b2fb4d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/config/packages/easy_admin.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontoffice/images/avatar_profile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account/_partials/modal_skill.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account/profil_form.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/vich/cv.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/vich/vich_uploader_image.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/k-pital-rh-solutions-by-logonedigital.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/k-pital-rh-solutions-by-logonedigital.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/frontoffice/css/additionnal.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/frontoffice/css/additionnal.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AccountController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/CandidateResume.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CandidateResume.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Skill.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Skill.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/_partials/modal_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/_partials/modal_email.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/account-single.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/account_resume.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/AdresseRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/AdresseRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/_partials/modal_skill.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/modal_skill.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/account_resume.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/account_resume.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/profil_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/profil_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,12 +217,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Mta/LogoneP/k-pital-rh-solutions-by-logonedigital/public/frontoffice/images",
+    "last_opened_file_path": "D:/Mta/LogoneP/k-pital-rh-solutions-by-logonedigital",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
     "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
     "vue.rearranger.settings.migration": "true"
   }
@@ -242,8 +237,10 @@
       <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account\_partials" />
       <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account" />
+      <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account\candidate_resume\modals" />
+      <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account\candidate_resume" />
+      <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account\_partials" />
     </key>
   </component>
   <component name="RunManager">
@@ -268,6 +265,7 @@
       <workItem from="1662813934322" duration="29593000" />
       <workItem from="1662894456840" duration="4986000" />
       <workItem from="1662979042630" duration="20798000" />
+      <workItem from="1663071330875" duration="24345000" />
     </task>
     <servers />
   </component>

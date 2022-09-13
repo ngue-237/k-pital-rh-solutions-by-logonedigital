@@ -20,6 +20,12 @@ class Skill
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $level = null;
+
+    #[ORM\ManyToOne(inversedBy: 'skills')]
+    private ?CandidateResume $candidateResume = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +51,30 @@ class Skill
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getLevel(): ?int
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?int $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getCandidateResume(): ?CandidateResume
+    {
+        return $this->candidateResume;
+    }
+
+    public function setCandidateResume(?CandidateResume $candidateResume): self
+    {
+        $this->candidateResume = $candidateResume;
 
         return $this;
     }

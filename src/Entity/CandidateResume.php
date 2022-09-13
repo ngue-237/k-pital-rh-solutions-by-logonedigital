@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidateResumeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -29,10 +31,7 @@ class CandidateResume
     #[ORM\Column(length: 50)]
     private ?string $email = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
 
@@ -58,7 +57,7 @@ class CandidateResume
      * @Vich\UploadableField(mapping="user_cvs", fileNameProperty="cv")
      * @var File
      */
-    private $cvFile;
+    private ?File $cvFile = null;
 
     public function setCvFile(File $image = null)
     {
@@ -83,6 +82,14 @@ class CandidateResume
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Skill::class)]
+    private Collection $skills;
+
+    public function __construct()
+    {
+        $this->skills = new ArrayCollection();
+    }
 
     public function setImageFile(File $image = null)
     {
@@ -199,6 +206,36 @@ class CandidateResume
     public function setCreatedAt(?\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Skill>
+     */
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function addSkill(Skill $skill): self
+    {
+        if (!$this->skills->contains($skill)) {
+            $this->skills->add($skill);
+            $skill->setCandidateResume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSkill(Skill $skill): self
+    {
+        if ($this->skills->removeElement($skill)) {
+            // set the owning side to null (unless already changed)
+            if ($skill->getCandidateResume() === $this) {
+                $skill->setCandidateResume(null);
+            }
+        }
 
         return $this;
     }
