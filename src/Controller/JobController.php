@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JobController extends AbstractController
 {
@@ -35,6 +36,31 @@ class JobController extends AbstractController
     #[Route('/offres-emploi', name: 'app_jobs')]
     public function jobs(Request $request): Response
     {   
+
+        /**FILTER PART */
+
+        $filters = $request->get('categories');
+        
+        if($request->get('ajax')){
+            //dd("hello");
+            if($filters!=null){
+                $jobs = $this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters), $request->query->getInt('page', 1), 9);
+                return new JsonResponse([
+                    "content"=>$this->renderView('job_template/jobsList.html.twig',compact('jobs'))
+                ]);
+        }else{
+
+            $jobs = $this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters), $request->query->getInt('page', 1), 9);
+
+            return new JsonResponse([
+                "content"=>$this->renderView('job_template/jobsList.html.twig',compact('jobs'))
+            ]);
+        }
+
+        }
+        /** END FILTER PART */
+
+
         /**SEO PART */
         $description = "la meilleures agence de conseils Rh au Cameroun";
         $this -> seoPage -> setTitle ("Toutes nos offres d'emplois")
@@ -50,7 +76,7 @@ class JobController extends AbstractController
         
                
         return $this->render('job_template/jobs.html.twig', [
-            "jobs"=>$this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now')), $request->query->getInt('page', 1), 9),
+            "jobs"=>$this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters), $request->query->getInt('page', 1), 9),
             "categoriesJob"=>$this->em->createQuery('SELECT c from App\Entity\CategoryJob c ORDER BY c.designation ASC')->execute(),
             "adresses"=> $this->em->createQuery('SELECT c from App\Entity\Adresse c ORDER BY c.city ASC')->execute()
         ]);
@@ -149,8 +175,7 @@ class JobController extends AbstractController
     }
 
     /**SEARCH ENGINE ON JOBS */
-
-    #[Route( '/offres-emplois' , name : 'app_job_search' )]
+    #[Route( '/offres-emplois-2' , name : 'app_job_search' )]
     public function searchedJobs ( Request $request )
     {
             return $this -> render ( 'job_template/jobsList.html.twig' , [
@@ -164,6 +189,17 @@ class JobController extends AbstractController
     {   
             return $this -> render ( 'job_template/categoryJobList.html.twig' , [
                 'categoriesJob' => $this->paginator->paginate($this->categoryJobRepo->searchCategory($request -> get ( 'searchValue' ) ), $request->query->getInt('page', 1), 9),
+            ] );
+    }
+
+    /**FILTER ENGINE */
+     #[Route( '/offre-emplois-2/secteurs-activite' , name : 'app_advance_filter' )]
+    public function advanceFilter ( Request $request )
+    {   
+        $data = $this->categoryJobRepo->searchCategory($request->get('searchValues'));
+        //dd($this->jobRepo->find($request->get('searchValues')));
+            return $this -> render ( 'job_template/jobsList.html.twig' , [
+                'jobs' => $this->paginator->paginate($this->jobRepo->advanceFilter($request->get('searchValues'), new \DateTimeImmutable('now')), $request->query->getInt('page', 1), 9),
             ] );
     }
 }

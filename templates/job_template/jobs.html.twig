@@ -33,23 +33,32 @@
           </div>
           <div class="row">
             <div class="col-12 col-lg-12">
-              <h4>Filtres Avancés</h4>
+              <h4 class="uppercase">Filtres Avancés</h4>
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-lg-12">
-              <h6>Secteur d'activiter</h6>
-              {% for categoryJob in categoriesJob %}
-              <div class="row">
-                <div class="col-12 col-lg-2">
-                  <input type="checkbox" />
+            <form id="filters">
+              <div class="col-12 col-lg-12" id="checkboxFiltres">
+                <h6>Secteur d'activiter</h6>
+                {% for categoryJob in categoriesJob %}
+                <div class="row">
+                  <div class="col-12 col-lg-2">
+                    <input
+                      id="cat{{ categoryJob.id }}"
+                      name="categories[]"
+                      type="checkbox"
+                      value="{{ categoryJob.id }}"
+                    />
+                  </div>
+                  <div class="col-12 col-lg-10">
+                    <label for="cat{{ categoryJob.id }}">{{
+                      categoryJob.designation | upper
+                    }}</label>
+                  </div>
                 </div>
-                <div class="col-12 col-lg-10">
-                  <label>{{ categoryJob.designation | capitalize }}</label>
-                </div>
+                {% endfor %}
               </div>
-              {% endfor %}
-            </div>
+            </form>
           </div>
           <div class="row">
             <div class="col-12 col-lg-12">
@@ -100,13 +109,13 @@
   type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
 ></script>
-<script defer>
+<script src="{{ asset('frontoffice/js/') }}advanceFilter.js" defer></script>
+<script>
   $(document).ready(function () {
     var currentRequest = null;
     $("#search").keyup(function (e) {
       e.preventDefault();
       var value = $(this).val();
-      console.log(value);
       if (value == "") {
         currentRequest.abort();
       } else if (currentRequest != null) {
@@ -126,6 +135,30 @@
       });
       return false;
     });
+
+    // let request = null;
+    // let inputValue = null;
+    // document.querySelectorAll("#checkboxFiltres input").forEach((input) => {
+    //   input.addEventListener("change", (e) => {
+    //     e.preventDefault();
+
+    //     let inputValue = input.value;
+    //     if (inputValue == "") {
+    //       request.abort();
+    //     }
+    //     request = $.ajax({
+    //       url: "{{ path('app_advance_filter') }}",
+    //       type: "GET",
+    //       data: {
+    //         searchValues: inputValue,
+    //       },
+    //       success: function (retour) {
+    //         document.getElementById("all").innerHTML = retour;
+    //         //$("#all").html(retour);
+    //       },
+    //     });
+    //   });
+    // });
   });
 </script>
 {% endblock %} {% endblock %}

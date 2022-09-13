@@ -75,7 +75,7 @@ class DefaultController extends AbstractController
     {   
         $description = "la meilleures agence de conseils Rh au Cameroun";
         $this->seoPage->setTitle("Contact")
-            -> addMeta ('property','og:title','les petites annonces MA.BA.CE II')
+            ->addMeta('property','og:title','les petites annonces MA.BA.CE II')
             ->addTitleSuffix("CAPITAL RH SOLUTIONS")
             ->addMeta('name', 'description', $description)
             ->addMeta('property', 'og:title', "Contact-CAPITAL RH SOLUTIONS")
