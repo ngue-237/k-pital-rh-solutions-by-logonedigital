@@ -1,0 +1,88 @@
+{% extends "base.html.twig" %} {% block body %}
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<!-- end Custom Cursor -->
+
+<style>
+  .upper {
+    text-transform: uppercase;
+  }
+
+  .trash-icon {
+    color: red;
+  }
+
+  .icon-margin {
+    margin-left: 7px;
+  }
+</style>
+
+<!-- Header -->
+{{ include("./includes/account-navbar.html.twig") }}
+<!-- end Header -->
+<div class="section">
+  <div class="container text-center">
+    <div class="">
+      <div class="row text-center">
+        <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+          <h2 class="upper">Toutes vos candidatures</h2>
+          <div class="divider-width-50px">
+            <hr class="bg-black-07" />
+          </div>
+          <p>Faites le suivie de vos candidatures.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end container -->
+</div>
+<!-- Services section -->
+<div class="section padding-top-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-lg-10 col-xl-10 col-xxl-10">
+        <table class="table table-bordered table-hover offset-lg-1">
+          <thead>
+            <tr style="background-color: #eef2f6">
+              <th scope="col" class="upper">intitulé offre</th>
+              <th scope="col" class="upper">secteur d'activité</th>
+              <th scope="col" class="upper">date de création</th>
+              <th scope="col" class="upper">Etat</th>
+              <th scope="col" class="upper">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mark</td>
+              <td>Mark</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td class="text-center">
+                <a href="#"><i class="bi bi-eye text-info"></i></a>
+                <a href="#"
+                  ><i class="bi bi-trash3 text-danger icon-margin"></i
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- end container -->
+</div>
+<!-- end container -->
+
+{{ include("./includes/footer.html.twig") }}
+
+<!-- Scroll to top button -->
+<div class="scrolltotop">
+  <a class="button-circle button-circle-sm button-circle-dark" href="#"
+    ><i class="bi bi-arrow-up"></i
+  ></a>
+</div>
+<!-- end Scroll to top button -->
+
+<!-- ***** JAVASCRIPTS ***** -->
+{% endblock %}

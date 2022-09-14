@@ -60,62 +60,21 @@
             {# section modal box #}
             <!-- Button trigger modal -->
 
-            <button
-              type="button"
-              class="button button-lg button-radius button-outline-grey margin-top-20"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
+            {% if app.user %}
+            <a
+              class="button button-lg button-radius button-reveal-right-outline-dark margin-top-10"
+              href="{{ path('app_job_detail', { slug: job.slug }) }}"
             >
-              Postuler
-            </button>
-
-            <!-- Modal -->
-            <div
-              class="modal fade"
-              id="exampleModal"
-              tabindex="-1"
-              aria-labelledby="exampleModalLabel"
-              aria-hidden="true"
+              <i class="bi bi-arrow-right"></i><span>Postuler</span>
+            </a>
+            {% else %}
+            <a
+              class="button button-lg button-radius button-reveal-right-outline-dark margin-top-10"
+              href="{{ path('app_login') }}"
             >
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                      Modal title
-                    </h5>
-
-                    <button
-                      type="button"
-                      class="btn-close"
-                      data-bs-dismiss="modal"
-                      aria-label="Close"
-                    ></button>
-                  </div>
-                  <div class="modal-body">...</div>
-                  <div class="modal-footer">
-                    <button
-                      type="button"
-                      class="button button-sm button-dark button-rounded"
-                      data-bs-dismiss="modal"
-                    >
-                      Fermer
-                    </button>
-                    <a
-                      class="button button-sm button-grey button-rounded"
-                      href="#"
-                      >Envoyer</a
-                    >
-                    {#
-                    <button type="button" class="btn btn-primary">
-                      Envoyer
-                    </button>
-                    #}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {# end section modal box #}
+              <i class="bi bi-arrow-right"></i><span></span>
+            </a>
+            {% endif %}
           </div>
         </div>
       </div>

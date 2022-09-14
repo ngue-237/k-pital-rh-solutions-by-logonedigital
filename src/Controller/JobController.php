@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidature;
 use App\Entity\Job;
 use App\Entity\CategoryJob;
+use App\Form\CandidatureType;
 use App\Repository\JobRepository;
 use Symfony\Component\Asset\UrlPackage;
 use Doctrine\ORM\EntityManagerInterface;
@@ -162,14 +164,34 @@ class JobController extends AbstractController
     public function jobDetail(Job $job): Response
     {
         $jobCached = $job;
-         /** SEO PART */
+        /** SEO PART */
+        $this->singleJobSeo($jobCached);
+        /** END SEO PART */
+
+        $candidature = new Candidature();
+        
+        $candidateForm = $this->createForm(CandidatureType::class, $candidature);
+
+        return $this->render('job_template/job-single.html.twig', [
+            "job"=>$job,
+            "recentJobs"=>$this->jobRepo->recentJob(),
+            "categoriesJob"=>$this->categoryJobRepo->listCategories(),
+            "candidateForm"=>$candidateForm->createView(),
+        ]);
+    }
+
+    // #[Route("/offres-emplois/postuler", name:"app_postuler")]
+    // public function candidatureProcess():Response{
+
+    // }
+
+    private function singleJobSeo(Job $jobCached){
         $urlPackage = new UrlPackage(
-            'https://mabace-2.com/uploads/images/jobImages/'.$jobCached->getImage(),
+            'https://capitalrhsolutions.com/uploads/images/jobImages/'.$jobCached->getImage(),
             new StaticVersionStrategy('v1')
         );
 
         $urlPackage->getUrl($jobCached->getImage());
-
         $this->seoPage->setTitle ($jobCached->getTitle())
             -> addMeta ('property','og:title',$jobCached->getTitle())
             ->addMeta('name', 'description', $jobCached->getDescription())
@@ -182,13 +204,6 @@ class JobController extends AbstractController
             ->addMeta('property', 'og:image:width',"300")
             ->addMeta('property', 'og:image:height',"300")
            ->setBreadcrumb('blog', ['post' => $jobCached]);
-        /** END SEO PART */
-
-        return $this->render('job_template/job-single.html.twig', [
-            "job"=>$job,
-            "recentJobs"=>$this->jobRepo->recentJob(),
-            "categoriesJob"=>$this->categoryJobRepo->listCategories()
-        ]);
     }
 
     /**SEARCH ENGINE ON JOBS */

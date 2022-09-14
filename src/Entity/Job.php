@@ -60,13 +60,15 @@ class Job
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\OneToMany(mappedBy: 'jobs', targetEntity: Canditure::class)]
-    private Collection $canditures;
+    
+
+    #[ORM\OneToMany(mappedBy: 'job', targetEntity: Candidature::class)]
+    private Collection $candidatures;
 
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
-        $this->canditures = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
     }
 
 
@@ -227,30 +229,31 @@ class Job
         return $this;
     }
 
+    
     /**
-     * @return Collection<int, Canditure>
+     * @return Collection<int, Candidature>
      */
-    public function getCanditures(): Collection
+    public function getCandidatures(): Collection
     {
-        return $this->canditures;
+        return $this->candidatures;
     }
 
-    public function addCanditure(Canditure $canditure): self
+    public function addCandidature(Candidature $candidature): self
     {
-        if (!$this->canditures->contains($canditure)) {
-            $this->canditures->add($canditure);
-            $canditure->setJobs($this);
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setJob($this);
         }
 
         return $this;
     }
 
-    public function removeCanditure(Canditure $canditure): self
+    public function removeCandidature(Candidature $candidature): self
     {
-        if ($this->canditures->removeElement($canditure)) {
+        if ($this->candidatures->removeElement($candidature)) {
             // set the owning side to null (unless already changed)
-            if ($canditure->getJobs() === $this) {
-                $canditure->setJobs(null);
+            if ($candidature->getJob() === $this) {
+                $candidature->setJob(null);
             }
         }
 
