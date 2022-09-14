@@ -38,19 +38,36 @@ class JobController extends AbstractController
     {   
 
         /**FILTER PART */
-
+        
         $filters = $request->get('categories');
+        $adresseFilter = $request->get('adresse');
         
         if($request->get('ajax')){
-            //dd("hello");
-            if($filters!=null){
-                $jobs = $this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters), $request->query->getInt('page', 1), 9);
+           
+            if($filters !=null and $adresseFilter == null){
+                $jobs = $this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter), $request->query->getInt('page', 1), 9);
                 return new JsonResponse([
                     "content"=>$this->renderView('job_template/jobsList.html.twig',compact('jobs'))
                 ]);
-        }else{
+            }
+            else if($filters == null and $adresseFilter != null){
+                
+                $jobs = $this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter), $request->query->getInt('page', 1), 9);
+                return new JsonResponse([
+                    "content"=>$this->renderView('job_template/jobsList.html.twig',compact('jobs'))
+                ]);
+            }
+            else if($filters != null and $adresseFilter != null){
 
-            $jobs = $this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters), $request->query->getInt('page', 1), 9);
+                $jobs = $this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter), $request->query->getInt('page', 1), 9);
+                return new JsonResponse([
+                    "content"=>$this->renderView('job_template/jobsList.html.twig',compact('jobs'))
+                ]);
+            }
+
+            else{
+
+            $jobs = $this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter), $request->query->getInt('page', 1), 9);
 
             return new JsonResponse([
                 "content"=>$this->renderView('job_template/jobsList.html.twig',compact('jobs'))
@@ -76,7 +93,7 @@ class JobController extends AbstractController
         
                
         return $this->render('job_template/jobs.html.twig', [
-            "jobs"=>$this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters), $request->query->getInt('page', 1), 9),
+            "jobs"=>$this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter), $request->query->getInt('page', 1), 9),
             "categoriesJob"=>$this->em->createQuery('SELECT c from App\Entity\CategoryJob c ORDER BY c.designation ASC')->execute(),
             "adresses"=> $this->em->createQuery('SELECT c from App\Entity\Adresse c ORDER BY c.city ASC')->execute()
         ]);

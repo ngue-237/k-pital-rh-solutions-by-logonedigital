@@ -70,7 +70,7 @@ class JobRepository extends ServiceEntityRepository
     /**
     * @return Job[] Returns an array of Job objects
     */
-   public function listAllJobs($value, $filters = null): array
+   public function listAllJobs($value, $filters = null, $adresseFilter=null): array
    {
 
         $query = $this->createQueryBuilder('j')
@@ -81,10 +81,25 @@ class JobRepository extends ServiceEntityRepository
         if($filters!=null){
             $query->andWhere('j.categoryJob IN (:cats)')
             ->setParameter(':cats', array_values($filters));
+        }else if($adresseFilter!=null){
+             $query->innerJoin("j.adresses", "b")
+            ->andWhere('b.id = :id')
+            ->setParameter('id', $adresseFilter);
+        }
+
+        else if($filters !=null and $adresseFilter !=null){
+            dd("hello ");
+            $query->andWhere('j.categoryJob IN (:cats)')
+            ->setParameter(':cats', array_values($filters))
+            ->innerJoin("j.adresses", "b")
+            ->andWhere('b.id = :id')
+            ->setParameter('id', $adresseFilter)
+            ;
         }
         
         return $query->getQuery()->getResult();
    }
+
 
    public function jobSearch($str, $date)
     {
