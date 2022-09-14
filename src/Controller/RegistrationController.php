@@ -118,7 +118,7 @@ class RegistrationController extends AbstractController
                 $content,
                 "Vérification d'E-mail"
             );*/
-            $this->flasher->addInfo('Veuillez confirmer votre email.');
+           # $this->flasher->addInfo('Veuillez confirmer votre email.');
             return $this->redirectToRoute('app_login');
         }
 
