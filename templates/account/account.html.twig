@@ -14,7 +14,7 @@
     <div class="">
       <div class="row text-center">
         <div class="col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-          <h2>Emmanuel, Bienvenue dans votre profil</h2>
+          <h2>{{ app.user.firstname }} {{ app.user.lastname }}, Bienvenue dans votre profil</h2>
           <div class="divider-width-50px">
             <hr class="bg-black-07" />
           </div>
@@ -44,7 +44,7 @@
           </p>
           <a
             class="button-text-2 margin-top-20"
-            href="{{ path('app_account_single') }}"
+            href="{{ path('app_account_setting') }}"
             >Modifier</a
           >
         </div>
@@ -59,7 +59,7 @@
           </p>
           <a
             class="button-text-2 margin-top-20"
-            href="{{ path('app_account_single') }}"
+            href="{{ path('app_account_resume') }}"
             >Voir plus</a
           >
         </div>
@@ -74,7 +74,7 @@
           </p>
           <a
             class="button-text-2 margin-top-20"
-            href="{{ path('app_account_single') }}"
+            href=""
             >Voir plus</a
           >
         </div>

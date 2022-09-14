@@ -4,13 +4,17 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
+use Gedmo\Mapping\Annotation as Gedmo;
+use JetBrains\PhpStorm\Internal\LanguageLevelTypeAware;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
+
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -44,11 +48,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $isVerified = null;
 
+    /**
+     * @Gedmo\Timestampable(on="create")
+     *
+     */
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updateAt = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $googleId = null;
+
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?CandidateResume $candidateResume = null;
 
     public function getId(): ?int
     {
@@ -203,4 +218,60 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getGoogleId(): ?string
+    {
+        return $this->googleId;
+    }
+
+    public function setGoogleId(?string $googleId): self
+    {
+        $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    public function getCandidateResume(): ?CandidateResume
+    {
+        return $this->candidateResume;
+    }
+
+    public function setCandidateResume(?CandidateResume $candidateResume): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($candidateResume === null && $this->candidateResume !== null) {
+            $this->candidateResume->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($candidateResume !== null && $candidateResume->getUser() !== $this) {
+            $candidateResume->setUser($this);
+        }
+
+        $this->candidateResume = $candidateResume;
+
+        return $this;
+    }
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->getUserIdentifier (),
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
 }

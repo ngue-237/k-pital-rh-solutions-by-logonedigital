@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CandidateResume;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -81,18 +82,26 @@ class RegistrationController extends AbstractController
                     $user->getPassword ()
                 )
             );
+            $candidateResume = new CandidateResume();
+            $candidateResume->setNomcomplet ($user->getFirstname ().' '.$user->getLastname ());
+            $candidateResume->setUser ($user);
+            $candidateResume->setEmail ($user->getEmail ());
+            $candidateResume->setCreatedAt (new \DateTimeImmutable('now'));
 
             $user->setRoles(["ROLE_USER"]);
             $user->setCreatedAt(new \DateTimeImmutable('now'));
             $user->setUpdateAt(new \DateTimeImmutable('now'));
             $user->setIsVerified(false);
             $user->setIsBlocked(false);
+            $user->setCandidateResume ($candidateResume);
 
-
+            $entityManager->persist ($candidateResume);
             $entityManager->persist($user);
+
             $entityManager->flush();
+
             // do anything else you need here, like send an email
-/*
+
             $signatureComponents = $this->verifyEmailHelper->generateSignature(
                 'app_verify_email',
                 $user->getId(),
@@ -100,17 +109,17 @@ class RegistrationController extends AbstractController
                 ['id' => $user->getId()]
             );
 
-            $content = "Bonjour ".$user->getFirstname().' '.$user->getLastname()."<br> Nous vous remercions pour votre inscription sur le site MA.BA.CE.&#x2161; <br> <br>";
+            $content = "Bonjour ".$user->getFirstname().' '.$user->getLastname()."<br> Nous vous remercions pour votre inscription sur le site K-pital RH <br> <br>";
             $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$signatureComponents->getSignedUrl()."'>afin de valider votre email</a>.";
 
-            $this->sender->send(
+/*            $this->sender->send(
                 $user->getEmail(),
                 $user->getFirstname().' '.$user->getLastname(),
                 $content,
-                "vérification d'e-mail"
+                "Vérification d'E-mail"
             );*/
             $this->flasher->addInfo('Veuillez confirmer votre email.');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -141,11 +150,11 @@ class RegistrationController extends AbstractController
         }
 
         // Mark your user as verified. e.g. switch a User::verified property to true
-        $user->setIsVerifyEd(true);
+        $user->setIsVerified(true);
         $entityManager->flush();
 
         $this->flasher->addSuccess('Votre email a bien été confirmé.');
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_account');
     }
 }

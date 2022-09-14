@@ -6,6 +6,7 @@ use App\Entity\Job;
 use App\Entity\Adresse;
 use App\Entity\Canditure;
 use App\Entity\CategoryJob;
+use App\Entity\User;
 use App\Entity\Contact;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,7 +49,7 @@ class DashboardController extends AbstractDashboardController
     {
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-            //MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
+            MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
             MenuItem::section  ('',''),
 
             // MenuItem::subMenu('Blog', 'fas fa-list')->setSubItems([

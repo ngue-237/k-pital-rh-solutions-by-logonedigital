@@ -1,0 +1,15 @@
+easy_admin:
+  entities:
+    CandidateResume:
+      # ...
+      list:
+        fields:
+          - { property: 'photo', template: '/vich/vich_uploader_image.html.twig', base_path: '%app.path.candidates_images%' }
+          - { property: 'cv', template: 'cv.html.twig', base_path: '%app.path.user_cvs%' }
+      # ...
+      show:
+        fields:
+          - { property: 'photo', type: 'image', base_path: '%app.path.candidates_images%' }
+      form:
+        fields:
+          - { property: 'imageFile', type: 'vich_image' }

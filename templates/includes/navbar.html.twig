@@ -96,11 +96,11 @@
       <ul class="list-inline">
         <li>
           {% if app.user %}
-          <a title="se déconnecter" href="{{path("app_account")}}"
-            ><i class="bi bi-box-arrow-right"></i
+          <a title="mon compte" href="{{path("app_account")}}"
+            ><i class="bi bi-person"></i
           ></a>
           {% else %}
-          <a title="se connecter" href="{{path("app_account")}}"
+          <a title="se connecter" href="{{path("app_login")}}"
             ><i class="bi bi-person-circle"></i
           ></a>
           {% endif %}

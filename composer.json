@@ -14,6 +14,8 @@
         "easycorp/easyadmin-bundle": "^4.3",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
         "knplabs/knp-paginator-bundle": "^5.9",
+        "knpuniversity/oauth2-client-bundle": "^2.10",
+        "league/oauth2-google": "^4.0",
         "liip/imagine-bundle": "^2.8",
         "mailjet/mailjet-apiv3-php": "^1.5",
         "php-flasher/flasher-symfony": "^1.7",
@@ -54,7 +56,8 @@
         "symfonycasts/reset-password-bundle": "^1.14",
         "symfonycasts/verify-email-bundle": "^1.11",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "vich/uploader-bundle": "^1.21"
     },
     "config": {
         "allow-plugins": {
