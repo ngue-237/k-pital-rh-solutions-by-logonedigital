@@ -70,22 +70,7 @@ class DefaultController extends AbstractController
         return $this->render('default/services.html.twig');
     }
     
-    #[Route('/contactez-nous', name: 'app_contact')]
-    public function contact(): Response
-    {   
-        $description = "la meilleures agence de conseils Rh au Cameroun";
-        $this->seoPage->setTitle("Contact")
-            ->addMeta('property','og:title','les petites annonces MA.BA.CE II')
-            ->addTitleSuffix("CAPITAL RH SOLUTIONS")
-            ->addMeta('name', 'description', $description)
-            ->addMeta('property', 'og:title', "Contact-CAPITAL RH SOLUTIONS")
-            ->setLinkCanonical($this->urlGenerator->generate('app_contact',[], urlGeneratorInterface::ABSOLUTE_URL))
-            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_contact',[], urlGeneratorInterface::ABSOLUTE_URL))
-            ->addMeta('property', 'og:description',$description)
-            ->setBreadcrumb('Contact', []);
-
-        return $this->render('default/contact.html.twig');
-    }
+    
 
     #[Route('/mon-compte', name: 'app_account')]
     public function account(): Response
