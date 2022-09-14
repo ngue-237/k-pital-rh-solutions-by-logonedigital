@@ -11,7 +11,9 @@
 <!-- Hero section -->
 <div class="section-xs bg-grey-lighter" style="margin-bottom: -50px">
   <div class="container text-center">
-    <h3 class="font-family-secondary">Trouvez le job de vos rêves</h3>
+    <h3 class="font-family-secondary">
+      Toutes nos offres dans : {{ categoryJob.designation }}
+    </h3>
   </div>
 </div>
 <!-- end Hero section -->
@@ -20,78 +22,7 @@
 <div class="section">
   <div class="container">
     <div class="row">
-      <div class="col-12 col-sm-3 col-lg-3 col-xl-3 col-xxl-3">
-        <div class="form-style-3">
-          <div class="row">
-            <input
-              class="form-control mr-sm-2"
-              type="search"
-              placeholder="rechercher"
-              aria-label="Search"
-            />
-          </div>
-          <div class="row">
-            <div class="col-12 col-lg-12">
-              <h4>Filtres Avancés</h4>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-lg-12">
-              <h6>Secteur d'activiter</h6>
-              <div class="row">
-                <div class="col-12 col-lg-2">
-                  <input type="checkbox" />
-                </div>
-                <div class="col-12 col-lg-10">
-                  <label>Architecte</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-2">
-                  <input type="checkbox" />
-                </div>
-                <div class="col-12 col-lg-10">
-                  <label class="form-check-label">ingénieur</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-2">
-                  <input type="checkbox" />
-                </div>
-                <div class="col-12 col-lg-10">
-                  <label class="form-check-label">Marketing</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-2">
-                  <input type="checkbox" />
-                </div>
-                <div class="col-12 col-lg-10">
-                  <label class="form-check-label">Vente</label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12 col-lg-12">
-              <div class="col-12 col-lg-12">
-                <h6>Villes</h6>
-              </div>
-              <div class="row">
-                <div class="col-12 col-lg-12">
-                  <select class="custom-select w-100 custom-select-sm">
-                    <option selected>Choisir une ville</option>
-                    <option value="1">Douala</option>
-                    <option value="2">Youandé</option>
-                    <option value="2">Maroua</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-sm-9 col-lg-9 col-xl-9 col-xxl-9">
+      <div class="col-12 col-sm-12 col-lg-12 col-xl-12 col-xxl-8">
         {% if jobs |length > 0 %} {% for job in jobs %}
         <div class="padding-y-30 padding-y-lg-40 border-bottom">
           <div class="row g-3 align-items-center">
@@ -125,13 +56,6 @@
                   {{ adresse }}, {% endfor %}
                 </span>
               </p>
-              {#
-              <p class="text-black-03">
-                Ref:<span style="font-size: 10px">
-                  {{ job.ref }}
-                </span>
-              </p>
-              #}
             </div>
             <div class="col-12 col-lg-4 text-lg-end">
               <a
@@ -145,21 +69,16 @@
           <!-- end row -->
         </div>
         {% endfor %} {% else %}
-        <p>
-          Nous n'avons pas encore d'offres d'emplois disponibles dans ce secteur
-          d'activité
-        </p>
+        <div class="row">
+          <p class="text-center text-dark">
+            Nous n'avons pas encore d'offres d'emplois disponibles dans ce
+            secteur d'activité . Consulter
+            <a href="{{ path('app_jobs') }}">toutes nos offres d'emplois</a>
+          </p>
+        </div>
         {% endif %}
         <nav>
-          <ul class="pagination justify-content-center margin-top-70">
-            <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-          </ul>
+          {{ knp_pagination_render(jobs, "pagination.html.twig") }}
         </nav>
       </div>
     </div>

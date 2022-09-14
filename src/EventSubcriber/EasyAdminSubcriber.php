@@ -2,6 +2,7 @@
 
 namespace App\EventSubcriber;
 
+use App\Entity\Contact;
 use App\Entity\Job;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Event\AfterEntityDeletedEvent;
@@ -87,6 +88,10 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         }
 
         if($entity instanceof Job){
+            $entity->setUpdatedAt(new \DateTimeImmutable('now'));
+        }
+
+        if($entity instanceof Contact){
             $entity->setUpdatedAt(new \DateTimeImmutable('now'));
         }
 

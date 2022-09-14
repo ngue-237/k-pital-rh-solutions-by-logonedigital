@@ -125,18 +125,13 @@
       <div class="col-12 col-lg-4 sidebar-wrapper">
         <!-- Sidebar box 1 - About me -->
         <div class="sidebar-box text-center">
-          <h6 class="font-small fw-normal uppercase">
-            A propos de K-pital solutions
-          </h6>
+          <h6 class="font-small fw-normal uppercase">K-pital rh solutions</h6>
           <img
             class="img-circle-md margin-bottom-20"
             src="{{ asset('frontoffice/') }}images/image-blank-author.jpg"
             alt="logo K-PITAL RH SOLUTIONS"
           />
-          <p>
-            Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
-            montes, nascetur ridiculus mus.
-          </p>
+          <p>{{ job.categoryJob.description }}.</p>
           <ul class="list-inline margin-top-20">
             <li>
               <a href="#"><i class="bi bi-facebook"></i></a>
@@ -159,9 +154,7 @@
                   categoryJob.slug
                 }} "
                 href="{{
-                  path('app_job_by_category', {
-                    slug: categoryJob.slug
-                  })
+                  path('app_job_by_category', { slug: categoryJob.slug })
                 }}"
                 >{{ categoryJob.designation }}
                 <span>{{ categoryJob.jobs | length }}</span></a

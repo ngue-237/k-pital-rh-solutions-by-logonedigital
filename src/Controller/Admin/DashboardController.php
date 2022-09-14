@@ -7,6 +7,7 @@ use App\Entity\Adresse;
 use App\Entity\Canditure;
 use App\Entity\CategoryJob;
 use App\Entity\User;
+use App\Entity\Contact;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -61,9 +62,7 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud ('Localisation','fas fa-map-marker-alt', Adresse::class),
                 MenuItem::linkToCrud ('Candidatures','fas fa-paper-plane', Canditure::class),
             ]),
-            MenuItem::section  ('',''),
-            // MenuItem::linkToCrud('Courriel', 'fas fa-envelope', Contact::class)
-            // ...
+            MenuItem::linkToCrud("Couriels", 'fas fa-envelope-open-text', Contact::class),
         ];
     }
 }

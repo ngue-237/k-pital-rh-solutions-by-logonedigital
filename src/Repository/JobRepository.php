@@ -70,27 +70,52 @@ class JobRepository extends ServiceEntityRepository
     /**
     * @return Job[] Returns an array of Job objects
     */
-   public function listAllJobs($value): array
+   public function listAllJobs($value, $filters = null, $adresseFilter=null): array
    {
-       return $this->createQueryBuilder('j')
+
+        $query = $this->createQueryBuilder('j')
             ->setParameter('val', $value)
             ->where('j.expiredAt > :val')
-           ->orderBy('j.createdAt', 'ASC')
-           ->getQuery()
-           ->getResult()
-       ;
+            ->orWhere('j.expiredAt IS NULL')
+            ->orderBy('j.createdAt', 'ASC');
+
+        if($filters!=null){
+            $query->andWhere('j.categoryJob IN (:cats)')
+            ->setParameter(':cats', array_values($filters));
+        }else if($adresseFilter!=null){
+             $query->innerJoin("j.adresses", "b")
+            ->andWhere('b.id = :id')
+            ->setParameter('id', $adresseFilter);
+        }
+
+        else if($filters !=null and $adresseFilter !=null){
+            dd("hello ");
+            $query->andWhere('j.categoryJob IN (:cats)')
+            ->setParameter(':cats', array_values($filters))
+            ->innerJoin("j.adresses", "b")
+            ->andWhere('b.id = :id')
+            ->setParameter('id', $adresseFilter)
+            ;
+        }
+        
+        return $query->getQuery()->getResult();
    }
+
 
    public function jobSearch($str, $date)
     {
-        return $this->createQueryBuilder('j')
+        $query = $this->createQueryBuilder('j')
             ->where('j.title LIKE :titre ')
             ->setParameter('titre', '%'.$str.'%')
             ->andWhere('j.expiredAt > :date')
-            ->setParameter('date',$date)
-            ->getQuery()
-            ->getResult();
+            ->setParameter('date',$date);
+
+        
+
+        return $query->getQuery()->getResult();
     }
+
+
 
 //    /**
 //     * @return Job[] Returns an array of Job objects

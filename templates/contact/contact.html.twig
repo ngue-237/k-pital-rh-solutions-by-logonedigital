@@ -1,0 +1,142 @@
+{% extends "base.html.twig" %} {% block body %}
+
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<!-- end Custom Cursor -->
+
+<!-- Header -->
+{{ include("./includes/navbar.html.twig") }}
+<!-- end Header -->
+
+<!-- Google Maps -->
+{#
+<div class="container-fluid padding-0">
+  <div
+    id="map1"
+    class="gmap gmap-xl"
+    data-latitude="51.513569"
+    data-longitude="-0.123443"
+  ></div>
+</div>
+#}
+<!-- end Google Maps -->
+
+<!-- Contact section -->
+<div class="section">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-12 col-md-4">
+        <div class="margin-bottom-30">
+          <h6 class="fw-normal margin-0">Téléphone:</h6>
+          <p>+(237) 693 058 485</p>
+          <p>+(237) 674 573 563</p>
+        </div>
+        <div class="margin-bottom-30">
+          <h6 class="fw-normal margin-0">Email:</h6>
+          <p>contact@capitalrhsolutions.com</p>
+        </div>
+        <div>
+          <h6 class="fw-normal margin-0">Address:</h6>
+          <p>121 King St, Melbourne VIC 3000</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="contact-form text-md-end">
+          {{ form_start(form) }}
+          <div class="row gx-3 gy-0">
+            <div class="col-12 col-sm-6">
+              {{
+                form_row(form.name, {
+                  label: false,
+                  attr: {
+                    placeholder: "Nom complet"
+                  }
+                })
+              }}
+            </div>
+            <div class="col-12 col-sm-6">
+              {{
+                form_row(form.email, {
+                  label: false,
+                  attr: {
+                    placeholder: "Email"
+                  }
+                })
+              }}
+            </div>
+          </div>
+          {{
+            form_row(form.subject, {
+              label: false,
+              attr: {
+                id: "subject",
+                placeholder: "Quel est l'object de votre demande ?"
+              }
+            })
+          }}
+          {{
+            form_row(form.message, {
+              label: false,
+              attr: {
+                placeholder: "Comment pouvons-nous vous aider ?",
+                id: "message"
+              }
+            })
+          }}
+          <div class="form-check">
+            {{
+              form_row(form.agreeTerm, {
+                attr: {
+                  class: "form-check-input",
+                  id: "defaultCheck1"
+                }
+              })
+            }}
+            <label
+              style="position: relative; left: -368px"
+              class="form-check-label"
+              for="defaultCheck1"
+            >
+              J'accepte les
+              <a href="{{ path('app_cgu') }}"
+                >condition générales d'utilisations</a
+              >
+            </label>
+          </div>
+          <button
+            class="button button-lg button-radius button-outline-dark-2"
+            type="submit"
+          >
+            Send Message
+          </button>
+          {{ form_end(form) }}
+          <!-- Submit result -->
+          <div class="submit-result">
+            <span id="success">Thank you! Your Message has been sent.</span>
+            <span id="error">Something went wrong, Please try again!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end Contact section -->
+
+{{ include("./includes/footer.html.twig") }}
+{% block javascripts %}
+<script src="https://www.google.com/recaptcha/api.js?render=6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe"></script>
+<script>
+  grecaptcha.ready(function () {
+    grecaptcha
+      .execute("6Lc96AYfAAAAAAJsKTsNdyF4yBBWVnt5rWll8Dbe", {
+        action: "homepage",
+      })
+      .then(function (token) {
+        console.log(document.getElementById("contact_captcha"));
+        document.getElementById("contact_captcha").value = token;
+      });
+  });
+</script>
+{% endblock %} {% endblock %}
