@@ -63,6 +63,7 @@ class JobCrudController extends AbstractCrudController
                 ->setDefaultColumns('col-12 col-md-6 col-xxl-6'),
             ImageField::new('image')
                 ->setLabel('Image')
+                ->setRequired(false)
                 ->setBasePath('uploads/images/jobImages')
                 ->setUploadDir('public/uploads/images/jobImages')
                 ->setDefaultColumns('col-12 col-md-6 col-xxl-6'),
