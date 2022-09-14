@@ -6,11 +6,13 @@ use App\Entity\Contact;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
 
 class ContactCrudController extends AbstractCrudController
 {
@@ -23,13 +25,12 @@ class ContactCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('index', "GERER VOS COURIELS")
-            ->setPageTitle('detail', "CONSULTER VOS OFFRES D'EMPLOIS")
-            ->setPageTitle('edit', "MODIFIER UN COURIEL")
-            ->setEntityLabelInSingular('un couriel')
-            ->setEntityLabelInPlural(' des couriels')
-            ->setSearchFields(['name', 'email'])
-            ->setDefaultSort(['name' => 'ASC', 'createdAt' => 'DESC'])
+            ->setPageTitle('index', "GERER VOS CANDIDATURES")
+            ->setPageTitle('detail', "DETAIL DELA CANDIDATURE")
+            ->setPageTitle('edit', "MODIFIER UNE CANDIDATURE")
+            ->setEntityLabelInSingular('une candidature')
+            ->setEntityLabelInPlural(' des candidatures')
+            ->setDefaultSort(['createdAt' => 'DESC'])
             ->setPaginatorPageSize(30)
             ;
     }
@@ -49,6 +50,7 @@ class ContactCrudController extends AbstractCrudController
             ->setDefaultColumns('col-12 col-md-6 col-xxl-6'),
             DateField::new('createdAt')
             ->setLabel("Date de création")
+            ->hideOnForm()
             ->setDefaultColumns('col-12 col-md-6 col-xxl-6'),
             TextareaField::new('message')
             ->setLabel("Contenu")
@@ -65,6 +67,16 @@ class ContactCrudController extends AbstractCrudController
             ->add(Crud::PAGE_EDIT, Action::INDEX)
             ->add(Crud::PAGE_NEW, Action::INDEX)
             ->disable(Action::NEW)
+            ->remove(Crud::PAGE_EDIT, Action::SAVE_AND_ADD_ANOTHER)
             ;
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('name')
+            ->add('email')
+            ->add(DateTimeFilter::new("createdAt"))
+        ;
     }
 }

@@ -76,7 +76,8 @@ class JobRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('j')
             ->setParameter('val', $value)
             ->where('j.expiredAt > :val')
-           ->orderBy('j.createdAt', 'ASC');
+            ->orWhere('j.expiredAt IS NULL')
+            ->orderBy('j.createdAt', 'ASC');
 
         if($filters!=null){
             $query->andWhere('j.categoryJob IN (:cats)')

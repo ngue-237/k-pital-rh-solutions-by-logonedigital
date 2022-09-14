@@ -29,13 +29,6 @@
           {{ adresse }}, {% endfor %}
         </span>
       </p>
-      {#
-      <p class="text-black-03">
-        Ref:<span style="font-size: 10px">
-          {{ job.ref }}
-        </span>
-      </p>
-      #}
     </div>
     <div class="col-12 col-lg-4 text-lg-end">
       <a
@@ -50,5 +43,7 @@
   <!-- end row -->
 </div>
 {% endfor %} {% else %}
-<p>Aucune offre d'emploi n'est disponibles pour l'instant</p>
-{% endif %} 
+<div class="row">
+  <p class="text-center text-dark">Aucune n'offre d'emplois m'a été trouver.</p>
+</div>
+{% endif %}

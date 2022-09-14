@@ -72,17 +72,6 @@ class DefaultController extends AbstractController
     
     
 
-    #[Route('/mon-compte', name: 'app_account')]
-    public function account(): Response
-    {
-        return $this->render('default/account.html.twig');
-    }
-
-    #[Route('/mon-compte/detail', name: 'app_account_single')]
-    public function accountDetail(): Response
-    {
-        return $this->render('default/account-single.html.twig');
-    }
 
     #[Route('/mentions-legales', name: 'app_cgu')]
     public function cgu(): Response

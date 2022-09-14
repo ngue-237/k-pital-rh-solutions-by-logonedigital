@@ -6,7 +6,7 @@
       <!-- 
 					<img class="logo-dark" src="{{ asset('frontoffice/') }}images/your-logo-dark.png" alt="">
 					<img class="logo-light" src="{{ asset('frontoffice/') }}images/your-logo-light.png" alt=""> 
-					-->
+				-->
     </div>
     <!-- Menu -->
     <div class="header-menu">
@@ -69,7 +69,9 @@
                 {% for item in catgsJob.getCategoriesJob %}
                   <li class="nav-subdropdown-item">
                    
-                  <a class="nav-subdropdown-link" href="#">{{item.designation}}</a>
+                  <a class="nav-subdropdown-link" href="{{
+                  path('app_job_by_category', { slug: item.slug })
+                }}">{{item.designation}}</a>
                 </li>
                 {% endfor %}
                 <li class="nav-subdropdown-item">
@@ -94,11 +96,11 @@
       <ul class="list-inline">
         <li>
           {% if app.user %}
-          <a title="se déconnecter" href="{{path("app_account")}}"
-            ><i class="bi bi-box-arrow-right"></i
+          <a title="mon compte" href="{{path("app_account")}}"
+            ><i class="bi bi-person"></i
           ></a>
           {% else %}
-          <a title="se connecter" href="{{path("app_account")}}"
+          <a title="se connecter" href="{{path("app_login")}}"
             ><i class="bi bi-person-circle"></i
           ></a>
           {% endif %}

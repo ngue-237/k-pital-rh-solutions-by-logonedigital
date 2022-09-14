@@ -21,7 +21,12 @@
     </div>
   </div>
   {% endfor %} {% else %}
-  <p>Ce setecteur d'activité n'existe pas.</p>
+  <div class="row">
+    <p class="text-center text-dark">
+      Ce secteur d'activité n'existe pas. Voir
+      <a href="{{ path('app_category_job') }}">tous nos secteurs d'activité</a>
+    </p>
+  </div>
   {% endif %}
 </div>
 

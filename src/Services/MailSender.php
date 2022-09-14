@@ -13,28 +13,29 @@ class MailSender {
     }
 
     public function send($to_email, $to_name, $content, $subject){
-        $mj = new Client($this->params->get('api_key'), $this->params->get('api_key_secret'),true,['version' => 'v3.1']);
-        //dd($content);
+
+
+       $mj = new Client($this->params->get('api_key'), $this->params->get('api_key_secret'),true,['version' => 'v3.1']);
+
+       //dd ($to_email);
         $body = [
             'Messages' => [
                 [
                     'From' => [
-                        'Email' => "emmanuelbenjamin@logonedigital.com",
-                        'Name' => "logonedigital"
-                        ],
+                        'Email' => "tpkdmta@gmail.com",
+                        'Name' => "Mintoua"
+                    ],
                     'To' => [
                         [
                             'Email' => $to_email,
                             'Name' => $to_name
                         ]
                     ],
-                    'TemplateID' => 4169301,
-                    'TemplateLanguage' => true,
                     'Subject' => $subject,
-                    
-                    'Variables' => [
-                        'content'=>$content
-                    ]
+
+                    'TextPart' => "My first Mailjet email",
+                    'HTMLPart' => $content,
+                    'CustomID' => "AppGettingStartedTest"
                 ]
             ]
         ];

@@ -25,7 +25,11 @@
 
                 <div class="row">
                     <h4>Créer un compte</h4>
+                    <div class="mb-3 justify-content-center">
+                        <a href="{{path('app_google_connect')}}" class="btn btn-success" style="margin-top: 20px; width:100%; margin-bottom: 20px; background-color: #3daa35; border-color:#3daa35;"><i class="fab fa-google"style="position:relative; left: -15px;"></i>Google</a>
                 </div>
+                </div>
+                    <div class="seperator "><b>ou</b></div>
                 <div class="mb-3">
                     {{
                     form_row(form.lastname, {
@@ -101,7 +105,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-4 d-flex justify-content-start">
                         <a
-                                href=""
+                                href="{{path("app_forgot_password")}}"
                                 class="form-link forgot-password-link"
                         >Mot de passe oublié</a
                         >
@@ -128,5 +132,6 @@
                 {{ form_end(form) }}
             </div>
         </div>
+    </div>
     </div>
 {% endblock %}
