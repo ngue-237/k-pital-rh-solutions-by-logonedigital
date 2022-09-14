@@ -4,7 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-  recapcha_secret: "%env(RECAPCHA_SECRET)%"
+    recapcha_secret: "%env(RECAPCHA_SECRET)%"
     url.transport: url
     api_key: "%env(api_key)%"
     api_key_secret: "%env(api_key_secret)%"
