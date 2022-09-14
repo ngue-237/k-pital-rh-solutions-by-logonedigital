@@ -92,6 +92,7 @@ class JobCrudController extends AbstractCrudController
             ->add(Crud::PAGE_EDIT, Action::SAVE_AND_ADD_ANOTHER)
             ->add(Crud::PAGE_NEW, Action::INDEX)
             ->add(Crud::PAGE_EDIT, Action::INDEX)
+            ->remove(Crud::PAGE_EDIT, Action::SAVE_AND_ADD_ANOTHER)
             ;
     }
 

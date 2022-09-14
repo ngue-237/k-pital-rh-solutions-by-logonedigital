@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
+use App\Services\MailSender;
 use App\Services\RecaptchaService;
 use Flasher\Prime\FlasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +25,8 @@ class ContactController extends AbstractController
     private EntityManagerInterface $manager,
     private FlasherInterface $flasher,
     private RecaptchaService $googleRecapcha,
-    private ParameterBagInterface $params
+    private ParameterBagInterface $params,
+    private MailSender $sender,
     )
     {
         
@@ -63,6 +65,13 @@ class ContactController extends AbstractController
                     $contact->setCreatedAt(new \DateTimeImmutable('now'));
                     $this->manager->persist($contact);
                     $this->manager->flush();
+
+                    $this->sender->send(
+                        $contact->getEmail(), 
+                        $contact->getName(), 
+                        $contact->getMessage(), 
+                        $contact->getSubject()
+                    );
 
                     $this->flasher->addSuccess("Votre demande a été bien prise en compte");
 
