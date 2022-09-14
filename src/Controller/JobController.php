@@ -164,11 +164,11 @@ class JobController extends AbstractController
     public function jobDetail(Job $job): Response
     {
         $jobCached = $job;
-         /** SEO PART */
+        /** SEO PART */
         $this->singleJobSeo($jobCached);
         /** END SEO PART */
 
-        $candidature = new Candidature;
+        $candidature = new Candidature();
         
         $candidateForm = $this->createForm(CandidatureType::class, $candidature);
 
