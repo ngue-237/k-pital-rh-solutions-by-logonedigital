@@ -80,22 +80,26 @@ class JobController extends AbstractController
         }
         /** END FILTER PART */
 
-        /**CACHE PART */
-        // $jobsCached = $this->cache->get('jobs' ,function (ItemInterface $item) use($filters, $adresseFilter){
-        //     $item->expiresAfter(\DateInterval::createFromDateString('30 day'));
-        //     return $this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter);
-        // } );
-        
-        /**END CACHE PART */
-        //dd($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter));
         /**SEO PART */
         $this->seoJobsPage();
         /**END SEO PART */
-               
+        
+        $adresses = $this->em->createQuery('SELECT c from App\Entity\Adresse c ORDER BY c.city ASC')
+        ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+        ->setCacheable(true)
+        ->setLifetime(86400)
+        ->getResult();
+
+        $categoriesJob = $this->em->createQuery('SELECT c from App\Entity\CategoryJob c ORDER BY c.designation ASC')
+        ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+        ->setCacheable(true)
+        ->setLifetime(86400)
+        ->getResult();
+
         return $this->render('job_template/jobs.html.twig', [
             "jobs"=>$this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter), $request->query->getInt('page', 1), 9),
-            "categoriesJob"=>$this->em->createQuery('SELECT c from App\Entity\CategoryJob c ORDER BY c.designation ASC')->execute(),
-            "adresses"=> $this->em->createQuery('SELECT c from App\Entity\Adresse c ORDER BY c.city ASC')->execute()
+            "categoriesJob"=>$categoriesJob,
+            "adresses"=> $adresses
         ]);
         
     }
@@ -127,11 +131,6 @@ class JobController extends AbstractController
         $this->seoCategoryJobPage();
         /**END SEO PART */
 
-        // $categoriesJobCached = $this->cache->get('all_category_job' ,function (ItemInterface $item) {
-        //     $item->expiresAfter(\DateInterval::createFromDateString('30 day'));
-        //     return $this->categoryJobRepo->listAllCategoriesJobByDate();
-        // } );
-
         return $this->render('job_template/all-category-job.html.twig', [
             "categoriesJob"=>$this->paginator->paginate($this->categoryJobRepo->listAllCategoriesJobByDate(), $request->query->getInt('page', 1), 9)
         ]);
@@ -153,32 +152,10 @@ class JobController extends AbstractController
     #[Route('/offres-emplois/secteur-activites/{slug}', name: 'app_job_by_category')]
     public function jobsByCategory(CategoryJob $categoryJob, Request $request): Response
     { 
-
-
-        $jobsCached = $this->paginator->paginate($this->jobRepo->listJobsByCategory($categoryJob->getId()), $request->query->getInt('page', 1), 9);
-        
-        
+        $jobsCached = $this->paginator->paginate($this->jobRepo->listJobsByCategory($categoryJob->getId()), $request->query->getInt('page', 1), 9); 
        
          /** SEO PART */
-        // $urlPackage = new UrlPackage(
-        //     'https://mabace-2.com/uploads/images/BlogImages/'.$post->getImage(),
-        //     new StaticVersionStrategy('v1')
-        // );
-
-        // $urlPackage->getUrl($post->getImage());
-
-        $this->seoPage->setTitle ($categoryJob->getDesignation())
-            -> addMeta ('property','og:title',$categoryJob->getDesignation())
-            ->addMeta('name', 'description', $categoryJob->getDescription())
-            ->addTitleSuffix("CAPITAL RH SOLUTIONS")
-            ->addMeta('property', 'og:title', $categoryJob->getDesignation())
-            ->setLinkCanonical($this->urlGenerator->generate('app_job_by_category',['slug'=>$categoryJob->getSlug()], urlGeneratorInterface::ABSOLUTE_URL))
-            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_job_by_category',['slug'=>$categoryJob->getSlug()], urlGeneratorInterface::ABSOLUTE_URL))
-            ->addMeta('property', 'og:description',$categoryJob->getDesignation())
-            // ->addMeta('property', 'og:image',$urlPackage->getBaseUrl($post->getImage()))
-            // ->addMeta('property', 'og:image:width',"300")
-            // ->addMeta('property', 'og:image:height',"300")
-           ->setBreadcrumb('blog', ['post' => $categoryJob]);
+        $this->seoSingleCategoryJobPage($categoryJob);
         /** END SEO PART */
 
         return $this->render('job_template/job-by-category.html.twig', [
@@ -187,12 +164,40 @@ class JobController extends AbstractController
         ]);
     }
 
+    private function seoSingleCategoryJobPage($categoryJob){
+        $this->seoPage->setTitle ($categoryJob->getDesignation())
+            -> addMeta ('property','og:title',$categoryJob->getDesignation())
+            ->addMeta('name', 'description', $categoryJob->getDescription())
+            ->addTitleSuffix("CAPITAL RH SOLUTIONS")
+            ->addMeta('property', 'og:title', $categoryJob->getDesignation())
+            ->setLinkCanonical($this->urlGenerator->generate('app_job_by_category',['slug'=>$categoryJob->getSlug()], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_job_by_category',['slug'=>$categoryJob->getSlug()], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description',$categoryJob->getDesignation())
+            ->setBreadcrumb('blog', ['post' => $categoryJob]);
+    }
+
     #[Route('/offres-emplois/{slug}', name: 'app_job_detail')]
-    public function jobDetail(Job $job): Response
+    public function jobDetail($slug): Response
     {
-        $jobCached = $job;
+        //$jobCached = $job;
+
+        $jobsCached=$this->em->createQuery("SELECT j FROM App\Entity\Job j WHERE  j.slug = :slug")
+        ->setParameter("slug", $slug)
+        ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+        ->setCacheable(true)
+        ->setLifetime(86400)
+        ->getResult()
+        ;
+
+        if(!$jobsCached){
+            $this->createNotFoundException();
+        }
+
+
         /** SEO PART */
-        $this->singleJobSeo($jobCached);
+        foreach($jobsCached as $jobCached){
+            $this->singleJobSeo($jobCached);
+        }
         /** END SEO PART */
 
         $candidature = new Candidature();
@@ -200,17 +205,12 @@ class JobController extends AbstractController
         $candidateForm = $this->createForm(CandidatureType::class, $candidature);
 
         return $this->render('job_template/job-single.html.twig', [
-            "job"=>$job,
+            "jobs"=>$jobsCached,
             "recentJobs"=>$this->jobRepo->recentJob(),
             "categoriesJob"=>$this->categoryJobRepo->listCategories(),
             "candidateForm"=>$candidateForm->createView(),
         ]);
     }
-
-    // #[Route("/offres-emplois/postuler", name:"app_postuler")]
-    // public function candidatureProcess():Response{
-
-    // }
 
     private function singleJobSeo(Job $jobCached){
         $urlPackage = new UrlPackage(
