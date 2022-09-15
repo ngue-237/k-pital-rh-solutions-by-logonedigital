@@ -62,6 +62,9 @@ class JobRepository extends ServiceEntityRepository
            ->setParameter('val', $value)
            ->orderBy('j.createdAt', 'DESC')
            ->getQuery()
+           ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+           ->setCacheable(true)
+           ->setLifetime(86400)
            ->getResult()
        ;
    }
@@ -98,7 +101,11 @@ class JobRepository extends ServiceEntityRepository
             ;
         }
         
-        return $query->getQuery()->getResult();
+        return $query->getQuery()
+        ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+        ->setCacheable(true)
+        ->setLifetime(86400)
+        ->getResult();
    }
 
 

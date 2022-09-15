@@ -7,6 +7,7 @@
 <!-- Header -->
 {{ include("./includes/navbar.html.twig") }}
 <!-- end Header -->
+{% for job in jobs %}
 
 <div class="section-sm bg-grey-lighter">
   <div class="container text-center">
@@ -44,11 +45,13 @@
                 >
               </div>
               <div class="d-inline-flex">
-                <span class="font-small"
-                  >{{ job.expiredAt().format("M") }}
+                <span>
+                  {% if job.expiredAt is not empty %}
+                  {{ job.expiredAt().format("M") }}
                   {{ job.expiredAt().format("j") }},
-                  {{ job.expiredAt().format("Y") }}</span
-                >
+                  {{ job.expiredAt().format("Y") }}
+                  {% else %} Durée indéterminée {% endif %}
+                </span>
               </div>
             </div>
             <h5>
@@ -72,7 +75,7 @@
               class="button button-lg button-radius button-reveal-right-outline-dark margin-top-10"
               href="{{ path('app_login') }}"
             >
-              <i class="bi bi-arrow-right"></i><span></span>
+              <i class="bi bi-arrow-right"></i><span>Postuler</span>
             </a>
             {% endif %}
           </div>
@@ -146,11 +149,13 @@
                   >{{ recentJob.title |slice(0, 30) }}...</a
                 >
               </h6>
-              <span
-                >{{ job.expiredAt().format("M") }}
+              <span>
+                {% if job.expiredAt is not empty %}
+                {{ job.expiredAt().format("M") }}
                 {{ job.expiredAt().format("j") }},
-                {{ job.expiredAt().format("Y") }}</span
-              >
+                {{ job.expiredAt().format("Y") }}
+                {% else %} Durée indéterminée {% endif %}
+              </span>
             </div>
           </div>
           {% endfor %}
@@ -186,5 +191,6 @@
     ><i class="bi bi-arrow-up"></i
   ></a>
 </div>
+{% endfor %}
 <!-- end Scroll to top button -->
 {% endblock %}

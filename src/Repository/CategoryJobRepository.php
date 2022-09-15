@@ -48,6 +48,9 @@ class CategoryJobRepository extends ServiceEntityRepository
            ->orderBy('c.createdAt', 'DESC')
            ->setMaxResults(6)
            ->getQuery()
+           ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+           ->setCacheable(true)
+           ->setLifetime(86400)
            ->getResult()
        ;
    }
@@ -60,6 +63,9 @@ class CategoryJobRepository extends ServiceEntityRepository
        return $this->createQueryBuilder('c')
            ->orderBy('c.createdAt', 'DESC')
            ->addOrderBy('c.designation', 'ASC')
+           ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+           ->setCacheable(true)
+           ->setLifetime(86400)
            ->getQuery()
            ->getResult()
        ;
@@ -74,6 +80,9 @@ class CategoryJobRepository extends ServiceEntityRepository
            ->addOrderBy('c.designation', 'ASC')
            ->setMaxResults(3)
            ->getQuery()
+           ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+           ->setCacheable(true)
+           ->setLifetime(86400)
            ->getResult()
        ;
    }
@@ -88,6 +97,9 @@ class CategoryJobRepository extends ServiceEntityRepository
            ->setParameter('val', '%'.$value.'%')
            ->orderBy('c.createdAt', 'DESC')
            ->getQuery()
+           ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+           ->setCacheable(true)
+           ->setLifetime(86400)
            ->getResult()
        ;
    }
@@ -102,6 +114,9 @@ class CategoryJobRepository extends ServiceEntityRepository
            ->setParameter('val', $value)
            ->orderBy('c.createdAt', 'DESC')
            ->getQuery()
+           ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+           ->setCacheable(true)
+           ->setLifetime(86400)
            ->getResult()
        ;
    }
