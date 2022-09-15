@@ -81,10 +81,10 @@ class JobController extends AbstractController
         /** END FILTER PART */
 
         /**CACHE PART */
-        $jobsCached = $this->cache->get('jobs' ,function (ItemInterface $item) use($filters, $adresseFilter){
-            $item->expiresAfter(\DateInterval::createFromDateString('30 day'));
-            return $this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter);
-        } );
+        // $jobsCached = $this->cache->get('jobs' ,function (ItemInterface $item) use($filters, $adresseFilter){
+        //     $item->expiresAfter(\DateInterval::createFromDateString('30 day'));
+        //     return $this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter);
+        // } );
         
         /**END CACHE PART */
         //dd($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter));
@@ -93,7 +93,7 @@ class JobController extends AbstractController
         /**END SEO PART */
                
         return $this->render('job_template/jobs.html.twig', [
-            "jobs"=>$this->paginator->paginate($jobsCached, $request->query->getInt('page', 1), 9),
+            "jobs"=>$this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter), $request->query->getInt('page', 1), 9),
             "categoriesJob"=>$this->em->createQuery('SELECT c from App\Entity\CategoryJob c ORDER BY c.designation ASC')->execute(),
             "adresses"=> $this->em->createQuery('SELECT c from App\Entity\Adresse c ORDER BY c.city ASC')->execute()
         ]);
@@ -127,6 +127,11 @@ class JobController extends AbstractController
         $this->seoCategoryJobPage();
         /**END SEO PART */
 
+        // $categoriesJobCached = $this->cache->get('all_category_job' ,function (ItemInterface $item) {
+        //     $item->expiresAfter(\DateInterval::createFromDateString('30 day'));
+        //     return $this->categoryJobRepo->listAllCategoriesJobByDate();
+        // } );
+
         return $this->render('job_template/all-category-job.html.twig', [
             "categoriesJob"=>$this->paginator->paginate($this->categoryJobRepo->listAllCategoriesJobByDate(), $request->query->getInt('page', 1), 9)
         ]);
@@ -149,9 +154,10 @@ class JobController extends AbstractController
     public function jobsByCategory(CategoryJob $categoryJob, Request $request): Response
     { 
 
+
         $jobsCached = $this->paginator->paginate($this->jobRepo->listJobsByCategory($categoryJob->getId()), $request->query->getInt('page', 1), 9);
         
-
+        
        
          /** SEO PART */
         // $urlPackage = new UrlPackage(
