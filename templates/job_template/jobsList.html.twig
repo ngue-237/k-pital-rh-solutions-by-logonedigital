@@ -10,7 +10,9 @@
         >
       </h5>
       <h6 class="font-small fw-normal uppercase">
-        <a class="text-link-0" href="#">{{ job.categoryJob | capitalize }}</a>
+        <a class="text-link-0" href="#">{{
+          job.categoryJob.designation | capitalize
+        }}</a>
       </h6>
       <p class="text-black-03">
         <i class="bi bi-clock-history margin-right-10"></i

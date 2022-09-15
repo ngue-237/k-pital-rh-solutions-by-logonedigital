@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Candidature;
 use App\Entity\Job;
+use App\Entity\Candidature;
 use App\Entity\CategoryJob;
 use App\Form\CandidatureType;
 use App\Repository\JobRepository;
@@ -11,14 +11,16 @@ use Symfony\Component\Asset\UrlPackage;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CategoryJobRepository;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JobController extends AbstractController
 {
@@ -29,7 +31,7 @@ class JobController extends AbstractController
     private EntityManagerInterface $em,
     private SeoPageInterface $seoPage,
     private UrlGeneratorInterface $urlGenerator,
-        
+    private CacheInterface $cache ,     
     )
     {
         
@@ -38,12 +40,11 @@ class JobController extends AbstractController
     #[Route('/offres-emploi', name: 'app_jobs')]
     public function jobs(Request $request): Response
     {   
+        
 
         /**FILTER PART */
-        
         $filters = $request->get('categories');
-        $adresseFilter = $request->get('adresse');
-        
+        $adresseFilter = $request->get('adresse');  
         if($request->get('ajax')){
            
             if($filters !=null and $adresseFilter == null){
@@ -79,7 +80,31 @@ class JobController extends AbstractController
         }
         /** END FILTER PART */
 
-
+        /**CACHE PART */
+        $jobsCached = $this->cache->get('jobs' ,function (ItemInterface $item) use($filters, $adresseFilter){
+            $item->expiresAfter(\DateInterval::createFromDateString('30 day'));
+            return $this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter);
+        } );
+        
+        /**END CACHE PART */
+        //dd($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter));
+        /**SEO PART */
+        $this->seoJobsPage();
+        /**END SEO PART */
+               
+        return $this->render('job_template/jobs.html.twig', [
+            "jobs"=>$this->paginator->paginate($jobsCached, $request->query->getInt('page', 1), 9),
+            "categoriesJob"=>$this->em->createQuery('SELECT c from App\Entity\CategoryJob c ORDER BY c.designation ASC')->execute(),
+            "adresses"=> $this->em->createQuery('SELECT c from App\Entity\Adresse c ORDER BY c.city ASC')->execute()
+        ]);
+        
+    }
+    /**
+     * managing seo for jobs page
+     *
+     * @return void
+     */
+    private function seoJobsPage(){
         /**SEO PART */
         $description = "la meilleures agence de conseils Rh au Cameroun";
         $this -> seoPage -> setTitle ("Toutes nos offres d'emplois")
@@ -92,14 +117,6 @@ class JobController extends AbstractController
             ->addMeta('property', 'og:description',$description)
             ->setBreadcrumb('/Offres-emplois/toutes-nos-offres', []);
         /**END SEO PART */
-        
-               
-        return $this->render('job_template/jobs.html.twig', [
-            "jobs"=>$this->paginator->paginate($this->jobRepo->listAllJobs(new \DateTimeImmutable('now'), $filters, $adresseFilter), $request->query->getInt('page', 1), 9),
-            "categoriesJob"=>$this->em->createQuery('SELECT c from App\Entity\CategoryJob c ORDER BY c.designation ASC')->execute(),
-            "adresses"=> $this->em->createQuery('SELECT c from App\Entity\Adresse c ORDER BY c.city ASC')->execute()
-        ]);
-        
     }
 
     #[Route('/offres-emplois/toutes-nos-secteur-activites', name: 'app_category_job')]
