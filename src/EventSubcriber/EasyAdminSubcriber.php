@@ -2,6 +2,7 @@
 
 namespace App\EventSubcriber;
 
+use App\Entity\CategoryJob;
 use App\Entity\Contact;
 use App\Entity\Job;
 use App\Entity\User;
@@ -84,6 +85,9 @@ class EasyAdminSubcriber implements EventSubscriberInterface
         $entity = $event->getEntityInstance();
 
         if($entity instanceof User){
+            $entity->setUpdatedAt(new \DateTimeImmutable('now'));
+        }
+        if($entity instanceof CategoryJob){
             $entity->setUpdatedAt(new \DateTimeImmutable('now'));
         }
 

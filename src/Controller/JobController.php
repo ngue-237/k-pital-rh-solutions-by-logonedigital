@@ -107,6 +107,15 @@ class JobController extends AbstractController
     {   
         
         /**SEO PART */
+        $this->seoCategoryJobPage();
+        /**END SEO PART */
+
+        return $this->render('job_template/all-category-job.html.twig', [
+            "categoriesJob"=>$this->paginator->paginate($this->categoryJobRepo->listAllCategoriesJobByDate(), $request->query->getInt('page', 1), 9)
+        ]);
+    }
+
+    private function seoCategoryJobPage():void{
         $description = "la meilleures agence de conseils Rh au Cameroun";
         $this -> seoPage -> setTitle ("Toutes les secteurs d'activité dans lesquels nous internons")
             ->addMeta ('property','og:title','les petites annonces MA.BA.CE II')
@@ -117,11 +126,6 @@ class JobController extends AbstractController
             ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_category_job',[], urlGeneratorInterface::ABSOLUTE_URL))
             ->addMeta('property', 'og:description',$description)
             ->setBreadcrumb('/Offres-emplois/toutes-secteurs-activité', []);
-        /**END SEO PART */
-
-        return $this->render('job_template/all-category-job.html.twig', [
-            "categoriesJob"=>$this->paginator->paginate($this->categoryJobRepo->listAllCategoriesJobByDate(), $request->query->getInt('page', 1), 9)
-        ]);
     }
 
     #[Route('/offres-emplois/secteur-activites/{slug}', name: 'app_job_by_category')]
