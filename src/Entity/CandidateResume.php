@@ -77,18 +77,22 @@ class CandidateResume
         return $this->cvFile;
     }
 
-    #[ORM\OneToOne(inversedBy: 'candidateResume', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'candidateResume', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Skill::class)]
+    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Skill::class, orphanRemoval: true)]
     private Collection $skills;
+
+    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Language::class, orphanRemoval: true)]
+    private Collection $languages;
 
     public function __construct()
     {
         $this->skills = new ArrayCollection();
+        $this->languages = new ArrayCollection();
     }
 
     public function setImageFile(File $image = null)
@@ -234,6 +238,36 @@ class CandidateResume
             // set the owning side to null (unless already changed)
             if ($skill->getCandidateResume() === $this) {
                 $skill->setCandidateResume(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Language>
+     */
+    public function getLanguages(): Collection
+    {
+        return $this->languages;
+    }
+
+    public function addLanguage(Language $language): self
+    {
+        if (!$this->languages->contains($language)) {
+            $this->languages->add($language);
+            $language->setCandidateResume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLanguage(Language $language): self
+    {
+        if ($this->languages->removeElement($language)) {
+            // set the owning side to null (unless already changed)
+            if ($language->getCandidateResume() === $this) {
+                $language->setCandidateResume(null);
             }
         }
 

@@ -119,7 +119,7 @@ class RegistrationController extends AbstractController
                 "Vérification d'E-mail"
             );*/
            # $this->flasher->addInfo('Veuillez confirmer votre email.');
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_login'); //i'll customize this return later
         }
 
         return $this->render('registration/register.html.twig', [

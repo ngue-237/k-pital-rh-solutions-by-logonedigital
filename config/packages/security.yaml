@@ -41,7 +41,7 @@ security:
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/mon-compte, roles: ROLE_USER }
         - { path: ^/logout, role: PUBLIC_ACCESS }
 
 when@test:
