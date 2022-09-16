@@ -53,11 +53,19 @@
             </tr>
           </thead>
           <tbody>
+          {% for candidature in candidatures %}
+              {{ dump(candidature) }}
             <tr>
-              <td>Mark</td>
-              <td>Mark</td>
-              <td>Mark</td>
-              <td>Otto</td>
+              <td>{{ candidature.job.title }}</td>
+              <td>{{ candidature.job.categoryJob.designation }}</td>
+              <td>{{ candidature.createdAt | date }}</td>
+              <td>
+                {% if candidature.isHired == true %}
+                  Demande Accepté
+                  {% else %}
+                  En cours ...
+                {% endif %}
+              </td>
               <td class="text-center">
                 <a href="#"><i class="bi bi-eye text-info"></i></a>
                 <a href="#"
@@ -65,6 +73,7 @@
                 ></a>
               </td>
             </tr>
+          {% endfor %}
           </tbody>
         </table>
       </div>

@@ -1,0 +1,36 @@
+<div class="modal fade" id="applyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-2">
+            {{ form_start(form,{'action': url, label: false, attr: {class: "form-style-3"}}) }}
+            <div class="modal-header">
+                <h6>Ma Candidature </h6>
+                <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </div>
+            <div class="modal-body p-3">
+                {{
+                form_row(form.message, {
+                    label: false,
+                    attr: {
+                        maxlength: "300",
+                        placeholder: "Vos motivations (soyez le plus bref possible)...",
+                    }
+                })
+                }}
+                <div class="mt-3 px-4">
+                    <div class="d-flex flex-row align-items-center mt-2">
+                        <div class="ml-3">
+                            {{ form_row(form.cv) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="button button-radius text-bg-danger" data-dismiss="modal">Fermer</a>
+                <button type="submit" class="button button-xs button-radius button-outline-dark-2">Enregistrer</button>
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

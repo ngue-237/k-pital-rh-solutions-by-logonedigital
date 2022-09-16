@@ -7,6 +7,7 @@ use App\Entity\Candidature;
 use App\Entity\CategoryJob;
 use App\Form\CandidatureType;
 use App\Repository\JobRepository;
+use App\Services\FileUploader;
 use Symfony\Component\Asset\UrlPackage;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CategoryJobRepository;
@@ -177,12 +178,12 @@ class JobController extends AbstractController
     }
 
     #[Route('/offres-emplois/{slug}', name: 'app_job_detail')]
-    public function jobDetail($slug): Response
+    public function jobDetail(Request $request, Job $job, FileUploader $fileUploader): Response
     {
         //$jobCached = $job;
 
         $jobsCached=$this->em->createQuery("SELECT j FROM App\Entity\Job j WHERE  j.slug = :slug")
-        ->setParameter("slug", $slug)
+        ->setParameter("slug", $job->getSlug ())
         ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
         ->setCacheable(true)
         ->setLifetime(86400)
@@ -201,14 +202,40 @@ class JobController extends AbstractController
         /** END SEO PART */
 
         $candidature = new Candidature();
-        
-        $candidateForm = $this->createForm(CandidatureType::class, $candidature);
+
+        $candidateForm =  $this->createForm (CandidatureType::class, $candidature);
+        $candidateForm->handleRequest ($request);
+
+        if($candidateForm->isSubmitted ()){
+            if($candidateForm->isValid ()){
+                $cvFile = $candidateForm->get('cv')->getData();
+                if ($cvFile) {
+                    $cvFileName = $fileUploader->upload($cvFile,'cvs_directory');
+                    $candidature->setCv($cvFileName);
+                }
+
+                $candidature->setJob ($job);
+                $candidature->setUser ($this->getUser ());
+                $candidature->setCandidateResume ($this->getUser ()->getCandidateResume());
+                $candidature->setExpiredAt ($job->getExpiredAt ());
+                $candidature->setCreatedAt (new \DateTimeImmutable('now'));
+                $candidature->setIsHired (0);
+                $candidature->setMessage ($candidateForm->get ('message')->getData ());
+
+                dd ($candidature);
+                $this->em->persist ($candidature);
+                $this->em->flush ();
+
+                return $this->redirectToRoute ('app_jobs');
+            }
+        }
+
 
         return $this->render('job_template/job-single.html.twig', [
             "jobs"=>$jobsCached,
             "recentJobs"=>$this->jobRepo->recentJob(),
             "categoriesJob"=>$this->categoryJobRepo->listCategories(),
-            "candidateForm"=>$candidateForm->createView(),
+            "form"=>$candidateForm->createView(),
         ]);
     }
 

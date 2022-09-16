@@ -70,8 +70,6 @@ class DefaultController extends AbstractController
         return $this->render('default/services.html.twig');
     }
     
-    
-
 
     #[Route('/mentions-legales', name: 'app_cgu')]
     public function cgu(): Response
