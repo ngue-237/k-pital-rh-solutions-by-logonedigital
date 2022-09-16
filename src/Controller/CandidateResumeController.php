@@ -8,12 +8,15 @@ use App\Entity\Skill;
 use App\Form\ProfilType;
 use App\Form\SkillType;
 use App\Repository\JobRepository;
+use App\Services\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Flasher\Prime\FlasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CandidateResumeController extends AbstractController
 {
@@ -25,33 +28,35 @@ class CandidateResumeController extends AbstractController
     }
 
     #[Route('/mon-compte/carte-de-visite', name: 'app_profil')]
-    public function myProfile(Request $request): Response
+    public function myProfile(Request $request, SluggerInterface $slugger, FileUploader $fileUploader): Response
     {
         $user = $this->getUser ();
         $myResume = $user->getCandidateResume();
 
-        if(!$user->getCandidateResume()){
-            $myResume = new CandidateResume();
-            $myResume->setUser ($user);
-            $myResume->setCreatedAt (new \DateTimeImmutable(('now')));
-            $myResume->setEmail ($user->getEmail());
-            $myResume->setNomcomplet ($user->getLastname().' '.$user->getFirstname());
-
-            $form = $this->createForm (ProfilType::class, $myResume);
-        }else{
-            $form = $this->createForm (ProfilType::class,$myResume);
-        }
+        $form = $this->createForm (ProfilType::class,$myResume);
 
         $form->handleRequest ($request);
+
         if ($form->isSubmitted () && $form->isValid ()){
-            $this->entityManager->persist ($myResume);
-            //dd ($myResume);
+            $cvFile = $form->get('cv')->getData();
+            $imageFile = $form->get ('photo')->getData ();
+
+            if ($imageFile){
+                $pictureName = $fileUploader->upload ($imageFile,'candidates_images_dir');
+                $myResume->setPhoto($pictureName);
+            }
+
+            if ($cvFile) {
+                $cvFileName = $fileUploader->upload($cvFile,'cvs_directory');
+                $myResume->setCv($cvFileName);
+            }
+            $user->setCandidateResume($myResume);
             $this->entityManager->flush ();
 
             return $this->redirectToRoute ('app_account_resume');
         }
 
-        return $this->render('account/candidate_resume/profil_form.html.twig',[
+        return $this->render('account/candidate_resume/modals/update_resume.html.twig',[
             'form'=>$form->createView ()
         ]);
     }

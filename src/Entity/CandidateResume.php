@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -39,7 +40,7 @@ class CandidateResume
      * @Vich\UploadableField(mapping="candidates_images", fileNameProperty="photo")
      * @var File
      */
-    private $imageFile;
+    public $imageFile;
 
     /**
      * @ORM\Column(type="datetime")
@@ -47,6 +48,8 @@ class CandidateResume
      */
     private $updatedAt;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 300)]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $presentation = null;
 

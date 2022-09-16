@@ -5,21 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeb8cc4f-ce2a-4042-aaaa-0a668b2fb4d6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_addlanguage.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_deletelanguage.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_updatelanguage.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/language_options.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_deleteskill.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_updateskill.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Services/FileUploader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/update_resume.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/vich_uploader.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/files/user/cvs/631f694873dca712049954.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/files/user/cvs/6320bf60d2f8f254234105.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/files/user/cvs/6320f1a68675d174386932.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/files/user/cvs/6320f2078c7f9054274402.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/files/user/cvs/6320f2a93171c054159040.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/files/user/cvs/63226775c9a3d547058890.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/profilImages/6320f2a92df58557637029.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/profilImages/63226848a1355043412411.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/CandidateResumeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CandidateResumeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/CandidateResume.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CandidateResume.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/UserAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/UserAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/ProfilType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/ProfilType.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/account/account_resume.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/account_resume.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/modal_skill.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_addskill.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/account.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_updateskill.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_updateskill.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/profil_form.html.twig" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,22 +219,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Mta/LogoneP/k-pital-rh-solutions-by-logonedigital/templates/account/candidate_resume/modals/languages",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Mta/LogoneP/k-pital-rh-solutions-by-logonedigital/templates/account/candidate_resume/modals/languages&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Mta\LogoneP\k-pital-rh-solutions-by-logonedigital\templates\account\candidate_resume\modals\languages" />

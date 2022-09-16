@@ -23,71 +23,91 @@
         </div>
 
         <div class="col-12 col-lg-10 offset-lg-1">
-          <!-- Job Listing 1 -->
-          <div class="padding-30 pt-1  border-all border-radius hover-shadow">
+          <!--  Listing 1 -->
+          <div class="padding-30 pt-1  border-all border-radius hover-shadow  pt-0">
             <h4 class="fw-normal margin-0">Carte de visite</h4>
-            <div class="row g-3 pt-2">
-              <div class="col-6 col-sm-4 col-lg-3">
-
-                {% if userResume.photo  %}
-                  <img class="border-radius" src="{{ vich_uploader_asset(userResume, 'imageFile') }}" alt="">
-                {% else %}
-                <img class="border-radius" src="{{ asset('frontoffice/images/avatar_profile.png') }}" alt="">
-                {% endif %}
-              </div>
-              <div class="col-12 col-sm-6 ">
-                <h5 class="fw-normal">{{ userResume.nomcomplet }}</h5>
-                <p>{{ userResume.email }} | {{ userResume.telephone }}</p>
-                <p>{{ userResume.presentation }}</p>
-              </div>
-              <div class="col-12 col-sm-6">
-                <h6 class="font-family-tertiary font-small fw-medium uppercase">Documents:</h6>
-                <ul class="list-dash">
-                  <li>CV</li>
-                  <li>Ability to travel on short notice</li>
-                </ul>
+            <div class="container mt-0 mb-0">
+              <div class="row mt-0 mb-0">
+                <div class="col">
+                  <div class="row">
+                    <div class="col-md-3 border-right">
+                      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                        {% if userResume.photo  %}
+                          <img class="rounded-circle mt-2" width="150px" src="{{ vich_uploader_asset(userResume, 'imageFile') }}" alt="">
+                        {% else %}
+                          <img class="rounded-circle mt-2" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                        {% endif %}
+                        <h6 class="font-weight-bold">{{ userResume.nomcomplet }}</h6>
+                        <span class="text-black-50">{{ userResume.email }} </span>
+                        <span> {{ userResume.telephone }} </span>
+                      </div>
+                    </div>
+                    <div class="col-md-5 border-right">
+                      <div class="p-1 py-2">
+                        <div class="row mt-2">
+                          <div class="p-2 mt-2">
+                            <p>{{ userResume.presentation }}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center experience">
+                          <h5>Documents</h5>
+                        </div><br>
+                        <div class="col-md-12">
+                          {% if userResume.cv %}
+                          <a href="{{ asset('uploads/files/user/cvs/' ~ userResume.cv) }}" target="_blank" class="button button-fancy-1-outline ">Voir mon CV (PDF)</a>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div class="text-end margin-top-10 margin-lg-top-20">
-              <a class="button-text-1" href="{{ path('app_profil') }}">Modifier</a>
+            <div class="text-end margin-top-0 margin-lg-top-20">
+              {{ render_esi(path('app_profil')) }}
             </div>
           </div>
-          <!-- Job Listing 2 -->
-          <div class="padding-40 border-all border-radius hover-shadow margin-top-50 margin-lg-top-70">
+          <!--  Listing 2 -->
+          <div class="padding-40 pl-0 pt-1 border-all border-radius hover-shadow margin-top-40 margin-lg-top-50">
             <h4 class="fw-normal margin-0">Mes Compétences</h4>
             <div class="container">
+
               {% if (userResume.skills | length)>0 %}
                 {% for skill in userResume.skills %}
                 <div class="row pt-2 ">
-                <div class="col">
-                  <div class="row-cols-4">
-                    <h6 class="col-12">{{ skill.title }}</h6>
-                    <div class="col-auto">
-                      {% for star in 1..skill.level %}
-                        <span class="fa fa-star checked"></span>
-                      {% endfor %}
-                      {% if skill.level < 5 %}
-                        {% for i in 1..(5 - skill.level) %}
-                          <span class="fa fa-star"></span>
+                  <div class="col">
+                    <div class="row-cols-4">
+                      <h6 class="col-12">{{ skill.title }}</h6>
+                      <div class="col-auto">
+                        {% for star in 1..skill.level %}
+                          <span class="fa fa-star checked"></span>
                         {% endfor %}
-                      {% endif %}
+                        {% if skill.level < 5 %}
+                          {% for i in 1..(5 - skill.level) %}
+                            <span class="fa fa-star"></span>
+                          {% endfor %}
+                        {% endif %}
+                      </div>
+                      <i class="col">
+                        {% if skill.level == 1 %}
+                          Novice
+                        {% elseif skill.level == 2 %}
+                          Débutant
+                          {% elseif skill.level == 3 %}
+                            Avancé
+                            {% elseif skill.level == 4 %}
+                              Compétent
+                              {% else %}
+                                Expert
+                                {% endif %}
+                      </i>
                     </div>
-                    <i class="col">
-                      {% if skill.level == 1 %}
-                        Novice
-                      {% elseif skill.level == 2 %}
-                        Débutant
-                        {% elseif skill.level == 3 %}
-                          Avancé
-                          {% elseif skill.level == 4 %}
-                            Compétent
-                            {% else %}
-                              Expert
-                              {% endif %}
-                    </i>
                   </div>
-                </div>
                 <div class="col-md-8">
                   <p>
                     {{ skill.description }}
@@ -116,8 +136,8 @@
               {{ render_esi(path('app_profil_add_skill')) }}
             </div>
           </div>
-          <!-- Job Listing 3 -->
-          <div class="padding-30 pl-0 pt-1 border-all border-radius hover-shadow margin-top-50 margin-lg-top-70">
+          <!--  Listing 3 -->
+          <div class="padding-30 pl-0 pt-1 border-all border-radius hover-shadow margin-top-40 margin-lg-top-50">
             <h4 class="fw-normal margin-0 pb-4 pt-0">Langues</h4>
             <div class="row">
               <div class="col-12 col-sm-12 col-lg-10 col-xl-10 col-xxl-10">
