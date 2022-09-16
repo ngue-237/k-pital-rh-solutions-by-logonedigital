@@ -2,21 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\CandidateResume;
+
 use App\Entity\Language;
 use App\Entity\Skill;
 use App\Form\ProfilType;
-use App\Form\SkillType;
-use App\Repository\JobRepository;
 use App\Services\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Flasher\Prime\FlasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
+
 
 class CandidateResumeController extends AbstractController
 {
@@ -28,7 +25,7 @@ class CandidateResumeController extends AbstractController
     }
 
     #[Route('/mon-compte/carte-de-visite', name: 'app_profil')]
-    public function myProfile(Request $request, SluggerInterface $slugger, FileUploader $fileUploader): Response
+    public function myProfile(Request $request, FileUploader $fileUploader): Response
     {
         $user = $this->getUser ();
         $myResume = $user->getCandidateResume();
