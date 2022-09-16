@@ -7,6 +7,8 @@
 /public/bundles/
 /var/
 /vendor/
+/public/uploads/files/user/cvs/*
+/public/uploads/images/profilImages/*
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

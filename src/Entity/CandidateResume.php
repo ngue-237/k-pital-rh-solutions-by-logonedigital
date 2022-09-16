@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity
  * @Vich\Uploadable
  */
 #[ORM\Entity(repositoryClass: CandidateResumeRepository::class)]
@@ -92,10 +91,14 @@ class CandidateResume
     #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Language::class, orphanRemoval: true)]
     private Collection $languages;
 
+    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Candidature::class)]
+    private Collection $candidatures;
+
     public function __construct()
     {
         $this->skills = new ArrayCollection();
         $this->languages = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
     }
 
     public function setImageFile(File $image = null)
@@ -271,6 +274,36 @@ class CandidateResume
             // set the owning side to null (unless already changed)
             if ($language->getCandidateResume() === $this) {
                 $language->setCandidateResume(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setCandidateResume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getCandidateResume() === $this) {
+                $candidature->setCandidateResume(null);
             }
         }
 
