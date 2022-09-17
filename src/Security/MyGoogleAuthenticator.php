@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\CandidateResume;
 use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
 use Flasher\Prime\FlasherInterface;
@@ -94,11 +95,20 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
                     $user->setIsVerified(true);
                     $user->setIsBlocked(false);
 
+                    $candidateResume = new CandidateResume();
+                    $candidateResume->setNomcomplet ($user->getFirstname ().' '.$user->getLastname ());
+                    $candidateResume->setUser ($user);
+                    $candidateResume->setEmail ($user->getEmail ());
+                    $candidateResume->setCreatedAt (new \DateTimeImmutable('now'));
+
+                    $user->setCandidateResume ($candidateResume);
                     $user->setRgpd(true);
                     $user->setRoles(['ROLE_USER']);
                     $hashedPassword =$this->encoder->hashPassword($user,md5(uniqid()));
 
                     $user->setPassword($hashedPassword);
+
+                    $this->entityManager->persist ($candidateResume);
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                 }   
@@ -120,7 +130,7 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
           }
 
         // $targetUrl = $this->router->generate('app_home');
-          $this->flasher->addFlash('Succès !');
+          $this->flasher->addSuccess('Succès !');
         return new RedirectResponse($this->urlGenerator->generate('app_account'));
     }
 

@@ -23,7 +23,7 @@ class CandidateResumeCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            ImageField::new ('photo'),
+            ImageField::new ('photo')->setBasePath ('/uploads/images/profilImages/'),
             TextField::new('nomcomplet','Nom et Prénom'),
             TelephoneField::new ('telephone','Numéro de Telephone'),
             TextField::new ('email','Email'),
