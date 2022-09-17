@@ -51,6 +51,24 @@ class JobRepository extends ServiceEntityRepository
            ->getResult()
        ;
    }
+       /**
+    * @return Job[] Returns an array of Job objects
+    */
+   public function listJobsHome($value): array
+   {
+       return $this->createQueryBuilder('j')
+           ->setParameter('val', $value)
+            ->where('j.expiredAt > :val')
+            ->orWhere('j.expiredAt IS NULL')
+            ->orderBy('j.createdAt', 'ASC')
+            ->setMaxResults(6)
+           ->getQuery()
+           ->setCacheMode(\Doctrine\ORM\Cache::MODE_GET)
+           ->setCacheable(true)
+           ->setLifetime(86400)
+           ->getResult()
+       ;
+   }
 
       /**
     * @return Job[] Returns an array of Job objects

@@ -41,7 +41,7 @@
     <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
-    {% block body %} {# {{ flasher_render() }}
+    {% block body %} {{ flasher_render() }}
     {{
       flasher_render({
         limit: 4,
@@ -51,6 +51,6 @@
         }
       })
     }}
-    #} {% endblock %}
+    {% endblock %}
   </body>
 </html>
