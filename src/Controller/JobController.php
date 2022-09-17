@@ -207,6 +207,7 @@ class JobController extends AbstractController
         $candidateForm->handleRequest ($request);
 
         if($candidateForm->isSubmitted ()){
+
             if($candidateForm->isValid ()){
                 $cvFile = $candidateForm->get('cv')->getData();
                 if ($cvFile) {

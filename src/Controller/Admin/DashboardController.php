@@ -54,7 +54,8 @@ class DashboardController extends AbstractDashboardController
 
             MenuItem::subMenu('Comptes', 'fas fa-list')->setSubItems([
                 MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
-                MenuItem::linkToCrud('Profils', 'fas fa-user-md', CandidateResume::class),
+                MenuItem::linkToCrud('Profils', 'fas fa-user-md', CandidateResume::class)
+                ->setPermission ('ROLE_SUPER_ADMIN'),
              ]),
             MenuItem::subMenu("Emplois", 'fas fa-list')->setSubItems([
                 MenuItem::linkToCrud("Secteur d'activité", 'fa fa-tags', CategoryJob::class),

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class AccountController extends AbstractController
@@ -19,6 +20,7 @@ class AccountController extends AbstractController
 
     public function __construct (
         private EntityManagerInterface $entityManager,
+        private AuthorizationCheckerInterface $authChecker,
         private FlasherInterface $flasher
     )
     {
@@ -27,7 +29,18 @@ class AccountController extends AbstractController
     #[Route('/mon-compte', name: 'app_account')]
     public function account(): Response
     {
+        if($this->authChecker->isGranted ('ROLE_ADMIN')){
+            return $this->redirectToRoute ('admin');
+        }
 
+        $user = $this->getUser ();
+        if($user->isIsBlocked()){
+            $this->flasher->addError ('Votre compte a été bloqué');
+            return $this->redirectToRoute ('app_home');
+        }elseif (!$user->isIsVerified()){
+            $this->flasher->addWarning ('Veuillez confirmez votre email pour accéder à votre compte!');
+            return $this->redirectToRoute ('app_home');
+        }
         return $this->render('account/account.html.twig');
     }
 
