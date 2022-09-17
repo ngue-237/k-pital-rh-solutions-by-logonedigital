@@ -640,8 +640,8 @@ div[class*=" bg-dark"] .nav.nav-custom .nav-item .nav-link:after {
 }
 
 .pagination.hover-style-2 .page-item.active .page-link {
-  background: #121518;
-  border-color: #121518;
+  background: #2a5b97;
+  border-color: #2a5b97;
   color: #fff;
 }
 
@@ -2639,7 +2639,7 @@ a {
 }
 
 a:hover {
-  color: #121518;
+  color: #2a5b97;
   text-decoration: none;
 }
 
@@ -2815,28 +2815,28 @@ a.button-outline-grey-2:focus {
 .button-outline-dark,
 a.button-outline-dark {
   background: transparent;
-  border-color: #121518;
+  border-color: #2a5b97;
 }
 
 .button-outline-dark:hover,
 .button-outline-dark:focus,
 a.button-outline-dark:hover,
 a.button-outline-dark:focus {
-  border-color: rgba(0, 0, 0, 0.15);
+  border-color: #2a5b97;
   color: #121518;
 }
 
 .button-outline-dark-2,
 a.button-outline-dark-2 {
   background: transparent;
-  border-color: #121518;
+  border-color: #2a5b97;
 }
 
 .button-outline-dark-2:hover,
 .button-outline-dark-2:focus,
 a.button-outline-dark-2:hover,
 a.button-outline-dark-2:focus {
-  background: #121518;
+  background: #2a5b97;
   border-color: transparent;
   color: #fff;
 }
@@ -2898,7 +2898,7 @@ a.button-fill-top-outline,
 a.button-fill-right-outline,
 .button-fill-bottom-outline,
 a.button-fill-bottom-outline {
-  border-color: #121518;
+  border-color: #2a5b97;
 }
 
 .button-fill-left-outline:before,
@@ -2909,7 +2909,7 @@ a.button-fill-top-outline:before,
 a.button-fill-right-outline:before,
 .button-fill-bottom-outline:before,
 a.button-fill-bottom-outline:before {
-  background: #121518;
+  background: #2a5b97;
 }
 
 .button-fill-left-outline:hover,
@@ -3139,7 +3139,7 @@ a.button-reveal-right-grey:focus {
 a.button-reveal-left-dark,
 .button-reveal-right-dark,
 a.button-reveal-right-dark {
-  background: #1c2024;
+  background: #2a5b97;
   border: 0;
   color: #fff;
 }
@@ -3152,7 +3152,7 @@ a.button-reveal-left-dark:focus,
 .button-reveal-right-dark:focus,
 a.button-reveal-right-dark:hover,
 a.button-reveal-right-dark:focus {
-  background: #121518;
+  background: #2a5b97;
   color: #fff;
 }
 
@@ -3370,7 +3370,7 @@ a.button-reveal-left-outline-dark,
 .button-reveal-right-outline-dark,
 a.button-reveal-right-outline-dark {
   background: transparent;
-  border-color: #121518;
+  border-color: #2a5b97;
 }
 
 .button-reveal-left-outline-dark:hover,
@@ -9098,12 +9098,12 @@ div[class*=" bg-white"].fullscreen-menu .fm-wrapper .fm-close span:after {
 }
 
 .header .header-menu-extra a:not([class^="button"]) {
-  color: #121518;
+  color: #2a5b97;
 }
 
 .header .header-menu-extra a:not([class^="button"]):hover,
 .header .header-menu-extra a:not([class^="button"]):focus {
-  color: #121518;
+  color: #2a5b97;
 }
 
 .header.sticky-autohide,

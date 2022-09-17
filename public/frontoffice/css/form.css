@@ -1,6 +1,6 @@
 body {
   font-family: arial;
-  background-color: rgba(147, 197, 253, 0.1);
+  background-color: #e4effc;
 }
 a {
   text-decoration: none;
@@ -57,10 +57,10 @@ input {
 }
 
 .form-link {
-  color: #acc90f;
+  color: #2a5b97;
 }
 .form-link:hover {
-  color: #acc90f;
+  color: #37b3e8;
 }
 
 .custom-form .seperator {
@@ -102,7 +102,7 @@ input {
   display: inline-block;
   width: 50px;
   padding: none;
-  color: #acc90f;
+  color: #2a5b97;
 }
 
 .create-by-link {
@@ -113,31 +113,31 @@ input {
 
 .__dev {
   margin-left: 2px;
-  color: #acc90f;
+  color: #2a5b97;
   transition: text-decoration 0.5s;
 }
 
 .__dev:hover {
   text-decoration: underline;
-  color: #acc90f;
+  color: #2a5b97;
 }
 .cgu-link {
   margin-left: 2px;
-  color: #3daa35;
+  color: #2a5b97;
   transition: text-decoration 0.5s;
 }
 
 .cgu-link:hover {
   text-decoration: underline;
-  color: #3daa35;
+  color: #2a5b97;
 }
 
 .cgu-wrapper {
-  color: #acc90f;
+  color: #2a5b97;
 }
 
 .create-by-link {
-  color: #3daa35;
+  color: #2a5b97;
 }
 
 #user_password_first_help {
@@ -166,17 +166,22 @@ input {
   font-size: 10px !important;
 }
 
+.help-text {
+  color: rgb(145, 143, 143);
+  font-size: 10px;
+}
+
 .btn-form {
   width: 100%;
   text-transform: uppercase;
-  background-color: #3daa35;
+  background-color: #2a5b97;
   outline: none;
   border: none;
   touch-action: manipulation;
   transition: background-color 0.5s;
 }
 .btn-form:hover {
-  background-color: #acc90f;
+  background-color: #2a5b97;
 }
 
 .fl-message {

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\JobRepository;
 use Sonata\SeoBundle\Seo\SeoPageInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,9 +15,15 @@ class DefaultController extends AbstractController
     public function __construct(
     private SeoPageInterface $seoPage,
     private UrlGeneratorInterface $urlGenerator,
+    private JobRepository $jobRepo
     )
     {
         
+    }
+
+    #[Route('/form')]
+    public function form(){
+        return $this->render("default/form.html.twig");
     }
 
     #[Route('/', name: 'app_home')]
@@ -33,7 +40,11 @@ class DefaultController extends AbstractController
             ->addMeta('property', 'og:description',$description)
             ->setBreadcrumb('Acceuil', []);
 
-        return $this->render('default/home.html.twig');
+        
+        
+        return $this->render('default/home.html.twig',[
+            "jobs"=>$this->jobRepo->listJobsHome(new \DateTimeImmutable())
+        ]);
     }
    
     #[Route('/a-propos-de-nous', name: 'app_about')]

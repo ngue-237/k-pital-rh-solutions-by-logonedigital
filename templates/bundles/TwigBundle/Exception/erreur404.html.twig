@@ -1,0 +1,63 @@
+
+{% block title %}
+  <title>CAPITAL RH SOLUTION - 404</title>
+{% endblock %}
+{% extends "base.html.twig" %}
+    <div
+      class="section-fullscreen bg-image"
+      data-bg-src="{{ asset('frontoffice/') }}images/background.jpg"
+    >
+      <div class="bg-white-02">
+        <div class="container text-center">
+          <div class="position-top text-center">
+            <h4><a class="text-white" href="#">mono</a></h4>
+          </div>
+          <!-- end position-top -->
+          <div class="position-middle">
+            <div class="row">
+              <div
+                class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3"
+              >
+                <div
+                  class="bg-white border-radius box-shadow-with-hover padding-60"
+                >
+                  <h1 class="display-1 fw-lighter">404</h1>
+                  <p>
+                    Désolé mais cette page n'existe pas. 
+                  </p>
+                  <a
+                    class="button button-lg button-rounded button-reveal-left-dark margin-top-40"
+                    href="{{path("app_home")}}"
+                    ><i class="fas fa-home"></i><span>Retourner à la page d'accueill</span></a
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- end position-middle -->
+          <div class="position-bottom text-center">
+            <p>
+        &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        <span class="fw-bold text-uppercase">k-pital solultions</span>, All
+        Rights Reserved. created by
+        <a
+          class="fw-bold text-uppercase"
+          href="https://logonedigital.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >logonedigital</a
+        >&#160;.
+      </p>
+          </div>
+          <!-- end position-bottom -->
+        </div>
+        <!-- end container -->
+      </div>
+    </div>
+
+    <!-- ***** JAVASCRIPTS ***** -->
+   {% endblock %}
