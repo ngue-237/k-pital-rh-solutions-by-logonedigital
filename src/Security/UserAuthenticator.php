@@ -2,10 +2,14 @@
 
 namespace App\Security;
 
+use Flasher\Prime\FlasherInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Security;
@@ -22,9 +26,16 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator,
-                                private AuthorizationCheckerInterface $authChecker)
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator,
+        private AuthorizationCheckerInterface $authChecker,
+
+        private RouterInterface $router,
+        private ParameterBagInterface $container,
+        private FlasherInterface $flasher
+    )
     {
+
     }
 
     public function authenticate(Request $request): Passport
@@ -44,15 +55,40 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+/*        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
-        }
+        }*/
 
         if($this->authChecker->isGranted('ROLE_ADMIN') ){
             return new RedirectResponse($this->urlGenerator->generate('admin'));
         }
+/*        else if ($this->authChecker->isGranted ('ROLE_USER')){
 
-        return new RedirectResponse($this->urlGenerator->generate('app_home'));
+           // dd ($request->getSession ()->get ('redirect_url'));
+            //$redirectUrl = $this->session->get('redirect_url');
+            $redirectUrl = $request->getSession ()->get ('redirect_url');
+            $jobDetailUrl = null;
+
+            try {
+                $parts = parse_url ($redirectUrl);
+                $path_parts = explode ('/', $parts['path']);
+                $slug = $path_parts[1];
+                $jobDetailUrl =  $this->router->generate ('app_job_detail',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+            }catch (\Throwable $exception){
+                throw $exception;
+            }
+
+            $path = parse_url($redirectUrl, PHP_URL_PATH);
+
+            if (parse_url ($redirectUrl, PHP_URL_PATH) === $jobDetailUrl){
+                $this->flasher->addSuccess ('Succés');
+                return new RedirectResponse($redirectUrl);
+            }
+            return new RedirectResponse($this->urlGenerator->generate('app_account'));
+        }*/
+
+        $this->flasher->addSuccess ('Succès');
+        return new RedirectResponse($this->urlGenerator->generate ('app_home'));
     }
 
     protected function getLoginUrl(Request $request): string

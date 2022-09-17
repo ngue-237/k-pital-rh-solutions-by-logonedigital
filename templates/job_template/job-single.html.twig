@@ -66,7 +66,8 @@
             {% if app.user %}
             <a
               class="button button-lg button-radius button-reveal-right-outline-dark margin-top-10"
-              href="{{ path('app_job_detail', { slug: job.slug }) }}"
+             {# href="{{ path('app_job_detail', { slug: job.slug }) }}"#}
+              data-toggle="modal" data-target="#applyModal"
             >
               <i class="bi bi-arrow-right"></i><span>Postuler</span>
             </a>
@@ -182,7 +183,8 @@
   <!-- end container -->
 </div>
 <!-- end Blog section -->
-
+  {% set submit_url = path('app_job_detail', { slug: job.slug }) %}
+  {% include 'candidature/apply_modal.html.twig' with {url: submit_url} %}
 {{ include("./includes/footer.html.twig") }}
 
 <!-- Scroll to top button -->

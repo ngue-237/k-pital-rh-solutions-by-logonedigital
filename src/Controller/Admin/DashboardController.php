@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\CandidateResume;
 use App\Entity\Job;
 use App\Entity\User;
 use App\Entity\Adresse;
@@ -49,13 +50,12 @@ class DashboardController extends AbstractDashboardController
     {
         return [
             MenuItem::linkToDashboard('Dashboard', 'fa fa-home'),
-            MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
             MenuItem::section  ('',''),
 
-            // MenuItem::subMenu('Blog', 'fas fa-list')->setSubItems([
-            //     MenuItem::linkToCrud('Thématiques blog', 'fa fa-tags', CategoryJob::class),
-            //     MenuItem::linkToCrud('Posts', 'fa fa-file-text', Post::class),
-            // ]),
+            MenuItem::subMenu('Comptes', 'fas fa-list')->setSubItems([
+                MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class),
+                MenuItem::linkToCrud('Profils', 'fas fa-user-md', CandidateResume::class),
+             ]),
             MenuItem::subMenu("Emplois", 'fas fa-list')->setSubItems([
                 MenuItem::linkToCrud("Secteur d'activité", 'fa fa-tags', CategoryJob::class),
                 MenuItem::linkToCrud("Offres d'emplois", 'fas fa-user-md', Job::class),

@@ -10,6 +10,9 @@ parameters:
     api_key_secret: "%env(api_key_secret)%"
     app.path.candidates_images: /uploads/images/profilImages
     app.path.user_cvs: /uploads/files/user/cvs
+    targetDirectory: '%kernel.project_dir%/public/uploads/'
+    cvs_directory: '%kernel.project_dir%/public/uploads/files/user/cvs'
+    candidates_images_dir: '%kernel.project_dir%/public/uploads/images/profilImages'
 
 services:
   # default configuration for services in *this* file

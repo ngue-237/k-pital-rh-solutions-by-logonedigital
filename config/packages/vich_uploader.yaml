@@ -12,7 +12,6 @@ vich_uploader:
         user_cvs:
             uri_prefix: '%app.path.user_cvs%'
             upload_destination: '%kernel.project_dir%/public%app.path.user_cvs%'
-            namer: vich_uploader.namer_uniqid
             inject_on_load: true
             delete_on_update: true
             delete_on_remove: true

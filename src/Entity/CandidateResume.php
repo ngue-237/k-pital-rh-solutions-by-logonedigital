@@ -8,10 +8,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * @ORM\Entity
  * @Vich\Uploadable
  */
 #[ORM\Entity(repositoryClass: CandidateResumeRepository::class)]
@@ -39,7 +39,7 @@ class CandidateResume
      * @Vich\UploadableField(mapping="candidates_images", fileNameProperty="photo")
      * @var File
      */
-    private $imageFile;
+    public $imageFile;
 
     /**
      * @ORM\Column(type="datetime")
@@ -47,6 +47,8 @@ class CandidateResume
      */
     private $updatedAt;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 300)]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $presentation = null;
 
@@ -77,18 +79,26 @@ class CandidateResume
         return $this->cvFile;
     }
 
-    #[ORM\OneToOne(inversedBy: 'candidateResume', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'candidateResume', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private ?User $user = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Skill::class)]
+    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Skill::class, orphanRemoval: true)]
     private Collection $skills;
+
+    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Language::class, orphanRemoval: true)]
+    private Collection $languages;
+
+    #[ORM\OneToMany(mappedBy: 'candidateResume', targetEntity: Candidature::class)]
+    private Collection $candidatures;
 
     public function __construct()
     {
         $this->skills = new ArrayCollection();
+        $this->languages = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
     }
 
     public function setImageFile(File $image = null)
@@ -234,6 +244,66 @@ class CandidateResume
             // set the owning side to null (unless already changed)
             if ($skill->getCandidateResume() === $this) {
                 $skill->setCandidateResume(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Language>
+     */
+    public function getLanguages(): Collection
+    {
+        return $this->languages;
+    }
+
+    public function addLanguage(Language $language): self
+    {
+        if (!$this->languages->contains($language)) {
+            $this->languages->add($language);
+            $language->setCandidateResume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLanguage(Language $language): self
+    {
+        if ($this->languages->removeElement($language)) {
+            // set the owning side to null (unless already changed)
+            if ($language->getCandidateResume() === $this) {
+                $language->setCandidateResume(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures->add($candidature);
+            $candidature->setCandidateResume($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getCandidateResume() === $this) {
+                $candidature->setCandidateResume(null);
             }
         }
 
