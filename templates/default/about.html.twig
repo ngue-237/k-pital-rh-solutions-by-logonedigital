@@ -14,20 +14,27 @@
       <div class="col-12 col-lg-6">
         <a
           class="lightbox-media-box border-radius-05"
-          href="https://www.youtube.com/watch?v=W-j4QGAgNu8"
+          href="https://www.youtube.com/watch?v=YNIkcadorU8"
         >
-          <img src="{{ asset('frontoffice/') }}images/col-1.jpg" alt="" />
+          <img
+            src="{{ asset('frontoffice/') }}images/image-home-page-1.jpg"
+            alt=""
+          />
           <i class="fas fa-play"></i>
         </a>
       </div>
       <div class="col-12 col-lg-6">
-        <h4 class="fw-light margin-bottom-20">
-          Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.
-        </h4>
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-          commodo ligula eget dolor. Cum sociis natoque penatibus et magnis dis
-          parturient montes, nascetur ridiculus mus.
+        <h4 class="fw-light margin-bottom-20 fw-bold">CAPITAL RH SOLUTIONS</h4>
+        <p style="text-align: justify">
+          spécialiste dans le placement de personnel recrute et place du
+          personnel de maison hautement qualifié : majordome, gouvernant(e) de
+          maison, gouvernant(e) d’enfant, employé(e) de maison, femme ou homme
+          de ménage, intendant, jardinier, chauffeur… chez les particuliers,
+          dans les entreprises et dans l’hôtellerie de luxe.
+        </p>
+        <p style="text-align: justify">
+          Nous offrons à chacun de nos clients des solutions en phase avec leurs
+          besoins en personnel ponctuel ou de plus longue durée.
         </p>
       </div>
     </div>
@@ -40,6 +47,9 @@
 <!-- Services section -->
 <div class="section padding-top-0">
   <div class="container">
+    <div class="margin-bottom-70 text-center">
+      <h6 class="uppercase fw-medium">nos services</h6>
+    </div>
     <div class="row g-3 icon-5xl">
       <div class="col-12 col-lg-4">
         <div
@@ -78,13 +88,20 @@
         </div>
       </div>
     </div>
-    <!-- end row -->
+    <div class="margin-top-30 text-center">
+      <a
+        class="button button-lg button-radius button-reveal-right-dark margin-top-30"
+        href="{{ path('app_jobs') }}"
+        ><i class="bi bi-arrow-right"></i><span>Voir tous</span></a
+      >
+    </div>
   </div>
   <!-- end container -->
 </div>
 <!-- end Services section -->
 
 <!-- Clients section -->
+{#
 <div class="section padding-top-0">
   <div class="container">
     <div class="margin-bottom-70 text-center">
@@ -104,28 +121,44 @@
       <div class="col-12 col-lg-10 offset-lg-1">
         <ul class="clients-grid column-4">
           <li>
-            <a href="#"><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt="" /></a>
+            <a href="#"
+              ><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt=""
+            /></a>
           </li>
           <li>
-            <a href="#"><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt="" /></a>
+            <a href="#"
+              ><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt=""
+            /></a>
           </li>
           <li>
-            <a href="#"><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt="" /></a>
+            <a href="#"
+              ><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt=""
+            /></a>
           </li>
           <li>
-            <a href="#"><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt="" /></a>
+            <a href="#"
+              ><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt=""
+            /></a>
           </li>
           <li>
-            <a href="#"><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt="" /></a>
+            <a href="#"
+              ><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt=""
+            /></a>
           </li>
           <li>
-            <a href="#"><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt="" /></a>
+            <a href="#"
+              ><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt=""
+            /></a>
           </li>
           <li>
-            <a href="#"><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt="" /></a>
+            <a href="#"
+              ><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt=""
+            /></a>
           </li>
           <li>
-            <a href="#"><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt="" /></a>
+            <a href="#"
+              ><img src="{{ asset('frontoffice/') }}images/col-5.jpg" alt=""
+            /></a>
           </li>
         </ul>
       </div>
@@ -134,13 +167,14 @@
   </div>
   <!-- end container -->
 </div>
+#}
 <!-- end Clients section -->
 
 <!-- Testimonial section -->
 <div class="section padding-top-0">
   <div class="container">
     <div class="margin-bottom-70 text-center">
-      <h6 class="uppercase fw-medium">What People Say?</h6>
+      <h6 class="uppercase fw-medium">ce qu'on pense de nous</h6>
     </div>
     <div
       class="owl-carousel"
