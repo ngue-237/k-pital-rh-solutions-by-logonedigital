@@ -142,10 +142,10 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
             //$path = parse_url($redirectUrl, PHP_URL_PATH);
 
             if ($redirectUrl === $jobDetailUrl){
-                $this->flasher->addSuccess ('Succés');
+                $this->flasher->addSuccess('Succès! Vous pouvez postuler à présent');
                 return new RedirectResponse($redirectUrl);
             }
-            $this->flasher->addSuccess('Succès! Vous pouvez postuler à présent');
+            $this->flasher->addSuccess ('Succés');
             return new RedirectResponse($this->urlGenerator->generate('app_account'));
           }
 
