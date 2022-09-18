@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Admin\Field\PdfField;
 use App\Entity\CandidateResume;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -20,15 +21,30 @@ class CandidateResumeCrudController extends AbstractCrudController
         return CandidateResume::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setPageTitle('index', "Les profils des candidats")
+            ->setPageTitle('detail', "Profil")
+            ->setPageTitle('edit', "Profil")
+            ->setEntityLabelInSingular('Profil')
+            ->setEntityLabelInPlural(' les profils des candidats')
+            ->setPaginatorPageSize(30)
+            ;
+    }
+
 
     public function configureFields(string $pageName): iterable
     {
+       // $this->getContext ()->getEntity ()->getInstance ();
         return [
             ImageField::new ('photo')->setBasePath ('/uploads/images/profilImages/'),
             TextField::new('nomcomplet','Nom et Prénom'),
             TelephoneField::new ('telephone','Numéro de Telephone'),
             EmailField::new ('email','Email'),
             TextEditorField::new('presentation','Présentation'),
+            PdfField::new ('cv','Curriculum Vitae')
+            ->setTemplatePath ('vich/cv.html.twig'),
         ];
     }
 
