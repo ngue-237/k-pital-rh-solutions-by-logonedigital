@@ -26,4 +26,5 @@ return [
     Sonata\BlockBundle\SonataBlockBundle::class => ['all' => true],
     Sonata\SeoBundle\SonataSeoBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
+    FOS\HttpCacheBundle\FOSHttpCacheBundle::class => ['all' => true],
 ];

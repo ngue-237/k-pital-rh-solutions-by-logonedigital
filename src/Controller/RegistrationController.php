@@ -112,13 +112,13 @@ class RegistrationController extends AbstractController
             $content = "Bonjour ".$user->getFirstname().' '.$user->getLastname()."<br> Nous vous remercions pour votre inscription sur le site K-pital RH <br> <br>";
             $content .="Merci de bien vouloir cliquez sur le lien suivant pour <a href='".$signatureComponents->getSignedUrl()."'>afin de valider votre email</a>.";
 
-/*            $this->sender->send(
+            $this->sender->send(
                 $user->getEmail(),
                 $user->getFirstname().' '.$user->getLastname(),
                 $content,
                 "Vérification d'E-mail"
-            );*/
-           # $this->flasher->addInfo('Veuillez confirmer votre email.');
+            );
+            $this->flasher->addInfo('Veuillez confirmer votre email.');
             return $this->redirectToRoute('app_login'); //i'll customize this return later
         }
 
@@ -151,6 +151,7 @@ class RegistrationController extends AbstractController
 
         // Mark your user as verified. e.g. switch a User::verified property to true
         $user->setIsVerified(true);
+
         $entityManager->flush();
 
         $this->flasher->addSuccess('Votre email a bien été confirmé.');

@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\CandidateResume;
 use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
 use Flasher\Prime\FlasherInterface;
@@ -94,11 +95,20 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
                     $user->setIsVerified(true);
                     $user->setIsBlocked(false);
 
+                    $candidateResume = new CandidateResume();
+                    $candidateResume->setNomcomplet ($user->getFirstname ().' '.$user->getLastname ());
+                    $candidateResume->setUser ($user);
+                    $candidateResume->setEmail ($user->getEmail ());
+                    $candidateResume->setCreatedAt (new \DateTimeImmutable('now'));
+
+                    $user->setCandidateResume ($candidateResume);
                     $user->setRgpd(true);
                     $user->setRoles(['ROLE_USER']);
                     $hashedPassword =$this->encoder->hashPassword($user,md5(uniqid()));
 
                     $user->setPassword($hashedPassword);
+
+                    $this->entityManager->persist ($candidateResume);
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
                 }   
@@ -115,12 +125,32 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
             return new RedirectResponse($this->urlGenerator->generate('admin'));
           }else if($this->authChecker->isGranted('ROLE_USER')){
 
-            $this->flasher->addFlash('Succès !');
+
+            $redirectUrl = $request->getSession ()->get ('redirect_url');
+            $jobDetailUrl = null;
+
+            try {
+                $parts = parse_url ($redirectUrl);
+                $path_parts = explode ('/', $parts['path']);
+                if(count ($path_parts) == 3){
+                    $slug = $path_parts[2];
+                    $jobDetailUrl =  $this->router->generate ('app_job_detail',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+                }
+            }catch (\Throwable $exception){
+                throw $exception;
+            }
+            //$path = parse_url($redirectUrl, PHP_URL_PATH);
+
+            if ($redirectUrl === $jobDetailUrl){
+                $this->flasher->addSuccess ('Succés');
+                return new RedirectResponse($redirectUrl);
+            }
+            $this->flasher->addSuccess('Succès! Vous pouvez postuler à présent');
             return new RedirectResponse($this->urlGenerator->generate('app_account'));
           }
 
         // $targetUrl = $this->router->generate('app_home');
-          $this->flasher->addFlash('Succès !');
+        $this->flasher->addSuccess('Succès !');
         return new RedirectResponse($this->urlGenerator->generate('app_account'));
     }
 

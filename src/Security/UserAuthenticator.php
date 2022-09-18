@@ -62,30 +62,32 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         if($this->authChecker->isGranted('ROLE_ADMIN') ){
             return new RedirectResponse($this->urlGenerator->generate('admin'));
         }
-/*        else if ($this->authChecker->isGranted ('ROLE_USER')){
+        else if ($this->authChecker->isGranted ('ROLE_USER')){
 
-           // dd ($request->getSession ()->get ('redirect_url'));
-            //$redirectUrl = $this->session->get('redirect_url');
+
             $redirectUrl = $request->getSession ()->get ('redirect_url');
             $jobDetailUrl = null;
+
 
             try {
                 $parts = parse_url ($redirectUrl);
                 $path_parts = explode ('/', $parts['path']);
-                $slug = $path_parts[1];
-                $jobDetailUrl =  $this->router->generate ('app_job_detail',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+                if(count ($path_parts) == 3){
+                    $slug = $path_parts[2];
+                    $jobDetailUrl =  $this->router->generate ('app_job_detail',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+                }
             }catch (\Throwable $exception){
                 throw $exception;
             }
 
-            $path = parse_url($redirectUrl, PHP_URL_PATH);
-
-            if (parse_url ($redirectUrl, PHP_URL_PATH) === $jobDetailUrl){
-                $this->flasher->addSuccess ('Succés');
+         //   $path = parse_url($redirectUrl, PHP_URL_PATH);
+            if ($redirectUrl === $jobDetailUrl){
+                $this->flasher->addSuccess ('Succés! Vous pouvez postuler à présent');
                 return new RedirectResponse($redirectUrl);
             }
+            $this->flasher->addSuccess('Succès !');
             return new RedirectResponse($this->urlGenerator->generate('app_account'));
-        }*/
+        }
 
         $this->flasher->addSuccess ('Succès');
         return new RedirectResponse($this->urlGenerator->generate ('app_home'));

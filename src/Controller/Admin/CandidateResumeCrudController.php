@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -23,10 +24,10 @@ class CandidateResumeCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            ImageField::new ('photo'),
+            ImageField::new ('photo')->setBasePath ('/uploads/images/profilImages/'),
             TextField::new('nomcomplet','Nom et Prénom'),
             TelephoneField::new ('telephone','Numéro de Telephone'),
-            TextField::new ('email','Email'),
+            EmailField::new ('email','Email'),
             TextEditorField::new('presentation','Présentation'),
         ];
     }

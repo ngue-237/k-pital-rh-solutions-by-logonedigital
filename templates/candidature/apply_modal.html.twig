@@ -13,11 +13,14 @@
                 form_row(form.message, {
                     label: false,
                     attr: {
-                        maxlength: "300",
-                        placeholder: "Vos motivations (soyez le plus bref possible)...",
+                        maxlength: "500",
+                        placeholder: "Vos motivations pour vous démarquez (soyez le plus bref possible)...",
                     }
                 })
                 }}
+                {% if app.user.candidateResume != 'null' %}
+                    <a href="{{ asset('uploads/files/user/cvs/' ~ app.user.candidateResume.cv) }}" target="_blank" class="button button-fancy-1-outline ">Voir mon CV (PDF)</a>
+                {% endif %}
                 <div class="mt-3 px-4">
                     <div class="d-flex flex-row align-items-center mt-2">
                         <div class="ml-3">
