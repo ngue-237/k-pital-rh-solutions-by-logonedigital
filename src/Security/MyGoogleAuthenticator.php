@@ -125,12 +125,30 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
             return new RedirectResponse($this->urlGenerator->generate('admin'));
           }else if($this->authChecker->isGranted('ROLE_USER')){
 
-            $this->flasher->addFlash('Succès !');
+
+            $redirectUrl = $request->getSession ()->get ('redirect_url');
+            $jobDetailUrl = null;
+
+            try {
+                $parts = parse_url ($redirectUrl);
+                $path_parts = explode ('/', $parts['path']);
+                $slug = $path_parts[2];
+                $jobDetailUrl =  $this->router->generate ('app_job_detail',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+            }catch (\Throwable $exception){
+                throw $exception;
+            }
+            //$path = parse_url($redirectUrl, PHP_URL_PATH);
+
+            if ($redirectUrl === $jobDetailUrl){
+                $this->flasher->addSuccess ('Succés');
+                return new RedirectResponse($redirectUrl);
+            }
+            $this->flasher->addSuccess('Succès! Vous pouvez postuler à présent');
             return new RedirectResponse($this->urlGenerator->generate('app_account'));
           }
 
         // $targetUrl = $this->router->generate('app_home');
-          $this->flasher->addSuccess('Succès !');
+        $this->flasher->addSuccess('Succès !');
         return new RedirectResponse($this->urlGenerator->generate('app_account'));
     }
 

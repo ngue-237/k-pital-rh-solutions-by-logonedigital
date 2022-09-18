@@ -45,6 +45,7 @@ class SecurityController extends AbstractController
             $session->remove ('redirect_url');
         }
         $session->set ('redirect_url', $url);
+       // dd ($session->get ('redirect_url'));
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }

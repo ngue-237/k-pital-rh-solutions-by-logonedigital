@@ -22,6 +22,7 @@ class CandidatureCrudController extends AbstractCrudController
             AssociationField::new('job')
                 ->setLabel("Secteur d'activité")
                 ->setDefaultColumns('col-12 col-md-6 col-xxl-6'),
+
         ];
     }
 
