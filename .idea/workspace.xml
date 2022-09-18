@@ -5,17 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeb8cc4f-ce2a-4042-aaaa-0a668b2fb4d6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Admin/Field/PdfField.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/account/candidatures/_deletemodal.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/MyGoogleAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/MyGoogleAuthenticator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_addlanguage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_addlanguage.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_deletelanguage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_deletelanguage.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_updatelanguage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_updatelanguage.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_addskill.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_addskill.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/CandidateResumeCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/CandidateResumeCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/CandidatureCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/CandidatureCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CandidateResumeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CandidateResumeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CandidatureController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CandidatureController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/CandidateResume.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/CandidateResume.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_deleteskill.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_deleteskill.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_updateskill.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_updateskill.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/update_resume.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/update_resume.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/account/candidatures/account_candidature.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidatures/account_candidature.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/candidature/apply_modal.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/candidature/apply_modal.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/vich/cv.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/vich/cv.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

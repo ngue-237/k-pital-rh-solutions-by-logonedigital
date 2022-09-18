@@ -34,23 +34,29 @@ class CandidateResumeController extends AbstractController
 
         $form->handleRequest ($request);
 
-        if ($form->isSubmitted () && $form->isValid ()){
-            $cvFile = $form->get('cv')->getData();
-            $imageFile = $form->get ('photo')->getData ();
+        if ($form->isSubmitted () ) {
+            if ( $form -> isValid () ) {
+                $cvFile = $form -> get ( 'cv' ) -> getData ();
+                $imageFile = $form -> get ( 'photo' ) -> getData ();
 
-            if ($imageFile){
-                $pictureName = $fileUploader->upload ($imageFile,'candidates_images_dir');
-                $myResume->setPhoto($pictureName);
+                if ( $imageFile ) {
+                    $pictureName = $fileUploader -> upload ( $imageFile , 'candidates_images_dir' );
+                    $myResume -> setPhoto ( $pictureName );
+                }
+
+                if ( $cvFile ) {
+                    $cvFileName = $fileUploader -> upload ( $cvFile , 'cvs_directory' );
+                    $myResume -> setCv ( $cvFileName );
+                }
+                $user -> setCandidateResume ( $myResume );
+                $this -> entityManager -> flush ();
+
+                $this -> flasher -> addSuccess ( "Succés!" );
+                return $this -> redirectToRoute ( 'app_account_resume' );
+            }else{
+                $this->flasher->addError ("Une erreur s'est produite!!!");
+                return $this->redirectToRoute ('app_account_resume');
             }
-
-            if ($cvFile) {
-                $cvFileName = $fileUploader->upload($cvFile,'cvs_directory');
-                $myResume->setCv($cvFileName);
-            }
-            $user->setCandidateResume($myResume);
-            $this->entityManager->flush ();
-
-            return $this->redirectToRoute ('app_account_resume');
         }
 
         return $this->render('account/candidate_resume/modals/update_resume.html.twig',[
@@ -73,6 +79,11 @@ class CandidateResumeController extends AbstractController
                 $this->entityManager->persist ($newSkill);
                 $this->entityManager->flush ();
 
+                $this->flasher->addSuccess ("Succés!");
+                return $this->redirectToRoute ('app_account_resume');
+            }
+            else{
+                $this->flasher->addError ("Une erreur s'est produite!!!");
                 return $this->redirectToRoute ('app_account_resume');
             }
         }
@@ -97,6 +108,11 @@ class CandidateResumeController extends AbstractController
                 $skillToUpdate->setCandidateResume ($this->getUser ()->getCandidateResume());
 
                 $this->entityManager->flush ();
+                $this->flasher->addSuccess ("Succés!");
+                return $this->redirectToRoute ('app_account_resume');
+            }
+            else{
+                $this->flasher->addError ("Une erreur s'est produite!!!");
                 return $this->redirectToRoute ('app_account_resume');
             }
         }
@@ -120,6 +136,11 @@ class CandidateResumeController extends AbstractController
 
                 $this->entityManager->remove ($skillToDelete);
                 $this->entityManager->flush ();
+
+                $this->flasher->addSuccess ("Succés!");
+                return $this->redirectToRoute ('app_account_resume');
+            }else{
+                $this->flasher->addError ("Une erreur s'est produite!!!");
                 return $this->redirectToRoute ('app_account_resume');
             }
         }
@@ -144,6 +165,10 @@ class CandidateResumeController extends AbstractController
                 $this->entityManager->persist ($newLanguage);
                 $this->entityManager->flush ();
 
+                $this->flasher->addSuccess ("Succés!");
+                return $this->redirectToRoute ('app_account_resume');
+            }else{
+                $this->flasher->addError ("Une erreur s'est produite!!!");
                 return $this->redirectToRoute ('app_account_resume');
             }
         }
@@ -166,8 +191,12 @@ class CandidateResumeController extends AbstractController
                 $languageToUpdate->setLanguagewrite ($request->request->get ('languagewrite'));
                 $languageToUpdate->setLanguagespeak ($request->request->get ('languagespeak'));
                 $languageToUpdate->setCandidateResume ($this->getUser ()->getCandidateResume());
-                dd ($languageToUpdate);
+
                 $this->entityManager->flush ();
+                $this->flasher->addSuccess ("Succés!");
+                return $this->redirectToRoute ('app_account_resume');
+            }else{
+                $this->flasher->addError ("Une erreur s'est produite!!!");
                 return $this->redirectToRoute ('app_account_resume');
             }
         }
@@ -191,6 +220,11 @@ class CandidateResumeController extends AbstractController
 
                 $this->entityManager->remove ($languageToDelete);
                 $this->entityManager->flush ();
+
+                $this->flasher->addSuccess ("Succés!");
+                return $this->redirectToRoute ('app_account_resume');
+            }else{
+                $this->flasher->addError ("Une erreur s'est produite!!!");
                 return $this->redirectToRoute ('app_account_resume');
             }
         }
