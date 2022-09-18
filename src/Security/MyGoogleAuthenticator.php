@@ -132,8 +132,10 @@ class MyGoogleAuthenticator extends OAuth2Authenticator
             try {
                 $parts = parse_url ($redirectUrl);
                 $path_parts = explode ('/', $parts['path']);
-                $slug = $path_parts[2];
-                $jobDetailUrl =  $this->router->generate ('app_job_detail',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+                if(count ($path_parts) == 3){
+                    $slug = $path_parts[2];
+                    $jobDetailUrl =  $this->router->generate ('app_job_detail',['slug'=>$slug], urlGeneratorInterface::ABSOLUTE_URL);
+                }
             }catch (\Throwable $exception){
                 throw $exception;
             }
