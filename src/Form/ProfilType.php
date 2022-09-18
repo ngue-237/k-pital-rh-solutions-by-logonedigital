@@ -38,7 +38,7 @@ class ProfilType extends AbstractType
                 ]
             ])
             ->add('cv', FileType::class, [
-                'label' => 'CV (PDF file)',
+                'label' => 'CV (PDF)',
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,

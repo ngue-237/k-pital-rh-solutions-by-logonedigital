@@ -213,6 +213,8 @@ class JobController extends AbstractController
                 if ($cvFile) {
                     $cvFileName = $fileUploader->upload($cvFile,'cvs_directory');
                     $candidature->setCv($cvFileName);
+                }else{
+                    $candidature->setCv ($this->getUser ()->getCandidateResume()->getCv());
                 }
 
                 $candidature->setJob ($job);
@@ -223,7 +225,7 @@ class JobController extends AbstractController
                 $candidature->setIsHired (0);
                 $candidature->setMessage ($candidateForm->get ('message')->getData ());
 
-                dd ($candidature);
+               // dd ($candidature);
                 $this->em->persist ($candidature);
                 $this->em->flush ();
 

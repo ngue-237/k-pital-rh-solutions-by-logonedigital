@@ -151,6 +151,7 @@ class RegistrationController extends AbstractController
 
         // Mark your user as verified. e.g. switch a User::verified property to true
         $user->setIsVerified(true);
+
         $entityManager->flush();
 
         $this->flasher->addSuccess('Votre email a bien été confirmé.');

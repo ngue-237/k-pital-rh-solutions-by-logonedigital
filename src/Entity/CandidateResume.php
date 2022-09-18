@@ -47,8 +47,6 @@ class CandidateResume
      */
     private $updatedAt;
 
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 300)]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $presentation = null;
 
