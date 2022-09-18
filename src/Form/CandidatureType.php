@@ -19,10 +19,11 @@ class CandidatureType extends AbstractType
     {
         $builder
             ->add ('message',TextareaType::class,[
-                'mapped'=>false
+                'mapped'=>false,
+                'required'=>false
             ])
             ->add('cv', FileType::class, [
-                'label' => 'CV (PDF file)',
+                'label' => 'Choisir un autre CV (PDF)',
 
                 // unmapped means that this field is not associated to any entity property
                 'mapped' => false,

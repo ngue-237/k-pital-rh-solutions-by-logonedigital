@@ -34,10 +34,10 @@ class AccountController extends AbstractController
         }
 
         $user = $this->getUser ();
-        if($user->isIsBlocked()){
+        if($user->isIsBlocked() == true){
             $this->flasher->addError ('Votre compte a été bloqué');
             return $this->redirectToRoute ('app_home');
-        }elseif (!$user->isIsVerified()){
+        }else if (!$user->isIsVerified()){
             $this->flasher->addWarning ('Veuillez confirmez votre email pour accéder à votre compte!');
             return $this->redirectToRoute ('app_home');
         }
