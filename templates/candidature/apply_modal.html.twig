@@ -18,8 +18,10 @@
                     }
                 })
                 }}
-                {% if app.user.candidateResume != 'null' %}
+                {% if app.user %}
+                    {% if app.user.candidateResume.cv %}
                     <a href="{{ asset('uploads/files/user/cvs/' ~ app.user.candidateResume.cv) }}" target="_blank" class="button button-fancy-1-outline ">Voir mon CV (PDF)</a>
+                        {% endif %}
                 {% endif %}
                 <div class="mt-3 px-4">
                     <div class="d-flex flex-row align-items-center mt-2">

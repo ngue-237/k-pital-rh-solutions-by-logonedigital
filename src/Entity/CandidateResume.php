@@ -59,6 +59,11 @@ class CandidateResume
      */
     private ?File $cvFile = null;
 
+    public function __toString()
+    {
+        return $this->nomcomplet;
+    }
+
     public function setCvFile(File $image = null)
     {
         $this->cvFile = $image;
