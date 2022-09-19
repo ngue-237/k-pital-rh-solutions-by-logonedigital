@@ -16,9 +16,7 @@ class SitemapController extends AbstractController
     private JobRepository $jobRepo,
     private CategoryJobRepository $categoryJobRepo
     )
-    {
-        
-    }
+    {}
 
     #[Route('/sitemap.xml', name: 'app_sitemap', defaults: ["_format"=>"xml"])]
     public function index(Request $request): Response

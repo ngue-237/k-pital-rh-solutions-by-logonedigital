@@ -27,6 +27,7 @@
         "sensio/framework-extra-bundle": "^6.1",
         "sonata-project/seo-bundle": "^3.3",
         "stof/doctrine-extensions-bundle": "^1.7",
+        "symfony/apache-pack": "^1.0",
         "symfony/asset": "6.1.*",
         "symfony/console": "6.1.*",
         "symfony/doctrine-messenger": "6.1.*",
