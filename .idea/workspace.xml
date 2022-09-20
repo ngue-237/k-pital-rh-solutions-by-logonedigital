@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eeb8cc4f-ce2a-4042-aaaa-0a668b2fb4d6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/k-pital-rh-solutions-by-logonedigital.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/k-pital-rh-solutions-by-logonedigital.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/Admin/CandidatureCrudController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/Admin/CandidatureCrudController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/_partials/modal_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/_partials/modal_email.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/account_resume.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/account_resume.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_addlanguage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_addlanguage.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_deletelanguage.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/languages/_deletelanguage.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_addskill.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_addskill.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_updateskill.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/skills/modal_updateskill.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/account/candidate_resume/modals/update_resume.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account/candidate_resume/modals/update_resume.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,6 +212,7 @@
       <path value="$PROJECT_DIR$/vendor/php-http/client-common" />
       <path value="$PROJECT_DIR$/vendor/nyholm/psr7" />
       <path value="$PROJECT_DIR$/vendor/clue/stream-filter" />
+      <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
     </include_path>
   </component>
   <component name="ProjectId" id="2EUx9VM38FMRy2AEogvXfX2dce5" />
@@ -268,6 +277,7 @@
       <workItem from="1663071330875" duration="24345000" />
       <workItem from="1663157903553" duration="22284000" />
       <workItem from="1663328914551" duration="17110000" />
+      <workItem from="1663632427221" duration="1112000" />
     </task>
     <servers />
   </component>

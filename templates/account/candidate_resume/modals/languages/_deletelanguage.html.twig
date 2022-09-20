@@ -1,5 +1,5 @@
-<a href="#" data-toggle="modal" data-target="#deleteLanguage" ><i class="bi bi-trash3 text-danger icon-margin"></i></a>
-<div class="modal fade" id="deleteLanguage" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<a href="#" data-toggle="modal" data-target="#deleteLanguage{{ language.id }}" ><i class="bi bi-trash3 text-danger icon-margin"></i></a>
+<div class="modal fade" id="deleteLanguage{{ language.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content p-2">
             <form class="form-style-5" method="post" action="{{ path('app_profil_delete_language',{'id':language.id}) }}" autocomplete="on">
