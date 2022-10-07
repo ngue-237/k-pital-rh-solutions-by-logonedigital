@@ -12,12 +12,14 @@
                 <div class="modal-body p-3">
                     <div class="row g-4 m-2">
                         <div class="form-group col-md-6">
+                            <label>Langue</label>
                             <select id="inputLangue" class="form-select" name="languageName" required>
                                 {{ include("./account/candidate_resume/modals/languages/language_options.html.twig") }}
                             </select>
 
                         </div>
                         <div class="form-group ">
+                            <label>Niveau parler</label>
                             <select class="form-select" name="languagespeak" required>
                                 <option value="Initiation">Initiation</option>
                                 <option value="Courant">Courant</option>
@@ -27,6 +29,7 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label>Niveau écrire</label>
                             <select class="form-select" name="languagewrite" required>
                                 <option value="Initiation">Initiation</option>
                                 <option value="Courant">Courant</option>
