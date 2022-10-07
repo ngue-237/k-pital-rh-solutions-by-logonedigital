@@ -1,0 +1,228 @@
+{% extends "base.html.twig" %} {% block body %}
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<!-- end Custom Cursor -->
+
+<!-- Header -->
+{{ include("./includes/navbar.html.twig") }}
+<!-- end Header -->
+
+<!-- Hero section -->
+<div class="section-xs bg-grey-lighter" style="margin-bottom: -50px">
+  <div class="container text-center">
+    <h3 class="font-family-secondary">
+      Mise à disposition du personnel de maison
+    </h3>
+  </div>
+</div>
+<!-- end Hero section -->
+
+<div class="section-sm">
+  <div class="container">
+    <div class="row icon-5xl g-4 text-center">
+      <!-- Icon text box 1 -->
+      <div class="col-12 col-md-4">
+        <i class="fas fa-search-plus" style="color: #2a5b97"></i>
+        <h5 class="fw-normal margin-top-10 text-uppercase">
+          Étude de vos besoins
+        </h5>
+        <p style="text-align: justify">
+          Que ce soit pour une demande de femme de ménage, de majordome, de
+          nanny ou de chauffeur, chaque candidature reçue est étudiée avec le
+          plus grand soin, car nous voulons vous proposer le candidat idéal,
+          celui dont les compétences et la motivation correspondent à vos
+          besoins et à vos attentes.
+        </p>
+      </div>
+      <!-- Icon text box 2 -->
+      <div class="col-12 col-md-4">
+        <i class="fas fa-user-check" style="color: #2a5b97"></i>
+        <h5 class="fw-normal margin-top-10 text-uppercase">
+          Recherche du candidat
+        </h5>
+        <p style="text-align: justify">
+          Nous étudions ensemble vos besoins, vos attentes, votre profil de
+          candidat idéal, ce que vous voulez, ce que vous ne voulez pas, afin de
+          cerner au mieux votre demande. Cette étude terminée nous commençons
+          notre recherche.
+        </p>
+      </div>
+      <!-- Icon text box 3 -->
+      <div class="col-12 col-md-4">
+        <i class="fab fa-hire-a-helper" style="color: #2a5b97"></i>
+        <h5 class="fw-normal margin-top-10 text-uppercase">
+          Processus de recrutement
+        </h5>
+        <p style="text-align: justify">
+          Après étude des certificats, diplômes et lettres de recommandation…
+          les candidats aux profils requis sont contactés pour un entretien
+          téléphonique. Ceux qui sont sélectionnés sont ensuite convoqués pour
+          une entrevue avec l’un de nos responsables en recrutement.
+        </p>
+      </div>
+    </div>
+    <!-- end row -->
+  </div>
+  <!-- end container -->
+</div>
+
+<!-- section -->
+<div class="section border-top">
+  <div class="container">
+    <h4
+      class="fw-normal margin-top-10 text-uppercase text-center margin-bottom-40 text-bold"
+    >
+      NOUS AVONS À DISPOSITION POUR VOTRE FAMILLE des
+    </h4>
+    <!-- box 1 -->
+    <div class="row align-items-center g-5">
+      <div class="col-12 col-md-6">
+        <img
+          class="border-radius hover-shadow hover-float"
+          src="{{ asset('frontoffice/') }}images/img-13.jpg"
+          alt="image femme de ménage capital rh solutions"
+        />
+      </div>
+      <div class="col-12 col-md-6">
+        <h4>Aide ménager</h4>
+        <p style="text-align: justify">
+          L'aide ménager est la personne qui effectue l'entretien ménager d'une
+          résidence selon les directives des résidents ou, s'il y a lieu, de
+          l'agence de services d'entretien qui l'emploie. Elle s'efforce de
+          faire preuve de minutie et de discrétion dans ses tâches afin de
+          satisfaire les exigences de la clientèle. Elle peut participer à
+          d'autres tâches comme la préparation des repas, les courses, le
+          repassage, de petites lessives, etc. Elle peut travailler à temps
+          plein ou n’effectuer que quelques heures par semaine
+        </p>
+      </div>
+    </div>
+    <!-- box 2 -->
+    <div class="row align-items-center g-5 margin-top-50 text-md-end">
+      <div class="col-12 col-md-6 order-md-2">
+        <img
+          class="border-radius hover-shadow hover-float"
+          src="{{ asset('frontoffice/') }}images/img-14.jpg"
+          alt="image baby sitter capital rh solutions"
+        />
+      </div>
+      <div class="col-12 col-md-6 order-md-1">
+        <h4>baby sitter</h4>
+        <p style="text-align: justify">
+          également appelée gardienne d'enfants, est un profil professionnel qui
+          s'occupe d'assister les nouveaux nés et petits enfants dans un
+          contexte domestique. Il s'agit d'une profession qui intègre les
+          fonctions de la famille : la baby sitter remplace les parents et
+          grands-parents pendant certaines périodes, fournissant une aide
+          importante lorsque ceux-ci ne peuvent pas s'occuper des mineurs, qui
+          resteraient donc seuls à la maison. Le travail d'une baby sitter ne se
+          limite pas à donner les repas et changer les couches, c'est aussi
+          surveiller leur sommeil et leur tenir compagnie durant le jeu,
+          s'occuper de la préparation des repas et de l'hygiène personnelle.
+          Lorsqu'il s'agit de plus grands enfants, les fonctions de la baby
+          sitter peuvent comprendre l'aide pour les devoirs, le transport à et
+          depuis l'école maternelle, l'accompagnement aux activités
+          périscolaires (comme les cours de sport, de musique ou de danse).
+        </p>
+      </div>
+    </div>
+    <!-- box 3 -->
+    <div class="row align-items-center g-5 margin-top-50">
+      <div class="col-12 col-md-6">
+        <img
+          class="border-radius hover-shadow hover-float"
+          src="{{ asset('frontoffice/') }}images/img-15.jpg"
+          alt="image cuisinier capital rh solutions"
+        />
+      </div>
+      <div class="col-12 col-md-6">
+        <h4>Cuisiner</h4>
+        <p style="text-align: justify">
+          Tout comme dans un restaurant, le cuisinier joue un rôle primordial
+          dans une maison. Les tâches de la cuisine consistent à préparer des
+          mets, ainsi que la salle à manger y compris la table à manger. Elles
+          sont assurées par un cuisinier professionnel, premier responsable du
+          service de restauration dans la maison. Précisément, ses missions sont
+          de : Élaborer le planning des menus et préparer les plats ;
+          Sélectionner les produits nécessaires à la réalisation des menus ;
+          Soigner le dressage des assiettes ; Nettoyer la cuisine après
+          préparation ; Veiller au respect des normes de sécurité et d’hygiène.
+          Le cuisinier doit évidemment maitriser plusieurs gastronomies et avoir
+          une parfaite connaissance de la préparation des différents mets.
+          Aussi, il doit maitriser l’utilisation des principaux outils de
+          cuisine.
+        </p>
+      </div>
+    </div>
+    <!-- box 4 -->
+    <div class="row align-items-center g-5 margin-top-50 text-md-end">
+      <div class="col-12 col-md-6 order-md-2">
+        <img
+          class="border-radius hover-shadow hover-float"
+          src="{{ asset('frontoffice/') }}images/img-16.jpg"
+          alt="image chauffeur capital rh solutions"
+        />
+      </div>
+      <div class="col-12 col-md-6 order-md-1">
+        <h4>Chauffeur</h4>
+        <p style="text-align: justify">
+          Le chauffeur est un professionnel expert de conduite d'un véhicule
+          pour le transport des marchandises ou des personnes. Le nom générique
+          de « chauffeur » regroupe un grand nombre de professions spécifiques,
+          qui se différencient par le type de véhicule qu'il conduit (poids
+          lourds ou légers tels que les voitures, camionnettes, camions, motos,
+          bus, limousines, trains routiers, camions citernes, ambulances,
+          machines agricoles, machines-outils et autres), selon la fonction de
+          ce véhicule, c'est-à-dire le transport de personnes ou le transport de
+          marchandises. Si le véhicule est conçu pour le transport de personnes,
+          le chauffeur conduit le véhicule mais il est également investi des
+          responsabilités liées à la présence et aux exigences des passagers. En
+          tant que conducteur, il est tenu de surveiller les conditions de
+          sécurité des personnes qu'il transporte.
+        </p>
+      </div>
+    </div>
+    <div class="row align-items-center g-5 margin-top-50">
+      <div class="col-12 col-md-6">
+        <img
+          class="border-radius hover-shadow hover-float"
+          src="{{ asset('frontoffice/') }}images/img-17.jpg"
+          alt="image jardinier capital rh solutions"
+        />
+      </div>
+      <div class="col-12 col-md-6">
+        <h4>Jardinier</h4>
+        <p style="text-align: justify">
+          Le jardiner est un des employés dont toute maison dotée d’un espace
+          vert a obligatoirement besoin. Son rôle à lui est de prendre soin du
+          jardin et de s’occuper des fleurs de l’extérieur (et parfois celles de
+          l’intérieur) en relation directe avec les habitants. Clairement, la
+          protection des plantations, les semis, l’entretien des pelouses, la
+          taille des arbres et arbustes et l’arrosage des fleurs sont les
+          principales tâches qu’accomplit ce professionnel du jardinage. Pour
+          bien accomplir ses missions, un jardinier doit bien entendu avoir de
+          bonnes connaissances dans le domaine du jardinage, notamment sur les
+          végétaux et leur développement, les méthodes de plantation et
+          d’engazonnement. Il doit en outre être endurant et avoir le sens de
+          l’initiative, de la minute, du contact et du travail soigné. Enfin, il
+          doit avoir suivi une formation adéquate.
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- end container -->
+</div>
+
+<!-- end section -->
+
+{{ include("./includes/footer.html.twig") }}
+
+<!-- Scroll to top button -->
+<div class="scrolltotop">
+  <a class="button-circle button-circle-sm button-circle-dark" href="#"
+    ><i class="bi bi-arrow-up"></i
+  ></a>
+</div>
+<!-- end Scroll to top button -->
+
+{% endblock %}

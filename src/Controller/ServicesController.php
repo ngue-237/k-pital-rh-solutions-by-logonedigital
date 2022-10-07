@@ -18,12 +18,12 @@ class ServicesController extends AbstractController
         
     }
 
-    #[Route('/nos-services', name: 'app_services')]
+    #[Route('/nos-services', name: 'app_service_two')]
     public function services(): Response
     {   
         $description = "la meilleures agence de conseils Rh au Cameroun";
-        $this -> seoPage -> setTitle ("Services")
-            -> addMeta ('property','og:title','les petites annonces MA.BA.CE II')
+        $this -> seoPage -> setTitle ("conseils rh")
+            -> addMeta ('property','og:title','conseils rh')
             ->addTitleSuffix("CAPITAL RH SOLUTIONS")
             ->addMeta('name', 'description', $description)
             ->addMeta('property', 'og:title', "Services-CAPITAL RH SOLUTIONS")
@@ -32,6 +32,22 @@ class ServicesController extends AbstractController
             ->addMeta('property', 'og:description',$description)
             ->setBreadcrumb('Services', []);
 
-        return $this->render('services/services.html.twig');
+        return $this->render('services/service-two.html.twig');
+    }
+    #[Route('/nos-services/personnels-maison', name: 'app_service_one')]
+    public function servicePersonnel(): Response
+    {   
+        $description = "la meilleures agence de placement de personnel de maison au Cameroun";
+        $this -> seoPage -> setTitle ("mise à disposition du personnel de maison")
+            -> addMeta ('property','og:title','mise à disposition du personnel de maison')
+            ->addTitleSuffix("CAPITAL RH SOLUTIONS")
+            ->addMeta('name', 'description', $description)
+            ->addMeta('property', 'og:title', "Services-CAPITAL RH SOLUTIONS")
+            ->setLinkCanonical($this->urlGenerator->generate('app_services',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:url',  $this->urlGenerator->generate('app_services',[], urlGeneratorInterface::ABSOLUTE_URL))
+            ->addMeta('property', 'og:description',$description)
+            ->setBreadcrumb('Services', []);
+
+        return $this->render('services/service-one.html.twig');
     }
 }
