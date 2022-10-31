@@ -68,8 +68,9 @@
       href="{{ asset('frontoffice/') }}plugins/font-awesome/css/all.css"
       rel="stylesheet"
     />
-    {# Run `composer require symfony/webpack-encore-bundle` to start using
-    Symfony UX #} {% block stylesheets %}
+    {% block fontawesome %} {% endblock %} {# Run `composer require
+    symfony/webpack-encore-bundle` to start using Symfony UX #} {% block
+    stylesheets %}
     {{
       encore_entry_link_tags("app")
     }}
