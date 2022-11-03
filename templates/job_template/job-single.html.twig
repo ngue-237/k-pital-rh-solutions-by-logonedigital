@@ -11,8 +11,8 @@
 
 <div class="section-sm bg-grey-lighter">
   <div class="container text-center">
-    <h3 class="font-family-secondary">
-      secteur d'activité : {{ job.categoryJob | upper }}.
+    <h3 class="fw-bold text-uppercase">
+      secteur d'activité : {{ job.categoryJob | upper }}
     </h3>
   </div>
   <!-- end container -->
@@ -66,8 +66,11 @@
             {% if app.user %}
             <a
               class="button button-lg button-radius button-reveal-right-outline-dark margin-top-10"
-             {# href="{{ path('app_job_detail', { slug: job.slug }) }}"#}
-              data-toggle="modal" data-target="#applyModal"
+              {#
+              href="{{ path('app_job_detail', { slug: job.slug }) }}"
+              #}
+              data-toggle="modal"
+              data-target="#applyModal"
             >
               <i class="bi bi-arrow-right"></i><span>Postuler</span>
             </a>
@@ -94,7 +97,7 @@
             src="{{ asset('frontoffice/') }}images/image-blank-author.jpg"
             alt="logo K-PITAL RH SOLUTIONS"
           />
-          <p>{{ job.categoryJob.description }}.</p>
+          <p class="text-dark">{{ job.categoryJob.description }}.</p>
           <ul class="list-inline margin-top-20">
             <li>
               <a href="#"><i class="bi bi-facebook"></i></a>
@@ -183,8 +186,8 @@
   <!-- end container -->
 </div>
 <!-- end Blog section -->
-  {% set submit_url = path('app_job_detail', { slug: job.slug }) %}
-  {% include 'candidature/apply_modal.html.twig' with {url: submit_url} %}
+{% set submit_url = path('app_job_detail', { slug: job.slug }) %} {% include
+'candidature/apply_modal.html.twig' with {url: submit_url} %}
 {{ include("./includes/footer.html.twig") }}
 
 <!-- Scroll to top button -->
